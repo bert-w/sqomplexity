@@ -1,29 +1,29 @@
 {
-  "name": "sqomplexity",
-  "version": "1.0.0",
-  "description": "A complexity score calculator for SQL queries",
-  "main": "app.js",
-  "type": "module",
-  "directories": {
-    "lib": "lib",
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "node test.js",
-    "build": "webpack",
-    "build:pegjs:mysql": "pegjs -o build/pegjs-parser-mysql.cjs parsers/mysql.pegjs",
-    "build:pegjs:mariadb": "pegjs -o build/pegjs-parser-mariadb.cjs parsers/mariadb.pegjs"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-loader": "^9.1.2",
-    "pegjs": "^0.10.0",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
-    "commander": "^11.0.0",
-    "lodash.get": "^4.4.2"
-  }
+    "name": "sqomplexity",
+    "version": "1.0.0",
+    "description": "A complexity score calculator for SQL queries",
+    "main": "app.js",
+    "type": "module",
+    "directories": {
+        "lib": "lib",
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "node test.js",
+        "build": "webpack",
+        "build:pegjs:mysql": "pegjs -o build/pegjs-parser-mysql.cjs parsers/mysql.pegjs",
+        "build:pegjs:mariadb": "pegjs -o build/pegjs-parser-mariadb.cjs parsers/mariadb.pegjs"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "babel-loader": "^9.1.2",
+        "pegjs": "^0.10.0",
+        "webpack": "^5.88.2",
+        "webpack-cli": "^5.1.4"
+    },
+    "dependencies": {
+        "commander": "^11.0.0",
+        "lodash.get": "^4.4.2"
+    }
 }

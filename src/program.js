@@ -1,7 +1,5 @@
 import {Sqomplexity} from './sqomplexity.js';
 import * as fs from 'node:fs/promises';
-import weights from './../weights.js';
-import path from 'path';
 
 export class Program {
 
@@ -92,17 +90,13 @@ export class Program {
      * @returns {Sqomplexity.Weights}
      */
     async _weights() {
-        if (!this.options.weights) {
-            return weights;
-        }
-
         switch (typeof this.options.weights) {
             case 'object':
                 return this.options.weights;
             case 'string':
-                return (await import(`${path.resolve(this.cwd, this.options.weights)}`)).default;
+                return JSON.parse(await fs.readFile(this.options.weights, {encoding: 'utf8'}));
+            default:
+                return JSON.parse(await fs.readFile('./src/weights.json', {encoding: 'utf8'}));
         }
-
-        throw new Error('Invalid weights option.');
     }
 }
