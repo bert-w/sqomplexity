@@ -292,11 +292,8 @@ export class Calculator {
 
         // Add base weight for the expression type (may fall back to _base if it is not set.
         score += _(this.weights.expressions, expr.type, _(this.weights.expressions, '_base', 0));
-        console.log(_(this.weights.expressions, expr.type));
-        console.log(_(this.weights.expressions, '_base'));
-        console.log(_(this.weights.expressions, expr.type, _(this.weights.expressions, '_base', 0)));
 
-        if(['string', 'natural_string', 'single_quote_string', 'hex_string', 'bit_string'].indexOf(expr.type) >= 0) {
+        if (['string', 'natural_string', 'single_quote_string', 'hex_string', 'bit_string'].indexOf(expr.type) >= 0) {
             // Coerce to "string" type.
             this.stats.expressions_per_type.string++;
         } else {
@@ -405,6 +402,12 @@ export class Calculator {
         }).filter(i => i).filter(this._unique);
     }
 
+    /**
+     * Add stats (from a nested query) to this object.
+     * @param {object} stats
+     * @returns {void}
+     * @private
+     */
     _addStats(stats) {
         this.stats.from += stats.from;
         this.stats.group_by += stats.group_by;
@@ -425,11 +428,12 @@ export class Calculator {
         this.stats.expressions_per_clause.order_by += stats.expressions_per_clause.order_by;
         this.stats.expressions_per_clause.where += stats.expressions_per_clause.where;
 
-        this.stats.expressions_per_type.binary += stats.expressions_per_type.binary;
-        this.stats.expressions_per_type.unary += stats.expressions_per_type.unary;
-        this.stats.expressions_per_type.column += stats.expressions_per_type.column;
-        this.stats.expressions_per_type.aggregation += stats.expressions_per_type.aggregation;
-        this.stats.expressions_per_type.list += stats.expressions_per_type.list;
+        this.stats.expressions_per_type.binary_expr += stats.expressions_per_type.binary_expr;
+        this.stats.expressions_per_type.unary_expr += stats.expressions_per_type.unary_expr;
+        this.stats.expressions_per_type.column_ref += stats.expressions_per_type.column_ref;
+        this.stats.expressions_per_type.number += stats.expressions_per_type.number;
+        this.stats.expressions_per_type.aggr_func += stats.expressions_per_type.aggr_func;
+        this.stats.expressions_per_type.expr_list += stats.expressions_per_type.expr_list;
         this.stats.expressions_per_type.star += stats.expressions_per_type.star;
         this.stats.expressions_per_type.function += stats.expressions_per_type.function;
         this.stats.expressions_per_type.string += stats.expressions_per_type.string;
