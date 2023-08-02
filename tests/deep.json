@@ -1,0 +1,78 @@
+{
+    "dialect": "mysql",
+    "query": "SELECT * FROM properties WHERE id in (\r\n    select prop_id from advanced_options where name = \"Within 2 miles of sea or river\" and prop_id in (\r\n        select prop_id from advanced_options where name = 'WiFi' and prop_id in (\r\n            select prop_id from advanced_options where name = 'Walking distance to pub' and prop_id in (\r\n                select prop_id from advanced_options where name = 'Swimming pool' and prop_id in (\r\n                    select prop_id from advanced_options where xxx = 'Sea or River views' and prop_id in (\r\n                        select prop_id from advanced_options where name = 'Pet friendly' and prop_id in (\r\n                            select prop_id from advanced_options where yyy = 'Open fire, wood burning stove or a real flame fire-place' and prop_id in (\r\n                                select prop_id from advanced_options where name='Off road parking')\r\n                        )\r\n                    )\r\n                )\r\n            )\r\n        )\r\n    )\r\n)",
+    "stats": {
+        "from": 9,
+        "groupby": 0,
+        "having": 0,
+        "orderby": 0,
+        "limit": 0,
+        "offset": 0,
+        "columns": [
+            "id",
+            "prop_id",
+            "name",
+            "prop_id",
+            "prop_id",
+            "name",
+            "prop_id",
+            "prop_id",
+            "name",
+            "prop_id",
+            "prop_id",
+            "name",
+            "prop_id",
+            "prop_id",
+            "xxx",
+            "prop_id",
+            "prop_id",
+            "name",
+            "prop_id",
+            "prop_id",
+            "yyy",
+            "prop_id",
+            "prop_id",
+            "name"
+        ],
+        "strings": [
+            "Within 2 miles of sea or river",
+            "WiFi",
+            "Walking distance to pub",
+            "Swimming pool",
+            "Sea or River views",
+            "Pet friendly",
+            "Open fire, wood burning stove or a real flame fire-place",
+            "Off road parking"
+        ],
+        "stringTypes": [
+            "string",
+            "single_quote_string",
+            "single_quote_string",
+            "single_quote_string",
+            "single_quote_string",
+            "single_quote_string",
+            "single_quote_string",
+            "single_quote_string"
+        ],
+        "expressions": {
+            "unary": 0,
+            "binary": 23,
+            "column": 24,
+            "aggregation": 0,
+            "list": 8,
+            "star": 0,
+            "function": 0,
+            "string": 8
+        },
+        "meta": {
+            "caseUsage": [
+                "snake_case"
+            ],
+            "quoteUsage": [
+                "double",
+                "single"
+            ]
+        }
+    },
+    "complexity": 187.80584300733074
+}

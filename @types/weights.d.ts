@@ -1,0 +1,53 @@
+declare namespace Sqomplexity {
+    export interface Weights {
+        from: {
+            _base: number,
+            database_prefix: number,
+            inner_join: number,
+            left_join: number,
+            right_join: number,
+            full_outer_join: number,
+            cross_join: number,
+        },
+        m_where: number,
+        m_group_by: number,
+        m_having: number,
+        limit: number,
+        offset: number,
+        m_order_by: number,
+        expressions: {
+            _base: number,
+            operators: {
+                _base: number,
+                or: number,
+                in: number,
+                and: number,
+                '=': number,
+                '>': number,
+                '<': number,
+                '>=': number,
+                '<=': number,
+            },
+            binary_expr: number,
+            number: number,
+            column_ref: number,
+            aggr_func: number,
+            star: number,
+            function: number,
+            string: number,
+            natural_string: number,
+            single_quote_string: number,
+            hex_string: number,
+            bit_string: number,
+            unary_expr: number,
+            distinct: number,
+        },
+        m_nesting: number,
+        m_score: number,
+        m_meta_score: number,
+        meta_score: {
+            case_usage: number,
+            quote_usage: number,
+        }
+    }
+}

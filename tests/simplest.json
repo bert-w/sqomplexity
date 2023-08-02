@@ -1,0 +1,75 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT 5",
+        "stats": {
+            "select": 1,
+            "from": 0,
+            "group_by": 0,
+            "having": 0,
+            "order_by": 0,
+            "limit": 0,
+            "offset": 0,
+            "columns": [],
+            "strings": [],
+            "string_types": [],
+            "tables": [],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 1,
+                "from": 0,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "where": 0
+            },
+            "expressions_per_type": {
+                "unary": 0,
+                "binary": 0,
+                "column": 0,
+                "aggregation": 0,
+                "list": 0,
+                "star": 0,
+                "function": 0,
+                "string": 0
+            },
+            "meta": {
+                "case_usage": [],
+                "quote_usage": [],
+                "table_usage": [],
+                "database_usage": []
+            }
+        },
+        "ast": {
+            "tableList": [],
+            "columnList": [],
+            "ast": {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "number",
+                            "value": 5
+                        },
+                        "as": null
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": null,
+                "where": null,
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        },
+        "complexity": "0.0000"
+    }
+]

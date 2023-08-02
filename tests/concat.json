@@ -1,0 +1,90 @@
+{
+    "dialect": "mysql",
+    "query": "SELECT concat( mid(DueDate, 7, 4)) as DueDate FROM TableName",
+    "stats": {
+        "from": 1,
+        "groupby": 0,
+        "having": 0,
+        "orderby": 0,
+        "limit": 0,
+        "offset": 0,
+        "expressions": {
+            "binary": 0,
+            "column": 0,
+            "aggregation": 0,
+            "list": 2,
+            "star": 0,
+            "function": 1
+        }
+    },
+    "parsed": {
+        "tableList": [
+            "select::null::TableName"
+        ],
+        "columnList": [
+            "select::null::DueDate"
+        ],
+        "ast": {
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": [
+                {
+                    "expr": {
+                        "type": "function",
+                        "name": "concat",
+                        "args": {
+                            "type": "expr_list",
+                            "value": [
+                                {
+                                    "type": "function",
+                                    "name": "mid",
+                                    "args": {
+                                        "type": "expr_list",
+                                        "value": [
+                                            {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "DueDate"
+                                            },
+                                            {
+                                                "type": "number",
+                                                "value": 7
+                                            },
+                                            {
+                                                "type": "number",
+                                                "value": 4
+                                            }
+                                        ]
+                                    },
+                                    "over": null
+                                }
+                            ]
+                        },
+                        "over": null
+                    },
+                    "as": "DueDate"
+                }
+            ],
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "TableName",
+                    "as": null
+                }
+            ],
+            "where": null,
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
+        }
+    },
+    "complexity": 1.25
+}
