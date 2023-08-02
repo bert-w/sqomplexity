@@ -63,7 +63,8 @@ export class Sqomplexity {
             query: this.query,
             stats: calculator.getStats(),
             ast: parsed,
-            complexity: calculator.getScore().toFixed(4),
+            // Round to 4 decimal places.
+            complexity: Math.round(calculator.getScore() * 10000) / 10000,
         }
     }
 

@@ -36,6 +36,7 @@ export class Calculator {
             limit: 0, // 0 or 1
             offset: 0, // 0 or 1
             columns: [],
+            numbers: [],
             strings: [],
             string_types: [],
             tables: [],
@@ -157,9 +158,12 @@ export class Calculator {
                 }
                 score += this._expression(el.expr, 'select');
             }, 0);
-        } else if (ast.columns) {
-            // A "*" counts for 1 column_ref.
-            score += this.weights.expressions.column_ref;
+        } else if (ast.columns === '*') {
+            // Star is not parsed as an expression so we manually create one.
+            score += this._expression({
+                type: 'star',
+                value: '*'
+            }, 'select');
         }
 
         return score;
@@ -288,12 +292,17 @@ export class Calculator {
 
         // Add base weight for the expression type (may fall back to _base if it is not set.
         score += _(this.weights.expressions, expr.type, _(this.weights.expressions, '_base', 0));
+        console.log(_(this.weights.expressions, expr.type));
+        console.log(_(this.weights.expressions, '_base'));
+        console.log(_(this.weights.expressions, expr.type, _(this.weights.expressions, '_base', 0)));
 
         if(['string', 'natural_string', 'single_quote_string', 'hex_string', 'bit_string'].indexOf(expr.type) >= 0) {
+            // Coerce to "string" type.
             this.stats.expressions_per_type.string++;
         } else {
             this.stats.expressions_per_type[expr.type]++;
         }
+
         // Add stats + recurring expressions.
         switch (expr.type) {
             case 'binary_expr':
