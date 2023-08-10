@@ -1,0 +1,108 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT  * from my_table WHERE enabled = b'0';\r\n",
+        "stats": {
+            "select": 0,
+            "from": 1,
+            "group_by": 0,
+            "having": 0,
+            "order_by": 0,
+            "limit": 0,
+            "offset": 0,
+            "columns": [
+                "enabled"
+            ],
+            "numbers": [],
+            "strings": [
+                "0"
+            ],
+            "string_types": [
+                "bit_string"
+            ],
+            "tables": [
+                null
+            ],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 1,
+                "from": 0,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "where": 3
+            },
+            "expressions_per_type": {
+                "unary_expr": 0,
+                "binary_expr": 1,
+                "number": 0,
+                "column_ref": 1,
+                "aggr_func": 0,
+                "expr_list": 0,
+                "star": 1,
+                "function": 0,
+                "string": 1
+            },
+            "where": null,
+            "meta": {
+                "case_usage": [
+                    "snake_case"
+                ],
+                "quote_usage": [],
+                "table_usage": [
+                    null
+                ],
+                "database_usage": []
+            }
+        },
+        "ast": {
+            "tableList": [
+                "select::null::my_table"
+            ],
+            "columnList": [
+                "select::null::(.*)",
+                "select::null::enabled"
+            ],
+            "ast": [
+                {
+                    "with": null,
+                    "type": "select",
+                    "options": null,
+                    "distinct": null,
+                    "columns": "*",
+                    "into": {
+                        "position": null
+                    },
+                    "from": [
+                        {
+                            "db": null,
+                            "table": "my_table",
+                            "as": null
+                        }
+                    ],
+                    "where": {
+                        "type": "binary_expr",
+                        "operator": "=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "enabled"
+                        },
+                        "right": {
+                            "type": "bit_string",
+                            "prefix": null,
+                            "value": "0"
+                        }
+                    },
+                    "groupby": null,
+                    "having": null,
+                    "orderby": null,
+                    "limit": null,
+                    "locking_read": null,
+                    "window": null
+                }
+            ]
+        },
+        "complexity": 2.5
+    }
+]

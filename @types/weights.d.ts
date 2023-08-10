@@ -38,6 +38,7 @@ declare namespace Sqomplexity {
             natural_string: number,
             single_quote_string: number,
             hex_string: number,
+            full_hex_string: number,
             bit_string: number,
             unary_expr: number,
             distinct: number,

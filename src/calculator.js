@@ -180,7 +180,6 @@ export class Calculator {
                 'left join': this.weights.from.left_join,
                 'right join': this.weights.from.right_join,
                 'inner join': this.weights.from.inner_join,
-                'full outer join': this.weights.from.full_outer_join,
                 'cross join': this.weights.from.cross_join,
             });
 
@@ -293,7 +292,7 @@ export class Calculator {
         // Add base weight for the expression type (may fall back to _base if it is not set.
         score += _(this.weights.expressions, expr.type, _(this.weights.expressions, '_base', 0));
 
-        if (['string', 'natural_string', 'single_quote_string', 'hex_string', 'bit_string'].indexOf(expr.type) >= 0) {
+        if (['string', 'natural_string', 'single_quote_string', 'hex_string', 'full_hex_string', 'bit_string'].indexOf(expr.type) >= 0) {
             // Coerce to "string" type.
             this.stats.expressions_per_type.string++;
         } else {
@@ -327,6 +326,7 @@ export class Calculator {
             case 'natural_string':
             case 'single_quote_string':
             case 'hex_string':
+            case 'full_hex_string':
             case 'bit_string':
                 this.stats.strings.push(expr.value);
                 this.stats.string_types.push(expr.type);

@@ -1,7 +1,8 @@
-SELECT * FROM users u
-LEFT JOIN tableA a on a.id = u.id
-LEFT OUTER join tableB b on b.id = u.id
-RIGHT OUTER JOIN tableC c on c.id = u.id
-RIGHT JOIN tableC c on c.id = u.id
-CROSS JOIN tableD d on d.id = u.id
-INNER join tableE e on e.id = u.id
+SELECT *
+FROM users u
+     LEFT JOIN tableA a ON a.id = u.id
+     LEFT OUTER join tableB b ON b.id = u.id
+     RIGHT OUTER JOIN tableC c ON c.id = u.id
+     RIGHT JOIN tableC c ON c.id = u.id
+     CROSS JOIN tableD d ON d.id = u.id
+     INNER JOIN tableE e ON e.id = u.id;

@@ -72,8 +72,11 @@ export class Program {
      * @param {array} results
      * @returns {void|array}
      */
-    _output(results) {
-        return !this.console ? results : console.log(JSON.stringify(results, null, this.options.prettyPrint ? 4 : undefined));
+    async _output(results) {
+        if (!this.console) {
+            return results;
+        }
+        console.log(JSON.stringify(results, null, this.options.prettyPrint ? 4 : undefined));
     }
 
     /**

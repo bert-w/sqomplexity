@@ -1,0 +1,109 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT * FROM tableA, tableB WHERE id > 5",
+        "stats": {
+            "select": 0,
+            "from": 2,
+            "group_by": 0,
+            "having": 0,
+            "order_by": 0,
+            "limit": 0,
+            "offset": 0,
+            "columns": [
+                "id"
+            ],
+            "numbers": [
+                5
+            ],
+            "strings": [],
+            "string_types": [],
+            "tables": [
+                null
+            ],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 1,
+                "from": 0,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "where": 3
+            },
+            "expressions_per_type": {
+                "unary_expr": 0,
+                "binary_expr": 1,
+                "number": 1,
+                "column_ref": 1,
+                "aggr_func": 0,
+                "expr_list": 0,
+                "star": 1,
+                "function": 0,
+                "string": 0
+            },
+            "where": null,
+            "meta": {
+                "case_usage": [
+                    "snake_case"
+                ],
+                "quote_usage": [],
+                "table_usage": [
+                    null
+                ],
+                "database_usage": []
+            }
+        },
+        "ast": {
+            "tableList": [
+                "select::null::tableA",
+                "select::null::tableB"
+            ],
+            "columnList": [
+                "select::null::(.*)",
+                "select::null::id"
+            ],
+            "ast": {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": "*",
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "tableA",
+                        "as": null
+                    },
+                    {
+                        "db": null,
+                        "table": "tableB",
+                        "as": null
+                    }
+                ],
+                "where": {
+                    "type": "binary_expr",
+                    "operator": ">",
+                    "left": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "id"
+                    },
+                    "right": {
+                        "type": "number",
+                        "value": 5
+                    }
+                },
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        },
+        "complexity": 2.75
+    }
+]

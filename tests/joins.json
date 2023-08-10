@@ -1,0 +1,245 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT * FROM users u\r\nLEFT JOIN tableA a on a.id = u.id\r\nLEFT OUTER join tableB b on b.id = u.id\r\nRIGHT OUTER JOIN tableC c on c.id = u.id\r\nRIGHT JOIN tableC c on c.id = u.id\r\nCROSS JOIN tableD d on d.id = u.id\r\nINNER join tableE e on e.id = u.id",
+        "stats": {
+            "select": 0,
+            "from": 7,
+            "group_by": 0,
+            "having": 0,
+            "order_by": 0,
+            "limit": 0,
+            "offset": 0,
+            "columns": [
+                "id",
+                "id",
+                "id",
+                "id",
+                "id",
+                "id",
+                "id",
+                "id",
+                "id",
+                "id",
+                "id",
+                "id"
+            ],
+            "numbers": [],
+            "strings": [],
+            "string_types": [],
+            "tables": [
+                "a",
+                "u",
+                "b",
+                "u",
+                "c",
+                "u",
+                "c",
+                "u",
+                "d",
+                "u",
+                "e",
+                "u"
+            ],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 1,
+                "from": 18,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "where": 0
+            },
+            "expressions_per_type": {
+                "unary_expr": 0,
+                "binary_expr": 6,
+                "number": 0,
+                "column_ref": 12,
+                "aggr_func": 0,
+                "expr_list": 0,
+                "star": 1,
+                "function": 0,
+                "string": 0
+            },
+            "meta": {
+                "case_usage": [
+                    "snake_case"
+                ],
+                "quote_usage": [],
+                "table_usage": [
+                    "a",
+                    "u",
+                    "b",
+                    "c",
+                    "d",
+                    "e"
+                ],
+                "database_usage": []
+            }
+        },
+        "ast": {
+            "tableList": [
+                "select::null::users",
+                "select::null::tableA",
+                "select::null::tableB",
+                "select::null::tableC",
+                "select::null::tableD",
+                "select::null::tableE"
+            ],
+            "columnList": [
+                "select::null::(.*)",
+                "select::tableA::id",
+                "select::users::id",
+                "select::tableB::id",
+                "select::tableC::id",
+                "select::tableD::id",
+                "select::tableE::id"
+            ],
+            "ast": {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": "*",
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "users",
+                        "as": "u"
+                    },
+                    {
+                        "db": null,
+                        "table": "tableA",
+                        "as": "a",
+                        "join": "LEFT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "a",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableB",
+                        "as": "b",
+                        "join": "LEFT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "b",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableC",
+                        "as": "c",
+                        "join": "RIGHT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "c",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableC",
+                        "as": "c",
+                        "join": "RIGHT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "c",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableD",
+                        "as": "d",
+                        "join": "CROSS JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "d",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableE",
+                        "as": "e",
+                        "join": "INNER JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "e",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    }
+                ],
+                "where": null,
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        },
+        "complexity": 13
+    }
+]

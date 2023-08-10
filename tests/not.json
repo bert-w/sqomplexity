@@ -1,0 +1,146 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT * FROM tableA WHERE NOT id = 5;\r\n\r\nSELECT * FROM tableb WHERE id != 6;",
+        "stats": {
+            "select": 0,
+            "from": 2,
+            "group_by": 0,
+            "having": 0,
+            "order_by": 0,
+            "limit": 0,
+            "offset": 0,
+            "columns": [
+                "id"
+            ],
+            "numbers": [
+                6
+            ],
+            "strings": [],
+            "string_types": [],
+            "tables": [
+                null
+            ],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 2,
+                "from": 0,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "where": 4
+            },
+            "expressions_per_type": {
+                "unary_expr": 1,
+                "binary_expr": 1,
+                "number": 1,
+                "column_ref": 1,
+                "aggr_func": 0,
+                "expr_list": 0,
+                "star": 2,
+                "function": 0,
+                "string": 0
+            },
+            "where": null,
+            "meta": {
+                "case_usage": [
+                    "snake_case"
+                ],
+                "quote_usage": [],
+                "table_usage": [
+                    null
+                ],
+                "database_usage": []
+            }
+        },
+        "ast": {
+            "tableList": [
+                "select::null::tableA",
+                "select::null::tableb"
+            ],
+            "columnList": [
+                "select::null::(.*)",
+                "select::null::id"
+            ],
+            "ast": [
+                {
+                    "with": null,
+                    "type": "select",
+                    "options": null,
+                    "distinct": null,
+                    "columns": "*",
+                    "into": {
+                        "position": null
+                    },
+                    "from": [
+                        {
+                            "db": null,
+                            "table": "tableA",
+                            "as": null
+                        }
+                    ],
+                    "where": {
+                        "type": "unary_expr",
+                        "operator": "NOT",
+                        "expr": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": null,
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "number",
+                                "value": 5
+                            }
+                        }
+                    },
+                    "groupby": null,
+                    "having": null,
+                    "orderby": null,
+                    "limit": null,
+                    "locking_read": null,
+                    "window": null
+                },
+                {
+                    "with": null,
+                    "type": "select",
+                    "options": null,
+                    "distinct": null,
+                    "columns": "*",
+                    "into": {
+                        "position": null
+                    },
+                    "from": [
+                        {
+                            "db": null,
+                            "table": "tableb",
+                            "as": null
+                        }
+                    ],
+                    "where": {
+                        "type": "binary_expr",
+                        "operator": "!=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "id"
+                        },
+                        "right": {
+                            "type": "number",
+                            "value": 6
+                        }
+                    },
+                    "groupby": null,
+                    "having": null,
+                    "orderby": null,
+                    "limit": null,
+                    "locking_read": null,
+                    "window": null
+                }
+            ]
+        },
+        "complexity": 3.75
+    }
+]

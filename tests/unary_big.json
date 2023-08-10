@@ -1,0 +1,2327 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT\r\n    'Fattura Prodotti Postali' AS `type`,\r\n    SUM(dpd.qta) AS `products_count_quantity`,\r\n    COUNT(dpd.IDlavorazione_dett) AS `products_count`,\r\n    GROUP_CONCAT(DISTINCT dp.prod_totali - CAST(dp.opzione1 AS UNSIGNED) SEPARATOR ' |-| ') AS `process_products_count`,\r\n    GROUP_CONCAT(DISTINCT dp.IDdistinta) AS `product_code`,\r\n    GROUP_CONCAT(DISTINCT dp.data_distinta) AS `process_date`,\r\n    GROUP_CONCAT(DISTINCT dp.IDesito) AS `process_status_id`,\r\n    GROUP_CONCAT(DISTINCT dp.note) AS `process_note`,\r\n    GROUP_CONCAT(DISTINCT dp.IDlavorazione) AS `unique_id`,\r\n    SUM(dpd.tariffa) AS `products_total`,\r\n    SUM(IF(o.IDdoc IS NULL,1,0)*dpd.qta) AS `tobill_count_quantity`,\r\n    SUM(IF(NOT o.IDdoc IS NULL,1,0)*dpd.qta) AS `billed_count_quantity`,\r\n    SUM(IF(o.IDdoc IS NULL,1,0)) AS `tobill_count`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa,0)) AS `tobill_total`,\r\n    SUM(IF(NOT o.IDdoc IS NULL,1,0)) AS `billed_count`,\r\n    SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa,0)) AS `billed_total`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa,0)-IF(NOT o.IDdoc IS NULL, dpd.tariffa,0)) AS `bill_diff`,\r\n    COUNT(dpd.IDlavorazione_dett) AS `products_count`,\r\n    SUM(dpd.tariffa) AS `products_total`,\r\n    SUM(dpd.tariffa*(dpd.iva/100)) AS `products_vat`,\r\n    SUM(dpd.tariffa*(dpd.sconto/100.0)) AS `products_discount`,\r\n    SUM(dpd.tariffa*(1.0-dpd.sconto/100.0)*(dpd.iva/100)) AS `products_discount_vat`,\r\n    SUM(dpd.tariffa*(1+(dpd.iva/100.0))) AS `products_total_vat`,\r\n    SUM(ROUND(dpd.tariffa*(1.0-dpd.sconto/100.0),5)) AS `products_total_discount`,\r\n    SUM(dpd.tariffa*(1.0-dpd.sconto/100.0)*(1+(dpd.iva/100.0))) AS `products_total_discount_vat`,\r\n    SUM(dpd.qta) AS `products_quantity`,\r\n    SUM(IF(o.IDdoc IS NULL,1,0)) AS `tobill_count`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa,0)) AS `tobill_total`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa*(1+(dpd.iva/100.0)),0)) AS `tobill_total_vat`,\r\n    SUM(IF(NOT o.IDdoc IS NULL,1,0)) AS `billed_count`,\r\n    SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa,0)) AS `billed_total`,\r\n    SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa*(1+(dpd.iva/100.0)),0)) AS `billed_total_vat`\r\nFROM doc_prodottipostali_dett dpd\r\n         INNER JOIN tracking t ON (dpd.IDlavorazione_dett=t.product_id)\r\n         LEFT JOIN prodotti_pp ppp ON (dpd.IDprodotto=ppp.IDprodotto)\r\n         LEFT JOIN categorie_pp cpp ON (ppp.categoria=cpp.IDcategoria)\r\n         LEFT JOIN categorie_pp cppp ON (CAST(dpd.IDcategoria AS UNSIGNED)=cppp.IDcategoria)\r\n         INNER JOIN doc_prodottipostali dp ON (dpd.IDlavorazione=dp.IDlavorazione)\r\n         LEFT JOIN ordini o ON (dpd.IDfattura=o.IDdoc)\r\nWHERE\r\n    (\r\n            (dp.tipo = 'PT' AND t.date >= '2022-05-15 00:00:00' AND t.date <= '2022-07-26 23:59:59') AND\r\n            ((IF(dpd.IDprodotto>0, cpp.codice, IF(CAST(dpd.IDcategoria AS UNSIGNED)>0, cppp.codice, 'NONE')) NOT IN ('LAW','AR','CAD','EMESSOCAD') OR IF(dpd.IDprodotto>0, cpp.codice, IF(CAST(dpd.IDcategoria AS UNSIGNED)>0, cppp.codice, 'NONE')) IS NULL)) AND\r\n            ((t.last IN (-1,2,3,6,7,10,11,34,35,130,131,258,514,4098,4354,8194,8450))) AND\r\n            (((dp.opzione2 = 'PI' AND dp.data_distinta < '2022-08-25')) OR ((dp.data_distinta >= '2022-08-25')) OR ((o.IDdoc >= '1'))) AND\r\n            (((t.last IN (-1,2,3,6,7,10,11,34,35,130,131,258,514,4098,4354,8194,8450))))\r\n        ) AND\r\n    (\r\n        ((NOT t.last IN (-1,4,5,6,7,20,21,132,133,149,516,532,1028,1157,8197)))\r\n        )\r\nGROUP BY dpd.IDlavorazione\r\nHAVING (1=1 AND ((tobill_count > '0')))\r\nORDER BY dp.data_distinta ASC;",
+        "stats": {
+            "select": 32,
+            "from": 7,
+            "group_by": 1,
+            "having": 1,
+            "order_by": 1,
+            "limit": 0,
+            "offset": 0,
+            "columns": [
+                "qta",
+                "IDlavorazione_dett",
+                "prod_totali",
+                "IDdistinta",
+                "data_distinta",
+                "IDesito",
+                "note",
+                "IDlavorazione",
+                "tariffa",
+                "IDdoc",
+                "qta",
+                "qta",
+                "IDdoc",
+                "IDdoc",
+                "tariffa",
+                "tariffa",
+                "IDdoc",
+                "tariffa",
+                "tariffa",
+                "IDlavorazione_dett",
+                "tariffa",
+                "tariffa",
+                "iva",
+                "tariffa",
+                "sconto",
+                "tariffa",
+                "sconto",
+                "iva",
+                "tariffa",
+                "iva",
+                "tariffa",
+                "sconto",
+                "tariffa",
+                "sconto",
+                "iva",
+                "qta",
+                "IDdoc",
+                "IDdoc",
+                "tariffa",
+                "IDdoc",
+                "tariffa",
+                "iva",
+                "tariffa",
+                "tariffa",
+                "iva",
+                "IDlavorazione_dett",
+                "product_id",
+                "IDprodotto",
+                "IDprodotto",
+                "categoria",
+                "IDcategoria",
+                "IDcategoria",
+                "IDlavorazione",
+                "IDlavorazione",
+                "IDfattura",
+                "IDdoc",
+                "tipo",
+                "date",
+                "date",
+                "IDprodotto",
+                "codice",
+                "codice",
+                "IDprodotto",
+                "codice",
+                "codice",
+                "last",
+                "opzione2",
+                "data_distinta",
+                "data_distinta",
+                "IDdoc",
+                "last",
+                "IDlavorazione",
+                "tobill_count",
+                "data_distinta"
+            ],
+            "numbers": [
+                1,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                100,
+                100,
+                1,
+                100,
+                100,
+                1,
+                100,
+                1,
+                100,
+                5,
+                1,
+                100,
+                1,
+                100,
+                1,
+                0,
+                0,
+                1,
+                100,
+                0,
+                1,
+                0,
+                0,
+                1,
+                100,
+                0,
+                0,
+                0,
+                0,
+                0,
+                -1,
+                2,
+                3,
+                6,
+                7,
+                10,
+                11,
+                34,
+                35,
+                130,
+                131,
+                258,
+                514,
+                4098,
+                4354,
+                8194,
+                8450,
+                -1,
+                2,
+                3,
+                6,
+                7,
+                10,
+                11,
+                34,
+                35,
+                130,
+                131,
+                258,
+                514,
+                4098,
+                4354,
+                8194,
+                8450,
+                1,
+                1
+            ],
+            "strings": [
+                "Fattura Prodotti Postali",
+                "PT",
+                "2022-05-15 00:00:00",
+                "2022-07-26 23:59:59",
+                "NONE",
+                "LAW",
+                "AR",
+                "CAD",
+                "EMESSOCAD",
+                "NONE",
+                "PI",
+                "2022-08-25",
+                "2022-08-25",
+                "1",
+                "0"
+            ],
+            "string_types": [
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string"
+            ],
+            "tables": [
+                "dpd",
+                "dpd",
+                "dp",
+                "dp",
+                "dp",
+                "dp",
+                "dp",
+                "dp",
+                "dpd",
+                "o",
+                "dpd",
+                "dpd",
+                "o",
+                "o",
+                "dpd",
+                "dpd",
+                "o",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "o",
+                "o",
+                "dpd",
+                "o",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "dpd",
+                "t",
+                "dpd",
+                "ppp",
+                "ppp",
+                "cpp",
+                "cppp",
+                "dpd",
+                "dp",
+                "dpd",
+                "o",
+                "dp",
+                "t",
+                "t",
+                "dpd",
+                "cpp",
+                "cppp",
+                "dpd",
+                "cpp",
+                "cppp",
+                "t",
+                "dp",
+                "dp",
+                "dp",
+                "o",
+                "t",
+                "dpd",
+                null,
+                "dp"
+            ],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 198,
+                "from": 18,
+                "group_by": 1,
+                "having": 7,
+                "order_by": 1,
+                "where": 107
+            },
+            "expressions_per_type": {
+                "unary_expr": 8,
+                "binary_expr": 73,
+                "number": 78,
+                "column_ref": 74,
+                "aggr_func": 31,
+                "expr_list": 22,
+                "star": 0,
+                "function": 19,
+                "string": 15,
+                "cast": null,
+                "null": null
+            },
+            "where": null,
+            "meta": {
+                "case_usage": [
+                    "snake_case",
+                    "Unknown case",
+                    "PascalCase",
+                    "lowercase"
+                ],
+                "quote_usage": [
+                    "single"
+                ],
+                "table_usage": [
+                    "dpd",
+                    "dp",
+                    "o",
+                    "t",
+                    "ppp",
+                    "cpp",
+                    "cppp",
+                    null
+                ],
+                "database_usage": []
+            }
+        },
+        "ast": {
+            "tableList": [
+                "select::null::doc_prodottipostali_dett",
+                "select::null::tracking",
+                "select::null::prodotti_pp",
+                "select::null::categorie_pp",
+                "select::null::doc_prodottipostali",
+                "select::null::ordini"
+            ],
+            "columnList": [
+                "select::doc_prodottipostali_dett::qta",
+                "select::doc_prodottipostali_dett::IDlavorazione_dett",
+                "select::doc_prodottipostali::prod_totali",
+                "select::doc_prodottipostali::opzione1",
+                "select::doc_prodottipostali::IDdistinta",
+                "select::doc_prodottipostali::data_distinta",
+                "select::doc_prodottipostali::IDesito",
+                "select::doc_prodottipostali::note",
+                "select::doc_prodottipostali::IDlavorazione",
+                "select::doc_prodottipostali_dett::tariffa",
+                "select::ordini::IDdoc",
+                "select::doc_prodottipostali_dett::iva",
+                "select::doc_prodottipostali_dett::sconto",
+                "select::tracking::product_id",
+                "select::doc_prodottipostali_dett::IDprodotto",
+                "select::prodotti_pp::IDprodotto",
+                "select::prodotti_pp::categoria",
+                "select::categorie_pp::IDcategoria",
+                "select::doc_prodottipostali_dett::IDcategoria",
+                "select::doc_prodottipostali_dett::IDlavorazione",
+                "select::doc_prodottipostali_dett::IDfattura",
+                "select::doc_prodottipostali::tipo",
+                "select::tracking::date",
+                "select::categorie_pp::codice",
+                "select::tracking::last",
+                "select::doc_prodottipostali::opzione2",
+                "select::null::tobill_count"
+            ],
+            "ast": [
+                {
+                    "with": null,
+                    "type": "select",
+                    "options": null,
+                    "distinct": null,
+                    "columns": [
+                        {
+                            "expr": {
+                                "type": "single_quote_string",
+                                "value": "Fattura Prodotti Postali"
+                            },
+                            "as": "type"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dpd",
+                                        "column": "qta"
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_count_quantity"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "COUNT",
+                                "args": {
+                                    "distinct": null,
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dpd",
+                                        "column": "IDlavorazione_dett"
+                                    },
+                                    "orderby": null,
+                                    "separator": null
+                                },
+                                "over": null
+                            },
+                            "as": "products_count"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "GROUP_CONCAT",
+                                "args": {
+                                    "distinct": "DISTINCT",
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "-",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": "dp",
+                                            "column": "prod_totali"
+                                        },
+                                        "right": {
+                                            "type": "cast",
+                                            "keyword": "cast",
+                                            "expr": {
+                                                "type": "column_ref",
+                                                "table": "dp",
+                                                "column": "opzione1"
+                                            },
+                                            "symbol": "as",
+                                            "target": {
+                                                "dataType": "UNSIGNED"
+                                            }
+                                        }
+                                    },
+                                    "orderby": null,
+                                    "separator": {
+                                        "keyword": "SEPARATOR",
+                                        "value": {
+                                            "type": "single_quote_string",
+                                            "value": " |-| "
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "process_products_count"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "GROUP_CONCAT",
+                                "args": {
+                                    "distinct": "DISTINCT",
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dp",
+                                        "column": "IDdistinta"
+                                    },
+                                    "orderby": null,
+                                    "separator": null
+                                },
+                                "over": null
+                            },
+                            "as": "product_code"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "GROUP_CONCAT",
+                                "args": {
+                                    "distinct": "DISTINCT",
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dp",
+                                        "column": "data_distinta"
+                                    },
+                                    "orderby": null,
+                                    "separator": null
+                                },
+                                "over": null
+                            },
+                            "as": "process_date"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "GROUP_CONCAT",
+                                "args": {
+                                    "distinct": "DISTINCT",
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dp",
+                                        "column": "IDesito"
+                                    },
+                                    "orderby": null,
+                                    "separator": null
+                                },
+                                "over": null
+                            },
+                            "as": "process_status_id"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "GROUP_CONCAT",
+                                "args": {
+                                    "distinct": "DISTINCT",
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dp",
+                                        "column": "note"
+                                    },
+                                    "orderby": null,
+                                    "separator": null
+                                },
+                                "over": null
+                            },
+                            "as": "process_note"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "GROUP_CONCAT",
+                                "args": {
+                                    "distinct": "DISTINCT",
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dp",
+                                        "column": "IDlavorazione"
+                                    },
+                                    "orderby": null,
+                                    "separator": null
+                                },
+                                "over": null
+                            },
+                            "as": "unique_id"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dpd",
+                                        "column": "tariffa"
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_total"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "*",
+                                        "left": {
+                                            "type": "function",
+                                            "name": "IF",
+                                            "args": {
+                                                "type": "expr_list",
+                                                "value": [
+                                                    {
+                                                        "type": "binary_expr",
+                                                        "operator": "IS",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "o",
+                                                            "column": "IDdoc"
+                                                        },
+                                                        "right": {
+                                                            "type": "null",
+                                                            "value": null
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "number",
+                                                        "value": 1
+                                                    },
+                                                    {
+                                                        "type": "number",
+                                                        "value": 0
+                                                    }
+                                                ]
+                                            },
+                                            "over": null
+                                        },
+                                        "right": {
+                                            "type": "column_ref",
+                                            "table": "dpd",
+                                            "column": "qta"
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "tobill_count_quantity"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "*",
+                                        "left": {
+                                            "type": "function",
+                                            "name": "IF",
+                                            "args": {
+                                                "type": "expr_list",
+                                                "value": [
+                                                    {
+                                                        "type": "unary_expr",
+                                                        "operator": "NOT",
+                                                        "expr": {
+                                                            "type": "binary_expr",
+                                                            "operator": "IS",
+                                                            "left": {
+                                                                "type": "column_ref",
+                                                                "table": "o",
+                                                                "column": "IDdoc"
+                                                            },
+                                                            "right": {
+                                                                "type": "null",
+                                                                "value": null
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "number",
+                                                        "value": 1
+                                                    },
+                                                    {
+                                                        "type": "number",
+                                                        "value": 0
+                                                    }
+                                                ]
+                                            },
+                                            "over": null
+                                        },
+                                        "right": {
+                                            "type": "column_ref",
+                                            "table": "dpd",
+                                            "column": "qta"
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "billed_count_quantity"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "IS",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "o",
+                                                        "column": "IDdoc"
+                                                    },
+                                                    "right": {
+                                                        "type": "null",
+                                                        "value": null
+                                                    }
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 1
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "tobill_count"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "IS",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "o",
+                                                        "column": "IDdoc"
+                                                    },
+                                                    "right": {
+                                                        "type": "null",
+                                                        "value": null
+                                                    }
+                                                },
+                                                {
+                                                    "type": "column_ref",
+                                                    "table": "dpd",
+                                                    "column": "tariffa"
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "tobill_total"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "unary_expr",
+                                                    "operator": "NOT",
+                                                    "expr": {
+                                                        "type": "binary_expr",
+                                                        "operator": "IS",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "o",
+                                                            "column": "IDdoc"
+                                                        },
+                                                        "right": {
+                                                            "type": "null",
+                                                            "value": null
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 1
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "billed_count"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "unary_expr",
+                                                    "operator": "NOT",
+                                                    "expr": {
+                                                        "type": "binary_expr",
+                                                        "operator": "IS",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "o",
+                                                            "column": "IDdoc"
+                                                        },
+                                                        "right": {
+                                                            "type": "null",
+                                                            "value": null
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "column_ref",
+                                                    "table": "dpd",
+                                                    "column": "tariffa"
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "billed_total"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "-",
+                                        "left": {
+                                            "type": "function",
+                                            "name": "IF",
+                                            "args": {
+                                                "type": "expr_list",
+                                                "value": [
+                                                    {
+                                                        "type": "binary_expr",
+                                                        "operator": "IS",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "o",
+                                                            "column": "IDdoc"
+                                                        },
+                                                        "right": {
+                                                            "type": "null",
+                                                            "value": null
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "column_ref",
+                                                        "table": "dpd",
+                                                        "column": "tariffa"
+                                                    },
+                                                    {
+                                                        "type": "number",
+                                                        "value": 0
+                                                    }
+                                                ]
+                                            },
+                                            "over": null
+                                        },
+                                        "right": {
+                                            "type": "function",
+                                            "name": "IF",
+                                            "args": {
+                                                "type": "expr_list",
+                                                "value": [
+                                                    {
+                                                        "type": "unary_expr",
+                                                        "operator": "NOT",
+                                                        "expr": {
+                                                            "type": "binary_expr",
+                                                            "operator": "IS",
+                                                            "left": {
+                                                                "type": "column_ref",
+                                                                "table": "o",
+                                                                "column": "IDdoc"
+                                                            },
+                                                            "right": {
+                                                                "type": "null",
+                                                                "value": null
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "column_ref",
+                                                        "table": "dpd",
+                                                        "column": "tariffa"
+                                                    },
+                                                    {
+                                                        "type": "number",
+                                                        "value": 0
+                                                    }
+                                                ]
+                                            },
+                                            "over": null
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "bill_diff"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "COUNT",
+                                "args": {
+                                    "distinct": null,
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dpd",
+                                        "column": "IDlavorazione_dett"
+                                    },
+                                    "orderby": null,
+                                    "separator": null
+                                },
+                                "over": null
+                            },
+                            "as": "products_count"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dpd",
+                                        "column": "tariffa"
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_total"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "*",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": "dpd",
+                                            "column": "tariffa"
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "/",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": "dpd",
+                                                "column": "iva"
+                                            },
+                                            "right": {
+                                                "type": "number",
+                                                "value": 100
+                                            },
+                                            "parentheses": true
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_vat"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "*",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": "dpd",
+                                            "column": "tariffa"
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "/",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": "dpd",
+                                                "column": "sconto"
+                                            },
+                                            "right": {
+                                                "type": "number",
+                                                "value": 100
+                                            },
+                                            "parentheses": true
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_discount"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "*",
+                                        "left": {
+                                            "type": "binary_expr",
+                                            "operator": "*",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": "dpd",
+                                                "column": "tariffa"
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "-",
+                                                "left": {
+                                                    "type": "number",
+                                                    "value": 1
+                                                },
+                                                "right": {
+                                                    "type": "binary_expr",
+                                                    "operator": "/",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "dpd",
+                                                        "column": "sconto"
+                                                    },
+                                                    "right": {
+                                                        "type": "number",
+                                                        "value": 100
+                                                    }
+                                                },
+                                                "parentheses": true
+                                            }
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "/",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": "dpd",
+                                                "column": "iva"
+                                            },
+                                            "right": {
+                                                "type": "number",
+                                                "value": 100
+                                            },
+                                            "parentheses": true
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_discount_vat"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "*",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": "dpd",
+                                            "column": "tariffa"
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "+",
+                                            "left": {
+                                                "type": "number",
+                                                "value": 1
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "/",
+                                                "left": {
+                                                    "type": "column_ref",
+                                                    "table": "dpd",
+                                                    "column": "iva"
+                                                },
+                                                "right": {
+                                                    "type": "number",
+                                                    "value": 100
+                                                },
+                                                "parentheses": true
+                                            },
+                                            "parentheses": true
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_total_vat"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "ROUND",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "*",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "dpd",
+                                                        "column": "tariffa"
+                                                    },
+                                                    "right": {
+                                                        "type": "binary_expr",
+                                                        "operator": "-",
+                                                        "left": {
+                                                            "type": "number",
+                                                            "value": 1
+                                                        },
+                                                        "right": {
+                                                            "type": "binary_expr",
+                                                            "operator": "/",
+                                                            "left": {
+                                                                "type": "column_ref",
+                                                                "table": "dpd",
+                                                                "column": "sconto"
+                                                            },
+                                                            "right": {
+                                                                "type": "number",
+                                                                "value": 100
+                                                            }
+                                                        },
+                                                        "parentheses": true
+                                                    }
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 5
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_total_discount"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "binary_expr",
+                                        "operator": "*",
+                                        "left": {
+                                            "type": "binary_expr",
+                                            "operator": "*",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": "dpd",
+                                                "column": "tariffa"
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "-",
+                                                "left": {
+                                                    "type": "number",
+                                                    "value": 1
+                                                },
+                                                "right": {
+                                                    "type": "binary_expr",
+                                                    "operator": "/",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "dpd",
+                                                        "column": "sconto"
+                                                    },
+                                                    "right": {
+                                                        "type": "number",
+                                                        "value": 100
+                                                    }
+                                                },
+                                                "parentheses": true
+                                            }
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "+",
+                                            "left": {
+                                                "type": "number",
+                                                "value": 1
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "/",
+                                                "left": {
+                                                    "type": "column_ref",
+                                                    "table": "dpd",
+                                                    "column": "iva"
+                                                },
+                                                "right": {
+                                                    "type": "number",
+                                                    "value": 100
+                                                },
+                                                "parentheses": true
+                                            },
+                                            "parentheses": true
+                                        }
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_total_discount_vat"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dpd",
+                                        "column": "qta"
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "products_quantity"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "IS",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "o",
+                                                        "column": "IDdoc"
+                                                    },
+                                                    "right": {
+                                                        "type": "null",
+                                                        "value": null
+                                                    }
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 1
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "tobill_count"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "IS",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "o",
+                                                        "column": "IDdoc"
+                                                    },
+                                                    "right": {
+                                                        "type": "null",
+                                                        "value": null
+                                                    }
+                                                },
+                                                {
+                                                    "type": "column_ref",
+                                                    "table": "dpd",
+                                                    "column": "tariffa"
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "tobill_total"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "IS",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "o",
+                                                        "column": "IDdoc"
+                                                    },
+                                                    "right": {
+                                                        "type": "null",
+                                                        "value": null
+                                                    }
+                                                },
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "*",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "dpd",
+                                                        "column": "tariffa"
+                                                    },
+                                                    "right": {
+                                                        "type": "binary_expr",
+                                                        "operator": "+",
+                                                        "left": {
+                                                            "type": "number",
+                                                            "value": 1
+                                                        },
+                                                        "right": {
+                                                            "type": "binary_expr",
+                                                            "operator": "/",
+                                                            "left": {
+                                                                "type": "column_ref",
+                                                                "table": "dpd",
+                                                                "column": "iva"
+                                                            },
+                                                            "right": {
+                                                                "type": "number",
+                                                                "value": 100
+                                                            },
+                                                            "parentheses": true
+                                                        },
+                                                        "parentheses": true
+                                                    }
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "tobill_total_vat"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "unary_expr",
+                                                    "operator": "NOT",
+                                                    "expr": {
+                                                        "type": "binary_expr",
+                                                        "operator": "IS",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "o",
+                                                            "column": "IDdoc"
+                                                        },
+                                                        "right": {
+                                                            "type": "null",
+                                                            "value": null
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 1
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "billed_count"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "unary_expr",
+                                                    "operator": "NOT",
+                                                    "expr": {
+                                                        "type": "binary_expr",
+                                                        "operator": "IS",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "o",
+                                                            "column": "IDdoc"
+                                                        },
+                                                        "right": {
+                                                            "type": "null",
+                                                            "value": null
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "column_ref",
+                                                    "table": "dpd",
+                                                    "column": "tariffa"
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "billed_total"
+                        },
+                        {
+                            "expr": {
+                                "type": "aggr_func",
+                                "name": "SUM",
+                                "args": {
+                                    "expr": {
+                                        "type": "function",
+                                        "name": "IF",
+                                        "args": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "unary_expr",
+                                                    "operator": "NOT",
+                                                    "expr": {
+                                                        "type": "binary_expr",
+                                                        "operator": "IS",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "o",
+                                                            "column": "IDdoc"
+                                                        },
+                                                        "right": {
+                                                            "type": "null",
+                                                            "value": null
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "binary_expr",
+                                                    "operator": "*",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "dpd",
+                                                        "column": "tariffa"
+                                                    },
+                                                    "right": {
+                                                        "type": "binary_expr",
+                                                        "operator": "+",
+                                                        "left": {
+                                                            "type": "number",
+                                                            "value": 1
+                                                        },
+                                                        "right": {
+                                                            "type": "binary_expr",
+                                                            "operator": "/",
+                                                            "left": {
+                                                                "type": "column_ref",
+                                                                "table": "dpd",
+                                                                "column": "iva"
+                                                            },
+                                                            "right": {
+                                                                "type": "number",
+                                                                "value": 100
+                                                            },
+                                                            "parentheses": true
+                                                        },
+                                                        "parentheses": true
+                                                    }
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            ]
+                                        },
+                                        "over": null
+                                    }
+                                },
+                                "over": null
+                            },
+                            "as": "billed_total_vat"
+                        }
+                    ],
+                    "into": {
+                        "position": null
+                    },
+                    "from": [
+                        {
+                            "db": null,
+                            "table": "doc_prodottipostali_dett",
+                            "as": "dpd"
+                        },
+                        {
+                            "db": null,
+                            "table": "tracking",
+                            "as": "t",
+                            "join": "INNER JOIN",
+                            "on": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "dpd",
+                                    "column": "IDlavorazione_dett"
+                                },
+                                "right": {
+                                    "type": "column_ref",
+                                    "table": "t",
+                                    "column": "product_id"
+                                },
+                                "parentheses": true
+                            }
+                        },
+                        {
+                            "db": null,
+                            "table": "prodotti_pp",
+                            "as": "ppp",
+                            "join": "LEFT JOIN",
+                            "on": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "dpd",
+                                    "column": "IDprodotto"
+                                },
+                                "right": {
+                                    "type": "column_ref",
+                                    "table": "ppp",
+                                    "column": "IDprodotto"
+                                },
+                                "parentheses": true
+                            }
+                        },
+                        {
+                            "db": null,
+                            "table": "categorie_pp",
+                            "as": "cpp",
+                            "join": "LEFT JOIN",
+                            "on": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "ppp",
+                                    "column": "categoria"
+                                },
+                                "right": {
+                                    "type": "column_ref",
+                                    "table": "cpp",
+                                    "column": "IDcategoria"
+                                },
+                                "parentheses": true
+                            }
+                        },
+                        {
+                            "db": null,
+                            "table": "categorie_pp",
+                            "as": "cppp",
+                            "join": "LEFT JOIN",
+                            "on": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "cast",
+                                    "keyword": "cast",
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": "dpd",
+                                        "column": "IDcategoria"
+                                    },
+                                    "symbol": "as",
+                                    "target": {
+                                        "dataType": "UNSIGNED"
+                                    }
+                                },
+                                "right": {
+                                    "type": "column_ref",
+                                    "table": "cppp",
+                                    "column": "IDcategoria"
+                                },
+                                "parentheses": true
+                            }
+                        },
+                        {
+                            "db": null,
+                            "table": "doc_prodottipostali",
+                            "as": "dp",
+                            "join": "INNER JOIN",
+                            "on": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "dpd",
+                                    "column": "IDlavorazione"
+                                },
+                                "right": {
+                                    "type": "column_ref",
+                                    "table": "dp",
+                                    "column": "IDlavorazione"
+                                },
+                                "parentheses": true
+                            }
+                        },
+                        {
+                            "db": null,
+                            "table": "ordini",
+                            "as": "o",
+                            "join": "LEFT JOIN",
+                            "on": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "dpd",
+                                    "column": "IDfattura"
+                                },
+                                "right": {
+                                    "type": "column_ref",
+                                    "table": "o",
+                                    "column": "IDdoc"
+                                },
+                                "parentheses": true
+                            }
+                        }
+                    ],
+                    "where": {
+                        "type": "binary_expr",
+                        "operator": "AND",
+                        "left": {
+                            "type": "binary_expr",
+                            "operator": "AND",
+                            "left": {
+                                "type": "binary_expr",
+                                "operator": "AND",
+                                "left": {
+                                    "type": "binary_expr",
+                                    "operator": "AND",
+                                    "left": {
+                                        "type": "binary_expr",
+                                        "operator": "AND",
+                                        "left": {
+                                            "type": "binary_expr",
+                                            "operator": "AND",
+                                            "left": {
+                                                "type": "binary_expr",
+                                                "operator": "AND",
+                                                "left": {
+                                                    "type": "binary_expr",
+                                                    "operator": "=",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "dp",
+                                                        "column": "tipo"
+                                                    },
+                                                    "right": {
+                                                        "type": "single_quote_string",
+                                                        "value": "PT"
+                                                    }
+                                                },
+                                                "right": {
+                                                    "type": "binary_expr",
+                                                    "operator": ">=",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": "t",
+                                                        "column": "date"
+                                                    },
+                                                    "right": {
+                                                        "type": "single_quote_string",
+                                                        "value": "2022-05-15 00:00:00"
+                                                    }
+                                                }
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "<=",
+                                                "left": {
+                                                    "type": "column_ref",
+                                                    "table": "t",
+                                                    "column": "date"
+                                                },
+                                                "right": {
+                                                    "type": "single_quote_string",
+                                                    "value": "2022-07-26 23:59:59"
+                                                }
+                                            },
+                                            "parentheses": true
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "OR",
+                                            "left": {
+                                                "type": "binary_expr",
+                                                "operator": "NOT IN",
+                                                "left": {
+                                                    "type": "function",
+                                                    "name": "IF",
+                                                    "args": {
+                                                        "type": "expr_list",
+                                                        "value": [
+                                                            {
+                                                                "type": "binary_expr",
+                                                                "operator": ">",
+                                                                "left": {
+                                                                    "type": "column_ref",
+                                                                    "table": "dpd",
+                                                                    "column": "IDprodotto"
+                                                                },
+                                                                "right": {
+                                                                    "type": "number",
+                                                                    "value": 0
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "column_ref",
+                                                                "table": "cpp",
+                                                                "column": "codice"
+                                                            },
+                                                            {
+                                                                "type": "function",
+                                                                "name": "IF",
+                                                                "args": {
+                                                                    "type": "expr_list",
+                                                                    "value": [
+                                                                        {
+                                                                            "type": "binary_expr",
+                                                                            "operator": ">",
+                                                                            "left": {
+                                                                                "type": "cast",
+                                                                                "keyword": "cast",
+                                                                                "expr": {
+                                                                                    "type": "column_ref",
+                                                                                    "table": "dpd",
+                                                                                    "column": "IDcategoria"
+                                                                                },
+                                                                                "symbol": "as",
+                                                                                "target": {
+                                                                                    "dataType": "UNSIGNED"
+                                                                                }
+                                                                            },
+                                                                            "right": {
+                                                                                "type": "number",
+                                                                                "value": 0
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "type": "column_ref",
+                                                                            "table": "cppp",
+                                                                            "column": "codice"
+                                                                        },
+                                                                        {
+                                                                            "type": "single_quote_string",
+                                                                            "value": "NONE"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "over": null
+                                                            }
+                                                        ]
+                                                    },
+                                                    "over": null
+                                                },
+                                                "right": {
+                                                    "type": "expr_list",
+                                                    "value": [
+                                                        {
+                                                            "type": "single_quote_string",
+                                                            "value": "LAW"
+                                                        },
+                                                        {
+                                                            "type": "single_quote_string",
+                                                            "value": "AR"
+                                                        },
+                                                        {
+                                                            "type": "single_quote_string",
+                                                            "value": "CAD"
+                                                        },
+                                                        {
+                                                            "type": "single_quote_string",
+                                                            "value": "EMESSOCAD"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "IS",
+                                                "left": {
+                                                    "type": "function",
+                                                    "name": "IF",
+                                                    "args": {
+                                                        "type": "expr_list",
+                                                        "value": [
+                                                            {
+                                                                "type": "binary_expr",
+                                                                "operator": ">",
+                                                                "left": {
+                                                                    "type": "column_ref",
+                                                                    "table": "dpd",
+                                                                    "column": "IDprodotto"
+                                                                },
+                                                                "right": {
+                                                                    "type": "number",
+                                                                    "value": 0
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "column_ref",
+                                                                "table": "cpp",
+                                                                "column": "codice"
+                                                            },
+                                                            {
+                                                                "type": "function",
+                                                                "name": "IF",
+                                                                "args": {
+                                                                    "type": "expr_list",
+                                                                    "value": [
+                                                                        {
+                                                                            "type": "binary_expr",
+                                                                            "operator": ">",
+                                                                            "left": {
+                                                                                "type": "cast",
+                                                                                "keyword": "cast",
+                                                                                "expr": {
+                                                                                    "type": "column_ref",
+                                                                                    "table": "dpd",
+                                                                                    "column": "IDcategoria"
+                                                                                },
+                                                                                "symbol": "as",
+                                                                                "target": {
+                                                                                    "dataType": "UNSIGNED"
+                                                                                }
+                                                                            },
+                                                                            "right": {
+                                                                                "type": "number",
+                                                                                "value": 0
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "type": "column_ref",
+                                                                            "table": "cppp",
+                                                                            "column": "codice"
+                                                                        },
+                                                                        {
+                                                                            "type": "single_quote_string",
+                                                                            "value": "NONE"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "over": null
+                                                            }
+                                                        ]
+                                                    },
+                                                    "over": null
+                                                },
+                                                "right": {
+                                                    "type": "null",
+                                                    "value": null
+                                                }
+                                            },
+                                            "parentheses": true
+                                        }
+                                    },
+                                    "right": {
+                                        "type": "binary_expr",
+                                        "operator": "IN",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": "t",
+                                            "column": "last"
+                                        },
+                                        "right": {
+                                            "type": "expr_list",
+                                            "value": [
+                                                {
+                                                    "type": "number",
+                                                    "value": -1
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 2
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 3
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 6
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 7
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 10
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 11
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 34
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 35
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 130
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 131
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 258
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 514
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 4098
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 4354
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 8194
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "value": 8450
+                                                }
+                                            ]
+                                        },
+                                        "parentheses": true
+                                    }
+                                },
+                                "right": {
+                                    "type": "binary_expr",
+                                    "operator": "OR",
+                                    "left": {
+                                        "type": "binary_expr",
+                                        "operator": "OR",
+                                        "left": {
+                                            "type": "binary_expr",
+                                            "operator": "AND",
+                                            "left": {
+                                                "type": "binary_expr",
+                                                "operator": "=",
+                                                "left": {
+                                                    "type": "column_ref",
+                                                    "table": "dp",
+                                                    "column": "opzione2"
+                                                },
+                                                "right": {
+                                                    "type": "single_quote_string",
+                                                    "value": "PI"
+                                                }
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "<",
+                                                "left": {
+                                                    "type": "column_ref",
+                                                    "table": "dp",
+                                                    "column": "data_distinta"
+                                                },
+                                                "right": {
+                                                    "type": "single_quote_string",
+                                                    "value": "2022-08-25"
+                                                }
+                                            },
+                                            "parentheses": true
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": ">=",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": "dp",
+                                                "column": "data_distinta"
+                                            },
+                                            "right": {
+                                                "type": "single_quote_string",
+                                                "value": "2022-08-25"
+                                            },
+                                            "parentheses": true
+                                        }
+                                    },
+                                    "right": {
+                                        "type": "binary_expr",
+                                        "operator": ">=",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": "o",
+                                            "column": "IDdoc"
+                                        },
+                                        "right": {
+                                            "type": "single_quote_string",
+                                            "value": "1"
+                                        },
+                                        "parentheses": true
+                                    },
+                                    "parentheses": true
+                                }
+                            },
+                            "right": {
+                                "type": "binary_expr",
+                                "operator": "IN",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "t",
+                                    "column": "last"
+                                },
+                                "right": {
+                                    "type": "expr_list",
+                                    "value": [
+                                        {
+                                            "type": "number",
+                                            "value": -1
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 2
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 3
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 6
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 7
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 10
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 11
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 34
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 35
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 130
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 131
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 258
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 514
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 4098
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 4354
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 8194
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 8450
+                                        }
+                                    ]
+                                },
+                                "parentheses": true
+                            },
+                            "parentheses": true
+                        },
+                        "right": {
+                            "type": "unary_expr",
+                            "operator": "NOT",
+                            "expr": {
+                                "type": "binary_expr",
+                                "operator": "IN",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "t",
+                                    "column": "last"
+                                },
+                                "right": {
+                                    "type": "expr_list",
+                                    "value": [
+                                        {
+                                            "type": "number",
+                                            "value": -1
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 4
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 5
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 6
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 7
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 20
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 21
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 132
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 133
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 149
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 516
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 532
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 1028
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 1157
+                                        },
+                                        {
+                                            "type": "number",
+                                            "value": 8197
+                                        }
+                                    ]
+                                }
+                            },
+                            "parentheses": true
+                        }
+                    },
+                    "groupby": [
+                        {
+                            "type": "column_ref",
+                            "table": "dpd",
+                            "column": "IDlavorazione"
+                        }
+                    ],
+                    "having": {
+                        "type": "binary_expr",
+                        "operator": "AND",
+                        "left": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "right": {
+                                "type": "number",
+                                "value": 1
+                            }
+                        },
+                        "right": {
+                            "type": "binary_expr",
+                            "operator": ">",
+                            "left": {
+                                "type": "column_ref",
+                                "table": null,
+                                "column": "tobill_count"
+                            },
+                            "right": {
+                                "type": "single_quote_string",
+                                "value": "0"
+                            },
+                            "parentheses": true
+                        },
+                        "parentheses": true
+                    },
+                    "orderby": [
+                        {
+                            "expr": {
+                                "type": "column_ref",
+                                "table": "dp",
+                                "column": "data_distinta"
+                            },
+                            "type": "ASC"
+                        }
+                    ],
+                    "limit": null,
+                    "locking_read": null,
+                    "window": null
+                }
+            ]
+        },
+        "complexity": 191.25
+    }
+]
