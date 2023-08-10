@@ -1,19 +1,17 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT 5",
+        "query": "SELECT * FROM users",
         "stats": {
-            "select": 1,
-            "from": 0,
+            "select": 0,
+            "from": 1,
             "group_by": 0,
             "having": 0,
             "order_by": 0,
             "limit": 0,
             "offset": 0,
             "columns": [],
-            "numbers": [
-                5
-            ],
+            "numbers": [],
             "strings": [],
             "string_types": [],
             "tables": [],
@@ -29,11 +27,11 @@
             "expressions_per_type": {
                 "unary_expr": 0,
                 "binary_expr": 0,
-                "number": 1,
+                "number": 0,
                 "column_ref": 0,
                 "aggr_func": 0,
                 "expr_list": 0,
-                "star": 0,
+                "star": 1,
                 "function": 0,
                 "string": 0
             },
@@ -45,26 +43,28 @@
             }
         },
         "ast": {
-            "tableList": [],
-            "columnList": [],
+            "tableList": [
+                "select::null::users"
+            ],
+            "columnList": [
+                "select::null::(.*)"
+            ],
             "ast": {
                 "with": null,
                 "type": "select",
                 "options": null,
                 "distinct": null,
-                "columns": [
-                    {
-                        "expr": {
-                            "type": "number",
-                            "value": 5
-                        },
-                        "as": null
-                    }
-                ],
+                "columns": "*",
                 "into": {
                     "position": null
                 },
-                "from": null,
+                "from": [
+                    {
+                        "db": null,
+                        "table": "users",
+                        "as": null
+                    }
+                ],
                 "where": null,
                 "groupby": null,
                 "having": null,
@@ -74,6 +74,6 @@
                 "window": null
             }
         },
-        "complexity": 0.5
+        "complexity": 0.75
     }
 ]

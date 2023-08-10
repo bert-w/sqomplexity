@@ -1,0 +1,258 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT onoffid\r\nFROM DSLServiceOnsandOffs\r\nWHERE insertDate = '2017-02-14'\r\n  AND `Service_No` = x'323439533313034'\r\n  AND `PON` = x'33330343230'\r\n  AND `Order_No` = x'393313833'\r\n  AND `Segment_No` = x'31'\r\n  AND `Completion_Date` = '2017-02-13'\r\n  AND `On_Off` = x'4f4e'\r\n",
+        "stats": {
+            "select": 1,
+            "from": 1,
+            "group_by": 0,
+            "having": 0,
+            "order_by": 0,
+            "limit": 0,
+            "offset": 0,
+            "columns": [
+                "onoffid",
+                "insertDate",
+                "Service_No",
+                "PON",
+                "Order_No",
+                "Segment_No",
+                "Completion_Date",
+                "On_Off"
+            ],
+            "numbers": [],
+            "strings": [
+                "2017-02-14",
+                "323439533313034",
+                "33330343230",
+                "393313833",
+                "31",
+                "2017-02-13",
+                "4f4e"
+            ],
+            "string_types": [
+                "single_quote_string",
+                "hex_string",
+                "hex_string",
+                "hex_string",
+                "hex_string",
+                "single_quote_string",
+                "hex_string"
+            ],
+            "tables": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            ],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 1,
+                "from": 0,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "where": 27
+            },
+            "expressions_per_type": {
+                "unary_expr": 0,
+                "binary_expr": 13,
+                "number": 0,
+                "column_ref": 8,
+                "aggr_func": 0,
+                "expr_list": 0,
+                "star": 0,
+                "function": 0,
+                "string": 7
+            },
+            "where": null,
+            "meta": {
+                "case_usage": [
+                    "snake_case",
+                    "camelCase",
+                    "Unknown case",
+                    "PascalCase"
+                ],
+                "quote_usage": [
+                    "single"
+                ],
+                "table_usage": [
+                    null
+                ],
+                "database_usage": []
+            }
+        },
+        "ast": {
+            "tableList": [
+                "select::null::DSLServiceOnsandOffs"
+            ],
+            "columnList": [
+                "select::null::onoffid",
+                "select::null::insertDate",
+                "select::null::Service_No",
+                "select::null::PON",
+                "select::null::Order_No",
+                "select::null::Segment_No",
+                "select::null::Completion_Date",
+                "select::null::On_Off"
+            ],
+            "ast": {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "onoffid"
+                        },
+                        "as": null
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "DSLServiceOnsandOffs",
+                        "as": null
+                    }
+                ],
+                "where": {
+                    "type": "binary_expr",
+                    "operator": "AND",
+                    "left": {
+                        "type": "binary_expr",
+                        "operator": "AND",
+                        "left": {
+                            "type": "binary_expr",
+                            "operator": "AND",
+                            "left": {
+                                "type": "binary_expr",
+                                "operator": "AND",
+                                "left": {
+                                    "type": "binary_expr",
+                                    "operator": "AND",
+                                    "left": {
+                                        "type": "binary_expr",
+                                        "operator": "AND",
+                                        "left": {
+                                            "type": "binary_expr",
+                                            "operator": "=",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "insertDate"
+                                            },
+                                            "right": {
+                                                "type": "single_quote_string",
+                                                "value": "2017-02-14"
+                                            }
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "=",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "Service_No"
+                                            },
+                                            "right": {
+                                                "type": "hex_string",
+                                                "prefix": null,
+                                                "value": "323439533313034"
+                                            }
+                                        }
+                                    },
+                                    "right": {
+                                        "type": "binary_expr",
+                                        "operator": "=",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": null,
+                                            "column": "PON"
+                                        },
+                                        "right": {
+                                            "type": "hex_string",
+                                            "prefix": null,
+                                            "value": "33330343230"
+                                        }
+                                    }
+                                },
+                                "right": {
+                                    "type": "binary_expr",
+                                    "operator": "=",
+                                    "left": {
+                                        "type": "column_ref",
+                                        "table": null,
+                                        "column": "Order_No"
+                                    },
+                                    "right": {
+                                        "type": "hex_string",
+                                        "prefix": null,
+                                        "value": "393313833"
+                                    }
+                                }
+                            },
+                            "right": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": null,
+                                    "column": "Segment_No"
+                                },
+                                "right": {
+                                    "type": "hex_string",
+                                    "prefix": null,
+                                    "value": "31"
+                                }
+                            }
+                        },
+                        "right": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": null,
+                                "column": "Completion_Date"
+                            },
+                            "right": {
+                                "type": "single_quote_string",
+                                "value": "2017-02-13"
+                            }
+                        }
+                    },
+                    "right": {
+                        "type": "binary_expr",
+                        "operator": "=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "On_Off"
+                        },
+                        "right": {
+                            "type": "hex_string",
+                            "prefix": null,
+                            "value": "4f4e"
+                        }
+                    }
+                },
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        },
+        "complexity": 16.5
+    }
+]

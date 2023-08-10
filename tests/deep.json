@@ -1,78 +1,1007 @@
-{
-    "dialect": "mysql",
-    "query": "SELECT * FROM properties WHERE id in (\r\n    select prop_id from advanced_options where name = \"Within 2 miles of sea or river\" and prop_id in (\r\n        select prop_id from advanced_options where name = 'WiFi' and prop_id in (\r\n            select prop_id from advanced_options where name = 'Walking distance to pub' and prop_id in (\r\n                select prop_id from advanced_options where name = 'Swimming pool' and prop_id in (\r\n                    select prop_id from advanced_options where xxx = 'Sea or River views' and prop_id in (\r\n                        select prop_id from advanced_options where name = 'Pet friendly' and prop_id in (\r\n                            select prop_id from advanced_options where yyy = 'Open fire, wood burning stove or a real flame fire-place' and prop_id in (\r\n                                select prop_id from advanced_options where name='Off road parking')\r\n                        )\r\n                    )\r\n                )\r\n            )\r\n        )\r\n    )\r\n)",
-    "stats": {
-        "from": 9,
-        "groupby": 0,
-        "having": 0,
-        "orderby": 0,
-        "limit": 0,
-        "offset": 0,
-        "columns": [
-            "id",
-            "prop_id",
-            "name",
-            "prop_id",
-            "prop_id",
-            "name",
-            "prop_id",
-            "prop_id",
-            "name",
-            "prop_id",
-            "prop_id",
-            "name",
-            "prop_id",
-            "prop_id",
-            "xxx",
-            "prop_id",
-            "prop_id",
-            "name",
-            "prop_id",
-            "prop_id",
-            "yyy",
-            "prop_id",
-            "prop_id",
-            "name"
-        ],
-        "strings": [
-            "Within 2 miles of sea or river",
-            "WiFi",
-            "Walking distance to pub",
-            "Swimming pool",
-            "Sea or River views",
-            "Pet friendly",
-            "Open fire, wood burning stove or a real flame fire-place",
-            "Off road parking"
-        ],
-        "stringTypes": [
-            "string",
-            "single_quote_string",
-            "single_quote_string",
-            "single_quote_string",
-            "single_quote_string",
-            "single_quote_string",
-            "single_quote_string",
-            "single_quote_string"
-        ],
-        "expressions": {
-            "unary": 0,
-            "binary": 23,
-            "column": 24,
-            "aggregation": 0,
-            "list": 8,
-            "star": 0,
-            "function": 0,
-            "string": 8
-        },
-        "meta": {
-            "caseUsage": [
-                "snake_case"
+[
+    {
+        "dialect": "mysql",
+        "query": "SELECT * FROM properties WHERE id in (\r\n    select prop_id from advanced_options where name = \"Within 2 miles of sea or river\" and prop_id in (\r\n        select prop_id from advanced_options where name = 'WiFi' and prop_id in (\r\n            select prop_id from advanced_options where name = 'Walking distance to pub' and prop_id in (\r\n                select prop_id from advanced_options where name = 'Swimming pool' and prop_id in (\r\n                    select prop_id from advanced_options where xxx = 'Sea or River views' and prop_id in (\r\n                        select prop_id from advanced_options where name = 'Pet friendly' and prop_id in (\r\n                            select prop_id from advanced_options where yyy = 'Open fire, wood burning stove or a real flame fire-place' and prop_id in (\r\n                                select prop_id from advanced_options where name='Off road parking')\r\n                        )\r\n                    )\r\n                )\r\n            )\r\n        )\r\n    )\r\n)",
+        "stats": {
+            "select": 0,
+            "from": 9,
+            "group_by": 0,
+            "having": 0,
+            "order_by": 0,
+            "limit": 0,
+            "offset": 0,
+            "columns": [
+                "id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name"
             ],
-            "quoteUsage": [
-                "double",
-                "single"
-            ]
-        }
-    },
-    "complexity": 187.80584300733074
-}
+            "numbers": [],
+            "strings": [
+                "Within 2 miles of sea or river",
+                "WiFi",
+                "Walking distance to pub",
+                "Swimming pool",
+                "Sea or River views",
+                "Pet friendly",
+                "Open fire, wood burning stove or a real flame fire-place",
+                "Off road parking"
+            ],
+            "string_types": [
+                "string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string",
+                "single_quote_string"
+            ],
+            "tables": [
+                "id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                null,
+                null
+            ],
+            "databases": [
+                "id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "xxx",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "name",
+                "prop_id",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name",
+                "prop_id",
+                "yyy",
+                "prop_id",
+                "prop_id",
+                "name"
+            ],
+            "expressions_per_clause": {
+                "select": 9,
+                "from": 0,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "where": 63
+            },
+            "expressions_per_type": {
+                "unary_expr": 0,
+                "binary_expr": 23,
+                "number": 0,
+                "column_ref": 24,
+                "aggr_func": 0,
+                "expr_list": 8,
+                "star": 1,
+                "function": 0,
+                "string": 8,
+                "undefined": null
+            },
+            "where": null,
+            "meta": {
+                "case_usage": [
+                    "snake_case"
+                ],
+                "quote_usage": [
+                    "double",
+                    "single"
+                ],
+                "table_usage": [
+                    "id",
+                    "prop_id",
+                    "name",
+                    "xxx",
+                    "yyy",
+                    null
+                ],
+                "database_usage": [
+                    "id",
+                    "prop_id",
+                    "name",
+                    "xxx",
+                    "yyy"
+                ]
+            }
+        },
+        "ast": {
+            "tableList": [
+                "select::null::advanced_options",
+                "select::null::properties"
+            ],
+            "columnList": [
+                "select::null::(.*)",
+                "select::null::id",
+                "select::null::prop_id",
+                "select::null::name",
+                "select::null::xxx",
+                "select::null::yyy"
+            ],
+            "ast": {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": "*",
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "properties",
+                        "as": null
+                    }
+                ],
+                "where": {
+                    "type": "binary_expr",
+                    "operator": "IN",
+                    "left": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "id"
+                    },
+                    "right": {
+                        "type": "expr_list",
+                        "value": [
+                            {
+                                "tableList": [
+                                    "select::null::advanced_options",
+                                    "select::null::properties"
+                                ],
+                                "columnList": [
+                                    "select::null::(.*)",
+                                    "select::null::id",
+                                    "select::null::prop_id",
+                                    "select::null::name",
+                                    "select::null::xxx",
+                                    "select::null::yyy"
+                                ],
+                                "ast": {
+                                    "with": null,
+                                    "type": "select",
+                                    "options": null,
+                                    "distinct": null,
+                                    "columns": [
+                                        {
+                                            "expr": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "prop_id"
+                                            },
+                                            "as": null
+                                        }
+                                    ],
+                                    "into": {
+                                        "position": null
+                                    },
+                                    "from": [
+                                        {
+                                            "db": null,
+                                            "table": "advanced_options",
+                                            "as": null
+                                        }
+                                    ],
+                                    "where": {
+                                        "type": "binary_expr",
+                                        "operator": "AND",
+                                        "left": {
+                                            "type": "binary_expr",
+                                            "operator": "=",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "name"
+                                            },
+                                            "right": {
+                                                "type": "string",
+                                                "value": "Within 2 miles of sea or river"
+                                            }
+                                        },
+                                        "right": {
+                                            "type": "binary_expr",
+                                            "operator": "IN",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "prop_id"
+                                            },
+                                            "right": {
+                                                "type": "expr_list",
+                                                "value": [
+                                                    {
+                                                        "tableList": [
+                                                            "select::null::advanced_options",
+                                                            "select::null::properties"
+                                                        ],
+                                                        "columnList": [
+                                                            "select::null::(.*)",
+                                                            "select::null::id",
+                                                            "select::null::prop_id",
+                                                            "select::null::name",
+                                                            "select::null::xxx",
+                                                            "select::null::yyy"
+                                                        ],
+                                                        "ast": {
+                                                            "with": null,
+                                                            "type": "select",
+                                                            "options": null,
+                                                            "distinct": null,
+                                                            "columns": [
+                                                                {
+                                                                    "expr": {
+                                                                        "type": "column_ref",
+                                                                        "table": null,
+                                                                        "column": "prop_id"
+                                                                    },
+                                                                    "as": null
+                                                                }
+                                                            ],
+                                                            "into": {
+                                                                "position": null
+                                                            },
+                                                            "from": [
+                                                                {
+                                                                    "db": null,
+                                                                    "table": "advanced_options",
+                                                                    "as": null
+                                                                }
+                                                            ],
+                                                            "where": {
+                                                                "type": "binary_expr",
+                                                                "operator": "AND",
+                                                                "left": {
+                                                                    "type": "binary_expr",
+                                                                    "operator": "=",
+                                                                    "left": {
+                                                                        "type": "column_ref",
+                                                                        "table": null,
+                                                                        "column": "name"
+                                                                    },
+                                                                    "right": {
+                                                                        "type": "single_quote_string",
+                                                                        "value": "WiFi"
+                                                                    }
+                                                                },
+                                                                "right": {
+                                                                    "type": "binary_expr",
+                                                                    "operator": "IN",
+                                                                    "left": {
+                                                                        "type": "column_ref",
+                                                                        "table": null,
+                                                                        "column": "prop_id"
+                                                                    },
+                                                                    "right": {
+                                                                        "type": "expr_list",
+                                                                        "value": [
+                                                                            {
+                                                                                "tableList": [
+                                                                                    "select::null::advanced_options",
+                                                                                    "select::null::properties"
+                                                                                ],
+                                                                                "columnList": [
+                                                                                    "select::null::(.*)",
+                                                                                    "select::null::id",
+                                                                                    "select::null::prop_id",
+                                                                                    "select::null::name",
+                                                                                    "select::null::xxx",
+                                                                                    "select::null::yyy"
+                                                                                ],
+                                                                                "ast": {
+                                                                                    "with": null,
+                                                                                    "type": "select",
+                                                                                    "options": null,
+                                                                                    "distinct": null,
+                                                                                    "columns": [
+                                                                                        {
+                                                                                            "expr": {
+                                                                                                "type": "column_ref",
+                                                                                                "table": null,
+                                                                                                "column": "prop_id"
+                                                                                            },
+                                                                                            "as": null
+                                                                                        }
+                                                                                    ],
+                                                                                    "into": {
+                                                                                        "position": null
+                                                                                    },
+                                                                                    "from": [
+                                                                                        {
+                                                                                            "db": null,
+                                                                                            "table": "advanced_options",
+                                                                                            "as": null
+                                                                                        }
+                                                                                    ],
+                                                                                    "where": {
+                                                                                        "type": "binary_expr",
+                                                                                        "operator": "AND",
+                                                                                        "left": {
+                                                                                            "type": "binary_expr",
+                                                                                            "operator": "=",
+                                                                                            "left": {
+                                                                                                "type": "column_ref",
+                                                                                                "table": null,
+                                                                                                "column": "name"
+                                                                                            },
+                                                                                            "right": {
+                                                                                                "type": "single_quote_string",
+                                                                                                "value": "Walking distance to pub"
+                                                                                            }
+                                                                                        },
+                                                                                        "right": {
+                                                                                            "type": "binary_expr",
+                                                                                            "operator": "IN",
+                                                                                            "left": {
+                                                                                                "type": "column_ref",
+                                                                                                "table": null,
+                                                                                                "column": "prop_id"
+                                                                                            },
+                                                                                            "right": {
+                                                                                                "type": "expr_list",
+                                                                                                "value": [
+                                                                                                    {
+                                                                                                        "tableList": [
+                                                                                                            "select::null::advanced_options",
+                                                                                                            "select::null::properties"
+                                                                                                        ],
+                                                                                                        "columnList": [
+                                                                                                            "select::null::(.*)",
+                                                                                                            "select::null::id",
+                                                                                                            "select::null::prop_id",
+                                                                                                            "select::null::name",
+                                                                                                            "select::null::xxx",
+                                                                                                            "select::null::yyy"
+                                                                                                        ],
+                                                                                                        "ast": {
+                                                                                                            "with": null,
+                                                                                                            "type": "select",
+                                                                                                            "options": null,
+                                                                                                            "distinct": null,
+                                                                                                            "columns": [
+                                                                                                                {
+                                                                                                                    "expr": {
+                                                                                                                        "type": "column_ref",
+                                                                                                                        "table": null,
+                                                                                                                        "column": "prop_id"
+                                                                                                                    },
+                                                                                                                    "as": null
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "into": {
+                                                                                                                "position": null
+                                                                                                            },
+                                                                                                            "from": [
+                                                                                                                {
+                                                                                                                    "db": null,
+                                                                                                                    "table": "advanced_options",
+                                                                                                                    "as": null
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "where": {
+                                                                                                                "type": "binary_expr",
+                                                                                                                "operator": "AND",
+                                                                                                                "left": {
+                                                                                                                    "type": "binary_expr",
+                                                                                                                    "operator": "=",
+                                                                                                                    "left": {
+                                                                                                                        "type": "column_ref",
+                                                                                                                        "table": null,
+                                                                                                                        "column": "name"
+                                                                                                                    },
+                                                                                                                    "right": {
+                                                                                                                        "type": "single_quote_string",
+                                                                                                                        "value": "Swimming pool"
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                "right": {
+                                                                                                                    "type": "binary_expr",
+                                                                                                                    "operator": "IN",
+                                                                                                                    "left": {
+                                                                                                                        "type": "column_ref",
+                                                                                                                        "table": null,
+                                                                                                                        "column": "prop_id"
+                                                                                                                    },
+                                                                                                                    "right": {
+                                                                                                                        "type": "expr_list",
+                                                                                                                        "value": [
+                                                                                                                            {
+                                                                                                                                "tableList": [
+                                                                                                                                    "select::null::advanced_options",
+                                                                                                                                    "select::null::properties"
+                                                                                                                                ],
+                                                                                                                                "columnList": [
+                                                                                                                                    "select::null::(.*)",
+                                                                                                                                    "select::null::id",
+                                                                                                                                    "select::null::prop_id",
+                                                                                                                                    "select::null::name",
+                                                                                                                                    "select::null::xxx",
+                                                                                                                                    "select::null::yyy"
+                                                                                                                                ],
+                                                                                                                                "ast": {
+                                                                                                                                    "with": null,
+                                                                                                                                    "type": "select",
+                                                                                                                                    "options": null,
+                                                                                                                                    "distinct": null,
+                                                                                                                                    "columns": [
+                                                                                                                                        {
+                                                                                                                                            "expr": {
+                                                                                                                                                "type": "column_ref",
+                                                                                                                                                "table": null,
+                                                                                                                                                "column": "prop_id"
+                                                                                                                                            },
+                                                                                                                                            "as": null
+                                                                                                                                        }
+                                                                                                                                    ],
+                                                                                                                                    "into": {
+                                                                                                                                        "position": null
+                                                                                                                                    },
+                                                                                                                                    "from": [
+                                                                                                                                        {
+                                                                                                                                            "db": null,
+                                                                                                                                            "table": "advanced_options",
+                                                                                                                                            "as": null
+                                                                                                                                        }
+                                                                                                                                    ],
+                                                                                                                                    "where": {
+                                                                                                                                        "type": "binary_expr",
+                                                                                                                                        "operator": "AND",
+                                                                                                                                        "left": {
+                                                                                                                                            "type": "binary_expr",
+                                                                                                                                            "operator": "=",
+                                                                                                                                            "left": {
+                                                                                                                                                "type": "column_ref",
+                                                                                                                                                "table": null,
+                                                                                                                                                "column": "xxx"
+                                                                                                                                            },
+                                                                                                                                            "right": {
+                                                                                                                                                "type": "single_quote_string",
+                                                                                                                                                "value": "Sea or River views"
+                                                                                                                                            }
+                                                                                                                                        },
+                                                                                                                                        "right": {
+                                                                                                                                            "type": "binary_expr",
+                                                                                                                                            "operator": "IN",
+                                                                                                                                            "left": {
+                                                                                                                                                "type": "column_ref",
+                                                                                                                                                "table": null,
+                                                                                                                                                "column": "prop_id"
+                                                                                                                                            },
+                                                                                                                                            "right": {
+                                                                                                                                                "type": "expr_list",
+                                                                                                                                                "value": [
+                                                                                                                                                    {
+                                                                                                                                                        "tableList": [
+                                                                                                                                                            "select::null::advanced_options",
+                                                                                                                                                            "select::null::properties"
+                                                                                                                                                        ],
+                                                                                                                                                        "columnList": [
+                                                                                                                                                            "select::null::(.*)",
+                                                                                                                                                            "select::null::id",
+                                                                                                                                                            "select::null::prop_id",
+                                                                                                                                                            "select::null::name",
+                                                                                                                                                            "select::null::xxx",
+                                                                                                                                                            "select::null::yyy"
+                                                                                                                                                        ],
+                                                                                                                                                        "ast": {
+                                                                                                                                                            "with": null,
+                                                                                                                                                            "type": "select",
+                                                                                                                                                            "options": null,
+                                                                                                                                                            "distinct": null,
+                                                                                                                                                            "columns": [
+                                                                                                                                                                {
+                                                                                                                                                                    "expr": {
+                                                                                                                                                                        "type": "column_ref",
+                                                                                                                                                                        "table": null,
+                                                                                                                                                                        "column": "prop_id"
+                                                                                                                                                                    },
+                                                                                                                                                                    "as": null
+                                                                                                                                                                }
+                                                                                                                                                            ],
+                                                                                                                                                            "into": {
+                                                                                                                                                                "position": null
+                                                                                                                                                            },
+                                                                                                                                                            "from": [
+                                                                                                                                                                {
+                                                                                                                                                                    "db": null,
+                                                                                                                                                                    "table": "advanced_options",
+                                                                                                                                                                    "as": null
+                                                                                                                                                                }
+                                                                                                                                                            ],
+                                                                                                                                                            "where": {
+                                                                                                                                                                "type": "binary_expr",
+                                                                                                                                                                "operator": "AND",
+                                                                                                                                                                "left": {
+                                                                                                                                                                    "type": "binary_expr",
+                                                                                                                                                                    "operator": "=",
+                                                                                                                                                                    "left": {
+                                                                                                                                                                        "type": "column_ref",
+                                                                                                                                                                        "table": null,
+                                                                                                                                                                        "column": "name"
+                                                                                                                                                                    },
+                                                                                                                                                                    "right": {
+                                                                                                                                                                        "type": "single_quote_string",
+                                                                                                                                                                        "value": "Pet friendly"
+                                                                                                                                                                    }
+                                                                                                                                                                },
+                                                                                                                                                                "right": {
+                                                                                                                                                                    "type": "binary_expr",
+                                                                                                                                                                    "operator": "IN",
+                                                                                                                                                                    "left": {
+                                                                                                                                                                        "type": "column_ref",
+                                                                                                                                                                        "table": null,
+                                                                                                                                                                        "column": "prop_id"
+                                                                                                                                                                    },
+                                                                                                                                                                    "right": {
+                                                                                                                                                                        "type": "expr_list",
+                                                                                                                                                                        "value": [
+                                                                                                                                                                            {
+                                                                                                                                                                                "tableList": [
+                                                                                                                                                                                    "select::null::advanced_options",
+                                                                                                                                                                                    "select::null::properties"
+                                                                                                                                                                                ],
+                                                                                                                                                                                "columnList": [
+                                                                                                                                                                                    "select::null::(.*)",
+                                                                                                                                                                                    "select::null::id",
+                                                                                                                                                                                    "select::null::prop_id",
+                                                                                                                                                                                    "select::null::name",
+                                                                                                                                                                                    "select::null::xxx",
+                                                                                                                                                                                    "select::null::yyy"
+                                                                                                                                                                                ],
+                                                                                                                                                                                "ast": {
+                                                                                                                                                                                    "with": null,
+                                                                                                                                                                                    "type": "select",
+                                                                                                                                                                                    "options": null,
+                                                                                                                                                                                    "distinct": null,
+                                                                                                                                                                                    "columns": [
+                                                                                                                                                                                        {
+                                                                                                                                                                                            "expr": {
+                                                                                                                                                                                                "type": "column_ref",
+                                                                                                                                                                                                "table": null,
+                                                                                                                                                                                                "column": "prop_id"
+                                                                                                                                                                                            },
+                                                                                                                                                                                            "as": null
+                                                                                                                                                                                        }
+                                                                                                                                                                                    ],
+                                                                                                                                                                                    "into": {
+                                                                                                                                                                                        "position": null
+                                                                                                                                                                                    },
+                                                                                                                                                                                    "from": [
+                                                                                                                                                                                        {
+                                                                                                                                                                                            "db": null,
+                                                                                                                                                                                            "table": "advanced_options",
+                                                                                                                                                                                            "as": null
+                                                                                                                                                                                        }
+                                                                                                                                                                                    ],
+                                                                                                                                                                                    "where": {
+                                                                                                                                                                                        "type": "binary_expr",
+                                                                                                                                                                                        "operator": "AND",
+                                                                                                                                                                                        "left": {
+                                                                                                                                                                                            "type": "binary_expr",
+                                                                                                                                                                                            "operator": "=",
+                                                                                                                                                                                            "left": {
+                                                                                                                                                                                                "type": "column_ref",
+                                                                                                                                                                                                "table": null,
+                                                                                                                                                                                                "column": "yyy"
+                                                                                                                                                                                            },
+                                                                                                                                                                                            "right": {
+                                                                                                                                                                                                "type": "single_quote_string",
+                                                                                                                                                                                                "value": "Open fire, wood burning stove or a real flame fire-place"
+                                                                                                                                                                                            }
+                                                                                                                                                                                        },
+                                                                                                                                                                                        "right": {
+                                                                                                                                                                                            "type": "binary_expr",
+                                                                                                                                                                                            "operator": "IN",
+                                                                                                                                                                                            "left": {
+                                                                                                                                                                                                "type": "column_ref",
+                                                                                                                                                                                                "table": null,
+                                                                                                                                                                                                "column": "prop_id"
+                                                                                                                                                                                            },
+                                                                                                                                                                                            "right": {
+                                                                                                                                                                                                "type": "expr_list",
+                                                                                                                                                                                                "value": [
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        "tableList": [
+                                                                                                                                                                                                            "select::null::advanced_options",
+                                                                                                                                                                                                            "select::null::properties"
+                                                                                                                                                                                                        ],
+                                                                                                                                                                                                        "columnList": [
+                                                                                                                                                                                                            "select::null::(.*)",
+                                                                                                                                                                                                            "select::null::id",
+                                                                                                                                                                                                            "select::null::prop_id",
+                                                                                                                                                                                                            "select::null::name",
+                                                                                                                                                                                                            "select::null::xxx",
+                                                                                                                                                                                                            "select::null::yyy"
+                                                                                                                                                                                                        ],
+                                                                                                                                                                                                        "ast": {
+                                                                                                                                                                                                            "with": null,
+                                                                                                                                                                                                            "type": "select",
+                                                                                                                                                                                                            "options": null,
+                                                                                                                                                                                                            "distinct": null,
+                                                                                                                                                                                                            "columns": [
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                    "expr": {
+                                                                                                                                                                                                                        "type": "column_ref",
+                                                                                                                                                                                                                        "table": null,
+                                                                                                                                                                                                                        "column": "prop_id"
+                                                                                                                                                                                                                    },
+                                                                                                                                                                                                                    "as": null
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                            ],
+                                                                                                                                                                                                            "into": {
+                                                                                                                                                                                                                "position": null
+                                                                                                                                                                                                            },
+                                                                                                                                                                                                            "from": [
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                    "db": null,
+                                                                                                                                                                                                                    "table": "advanced_options",
+                                                                                                                                                                                                                    "as": null
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                            ],
+                                                                                                                                                                                                            "where": {
+                                                                                                                                                                                                                "type": "binary_expr",
+                                                                                                                                                                                                                "operator": "=",
+                                                                                                                                                                                                                "left": {
+                                                                                                                                                                                                                    "type": "column_ref",
+                                                                                                                                                                                                                    "table": null,
+                                                                                                                                                                                                                    "column": "name"
+                                                                                                                                                                                                                },
+                                                                                                                                                                                                                "right": {
+                                                                                                                                                                                                                    "type": "single_quote_string",
+                                                                                                                                                                                                                    "value": "Off road parking"
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                            },
+                                                                                                                                                                                                            "groupby": null,
+                                                                                                                                                                                                            "having": null,
+                                                                                                                                                                                                            "orderby": null,
+                                                                                                                                                                                                            "limit": null,
+                                                                                                                                                                                                            "locking_read": null,
+                                                                                                                                                                                                            "window": null
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                ]
+                                                                                                                                                                                            }
+                                                                                                                                                                                        }
+                                                                                                                                                                                    },
+                                                                                                                                                                                    "groupby": null,
+                                                                                                                                                                                    "having": null,
+                                                                                                                                                                                    "orderby": null,
+                                                                                                                                                                                    "limit": null,
+                                                                                                                                                                                    "locking_read": null,
+                                                                                                                                                                                    "window": null
+                                                                                                                                                                                }
+                                                                                                                                                                            }
+                                                                                                                                                                        ]
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                            },
+                                                                                                                                                            "groupby": null,
+                                                                                                                                                            "having": null,
+                                                                                                                                                            "orderby": null,
+                                                                                                                                                            "limit": null,
+                                                                                                                                                            "locking_read": null,
+                                                                                                                                                            "window": null
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                ]
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    },
+                                                                                                                                    "groupby": null,
+                                                                                                                                    "having": null,
+                                                                                                                                    "orderby": null,
+                                                                                                                                    "limit": null,
+                                                                                                                                    "locking_read": null,
+                                                                                                                                    "window": null
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            },
+                                                                                                            "groupby": null,
+                                                                                                            "having": null,
+                                                                                                            "orderby": null,
+                                                                                                            "limit": null,
+                                                                                                            "locking_read": null,
+                                                                                                            "window": null
+                                                                                                        }
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    "groupby": null,
+                                                                                    "having": null,
+                                                                                    "orderby": null,
+                                                                                    "limit": null,
+                                                                                    "locking_read": null,
+                                                                                    "window": null
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            },
+                                                            "groupby": null,
+                                                            "having": null,
+                                                            "orderby": null,
+                                                            "limit": null,
+                                                            "locking_read": null,
+                                                            "window": null
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "groupby": null,
+                                    "having": null,
+                                    "orderby": null,
+                                    "limit": null,
+                                    "locking_read": null,
+                                    "window": null
+                                }
+                            }
+                        ]
+                    }
+                },
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        },
+        "complexity": 5345304.583
+    }
+]

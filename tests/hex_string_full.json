@@ -14,8 +14,16 @@
             "numbers": [
                 2
             ],
-            "strings": [],
-            "string_types": [],
+            "strings": [
+                "716b626b71",
+                "71626b7071",
+                "78"
+            ],
+            "string_types": [
+                "full_hex_string",
+                "full_hex_string",
+                "full_hex_string"
+            ],
             "tables": [],
             "databases": [],
             "expressions_per_clause": {
@@ -35,7 +43,7 @@
                 "expr_list": 4,
                 "star": 1,
                 "function": 4,
-                "string": 0,
+                "string": 3,
                 "undefined": null,
                 "bigint": null
             },
@@ -221,6 +229,6 @@
                 "window": null
             }
         },
-        "complexity": 27.3125
+        "complexity": 29.8438
     }
 ]
