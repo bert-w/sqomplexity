@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT * FROM tableA WHERE NOT id = 5;\r\n\r\nSELECT * FROM tableb WHERE id != 6;",
+        "query": "SELECT *\r\nFROM tableA\r\nWHERE NOT id = 5;\r\n\r\nSELECT *\r\nFROM tableb\r\nWHERE id != 6;",
         "stats": {
-            "select": 0,
-            "from": 2,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "id"
             ],
@@ -18,17 +12,17 @@
             ],
             "strings": [],
             "string_types": [],
-            "tables": [
-                null
-            ],
+            "tables": [],
             "databases": [],
             "expressions_per_clause": {
                 "select": 2,
-                "from": 0,
+                "from": 2,
+                "where": 4,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 4
+                "limit": 0,
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 1,
@@ -41,15 +35,12 @@
                 "function": 0,
                 "string": 0
             },
-            "where": null,
             "meta": {
                 "case_usage": [
                     "snake_case"
                 ],
                 "quote_usage": [],
-                "table_usage": [
-                    null
-                ],
+                "table_usage": [],
                 "database_usage": []
             }
         },

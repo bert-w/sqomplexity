@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT users.id, COUNT(users.income)\r\nFROM users\r\n         JOIN tests ON tests.user_id = users.id\r\nGROUP BY user_id, tests.test_id\r\nHAVING COUNT(users.income) > 100 AND COUNT(users.test) > 50\r\nORDER BY COUNT(users.income) ASC\r\nLIMIT 5 OFFSET 10;",
+        "query": "SELECT users.id, COUNT(users.income)\r\nFROM users\r\n         JOIN tests ON tests.user_id = users.id\r\nGROUP BY user_id, tests.test_id\r\nHAVING COUNT(users.income) > 100\r\n   AND COUNT(users.test) > 50\r\nORDER BY COUNT(users.income) ASC\r\nLIMIT 5 OFFSET 10;",
         "stats": {
-            "select": 2,
-            "from": 2,
-            "group_by": 2,
-            "having": 1,
-            "order_by": 1,
-            "limit": 1,
-            "offset": 1,
+            "subqueries": 0,
             "columns": [
                 "id",
                 "income",
@@ -31,8 +25,8 @@
                 "users",
                 "users",
                 "tests",
+                "tests",
                 "users",
-                null,
                 "tests",
                 "users",
                 "users",
@@ -41,11 +35,14 @@
             "databases": [],
             "expressions_per_clause": {
                 "select": 3,
-                "from": 3,
+                "from": 1,
+                "where": 0,
                 "group_by": 2,
                 "having": 9,
                 "order_by": 2,
-                "where": 0
+                "limit": 1,
+                "offset": 1,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -56,8 +53,10 @@
                 "expr_list": 0,
                 "star": 0,
                 "function": 0,
-                "string": 0
+                "string": 0,
+                "undefined": null
             },
+            "select": null,
             "meta": {
                 "case_usage": [
                     "snake_case"
@@ -65,8 +64,7 @@
                 "quote_usage": [],
                 "table_usage": [
                     "users",
-                    "tests",
-                    null
+                    "tests"
                 ],
                 "database_usage": []
             }
@@ -249,6 +247,6 @@
                 }
             ]
         },
-        "complexity": 13.8125
+        "complexity": 14.3125
     }
 ]

@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT concat( mid(DueDate, 7, 4)) as DueDate FROM TableName",
+        "query": "SELECT concat(mid(DueDate, 7, 4)) as DueDate\r\nFROM TableName",
         "stats": {
-            "select": 1,
-            "from": 1,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "DueDate"
             ],
@@ -19,17 +13,17 @@
             ],
             "strings": [],
             "string_types": [],
-            "tables": [
-                null
-            ],
+            "tables": [],
             "databases": [],
             "expressions_per_clause": {
                 "select": 7,
-                "from": 0,
+                "from": 1,
+                "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 0
+                "limit": 0,
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -42,14 +36,13 @@
                 "function": 2,
                 "string": 0
             },
+            "select": null,
             "meta": {
                 "case_usage": [
                     "PascalCase"
                 ],
                 "quote_usage": [],
-                "table_usage": [
-                    null
-                ],
+                "table_usage": [],
                 "database_usage": []
             }
         },

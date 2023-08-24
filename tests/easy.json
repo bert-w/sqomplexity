@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT * FROM users",
+        "query": "SELECT *\r\nFROM users",
         "stats": {
-            "select": 0,
-            "from": 1,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [],
             "numbers": [],
             "strings": [],
@@ -18,11 +12,13 @@
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
-                "from": 0,
+                "from": 1,
+                "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 0
+                "limit": 0,
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,

@@ -3,13 +3,7 @@
         "dialect": "mysql",
         "query": "SELECT onoffid\r\nFROM DSLServiceOnsandOffs\r\nWHERE insertDate = '2017-02-14'\r\n  AND `Service_No` = x'323439533313034'\r\n  AND `PON` = x'33330343230'\r\n  AND `Order_No` = x'393313833'\r\n  AND `Segment_No` = x'31'\r\n  AND `Completion_Date` = '2017-02-13'\r\n  AND `On_Off` = x'4f4e'\r\n",
         "stats": {
-            "select": 1,
-            "from": 1,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "onoffid",
                 "insertDate",
@@ -39,24 +33,17 @@
                 "single_quote_string",
                 "hex_string"
             ],
-            "tables": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            ],
+            "tables": [],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
-                "from": 0,
+                "from": 1,
+                "where": 27,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 27
+                "limit": 0,
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -69,7 +56,7 @@
                 "function": 0,
                 "string": 7
             },
-            "where": null,
+            "select": null,
             "meta": {
                 "case_usage": [
                     "snake_case",
@@ -80,9 +67,7 @@
                 "quote_usage": [
                     "single"
                 ],
-                "table_usage": [
-                    null
-                ],
+                "table_usage": [],
                 "database_usage": []
             }
         },

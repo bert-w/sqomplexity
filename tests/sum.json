@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT\r\n    year, country, product, profit,\r\n    SUM(profit) OVER() AS total_profit,\r\n    SUM(profit) OVER(PARTITION BY country) AS country_profit\r\nFROM sales\r\nORDER BY country, year, product, profit;",
+        "query": "SELECT year,\r\n       country,\r\n       product,\r\n       profit,\r\n       SUM(profit) OVER ()                     AS total_profit,\r\n       SUM(profit) OVER (PARTITION BY country) AS country_profit\r\nFROM sales\r\nORDER BY country, year, product, profit;",
         "stats": {
-            "select": 6,
-            "from": 1,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 4,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "year",
                 "country",
@@ -25,26 +19,17 @@
             "numbers": [],
             "strings": [],
             "string_types": [],
-            "tables": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            ],
+            "tables": [],
             "databases": [],
             "expressions_per_clause": {
                 "select": 8,
-                "from": 0,
+                "from": 1,
+                "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 4,
-                "where": 0
+                "limit": 0,
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -57,14 +42,13 @@
                 "function": 0,
                 "string": 0
             },
+            "select": null,
             "meta": {
                 "case_usage": [
                     "snake_case"
                 ],
                 "quote_usage": [],
-                "table_usage": [
-                    null
-                ],
+                "table_usage": [],
                 "database_usage": []
             }
         },

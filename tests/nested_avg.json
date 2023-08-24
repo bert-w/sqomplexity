@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT Name, Salary\r\nFROM Employees e\r\nWHERE Salary > (\r\n    SELECT AVG(Salary)\r\n    FROM Salaries s\r\n    WHERE s.DepartmentID = e.DepartmentID\r\n);",
+        "query": "SELECT Name, Salary\r\nFROM Employees e\r\nWHERE Salary > (SELECT AVG(Salary)\r\n                FROM Salaries s\r\n                WHERE s.DepartmentID = e.DepartmentID);",
         "stats": {
-            "select": 2,
-            "from": 2,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 1,
             "columns": [
                 "Name",
                 "Salary",
@@ -22,31 +16,20 @@
             "strings": [],
             "string_types": [],
             "tables": [
-                "Name",
-                "Salary",
-                "Salary",
-                "Salary",
-                "DepartmentID",
-                "DepartmentID",
-                null,
                 "s",
                 "e"
             ],
-            "databases": [
-                "Name",
-                "Salary",
-                "Salary",
-                "Salary",
-                "DepartmentID",
-                "DepartmentID"
-            ],
+            "databases": [],
             "expressions_per_clause": {
                 "select": 4,
-                "from": 0,
+                "from": 2,
+                "where": 6,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 6
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -60,25 +43,17 @@
                 "string": 0,
                 "undefined": null
             },
-            "where": null,
+            "select": null,
             "meta": {
                 "case_usage": [
                     "PascalCase"
                 ],
                 "quote_usage": [],
                 "table_usage": [
-                    "Name",
-                    "Salary",
-                    "DepartmentID",
-                    null,
                     "s",
                     "e"
                 ],
-                "database_usage": [
-                    "Name",
-                    "Salary",
-                    "DepartmentID"
-                ]
+                "database_usage": []
             }
         },
         "ast": {

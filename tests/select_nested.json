@@ -3,13 +3,7 @@
         "dialect": "mysql",
         "query": "SELECT order_id,\r\n       order_date,\r\n       (SELECT COUNT(*) FROM order_items WHERE order_items.order_id = orders.order_id) AS item_count\r\nFROM orders;",
         "stats": {
-            "select": 3,
-            "from": 2,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 1,
             "columns": [
                 "order_id",
                 "order_date",
@@ -20,26 +14,20 @@
             "strings": [],
             "string_types": [],
             "tables": [
-                "order_id",
-                "order_date",
-                "order_id",
-                "order_id",
                 "order_items",
                 "orders"
             ],
-            "databases": [
-                "order_id",
-                "order_date",
-                "order_id",
-                "order_id"
-            ],
+            "databases": [],
             "expressions_per_clause": {
                 "select": 5,
-                "from": 0,
+                "from": 2,
+                "where": 3,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 3
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -53,21 +41,17 @@
                 "string": 0,
                 "undefined": null
             },
+            "select": null,
             "meta": {
                 "case_usage": [
                     "snake_case"
                 ],
                 "quote_usage": [],
                 "table_usage": [
-                    "order_id",
-                    "order_date",
                     "order_items",
                     "orders"
                 ],
-                "database_usage": [
-                    "order_id",
-                    "order_date"
-                ]
+                "database_usage": []
             }
         },
         "ast": {

@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT *\r\nFROM users\r\nWHERE Id IN (SELECT UserId\r\n             FROM orders\r\n             WHERE CreationDate > '2020-01-01' AND Status = 1)",
+        "query": "SELECT *\r\nFROM users\r\nWHERE Id IN (SELECT UserId\r\n             FROM orders\r\n             WHERE CreationDate > '2020-01-01'\r\n               AND Status = 1)",
         "stats": {
-            "select": 0,
-            "from": 2,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 1,
             "columns": [
                 "Id",
                 "UserId",
@@ -23,28 +17,18 @@
             "string_types": [
                 "single_quote_string"
             ],
-            "tables": [
-                "Id",
-                "UserId",
-                "CreationDate",
-                "Status",
-                null,
-                null,
-                null
-            ],
-            "databases": [
-                "Id",
-                "UserId",
-                "CreationDate",
-                "Status"
-            ],
+            "tables": [],
+            "databases": [],
             "expressions_per_clause": {
                 "select": 2,
-                "from": 0,
+                "from": 2,
+                "where": 11,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 11
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -58,7 +42,6 @@
                 "string": 1,
                 "undefined": null
             },
-            "where": null,
             "meta": {
                 "case_usage": [
                     "PascalCase"
@@ -66,19 +49,8 @@
                 "quote_usage": [
                     "single"
                 ],
-                "table_usage": [
-                    "Id",
-                    "UserId",
-                    "CreationDate",
-                    "Status",
-                    null
-                ],
-                "database_usage": [
-                    "Id",
-                    "UserId",
-                    "CreationDate",
-                    "Status"
-                ]
+                "table_usage": [],
+                "database_usage": []
             }
         },
         "ast": {

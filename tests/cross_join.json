@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT * FROM tableA\r\nCROSS JOIN tableB ON tableA.id = tableB.id;",
+        "query": "SELECT *\r\nFROM tableA\r\n         CROSS JOIN tableB ON tableA.id = tableB.id;",
         "stats": {
-            "select": 0,
-            "from": 2,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "id",
                 "id"
@@ -18,17 +12,21 @@
             "strings": [],
             "string_types": [],
             "tables": [
+                "tableB",
                 "tableA",
                 "tableB"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
-                "from": 3,
+                "from": 1,
+                "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 0
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -39,7 +37,8 @@
                 "expr_list": 0,
                 "star": 1,
                 "function": 0,
-                "string": 0
+                "string": 0,
+                "undefined": null
             },
             "meta": {
                 "case_usage": [
@@ -47,8 +46,8 @@
                 ],
                 "quote_usage": [],
                 "table_usage": [
-                    "tableA",
-                    "tableB"
+                    "tableB",
+                    "tableA"
                 ],
                 "database_usage": []
             }
@@ -110,6 +109,6 @@
                 }
             ]
         },
-        "complexity": 3.25
+        "complexity": 3.75
     }
 ]

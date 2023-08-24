@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT  * from my_table WHERE enabled = b'0';\r\n",
+        "query": "SELECT *\r\nfrom my_table\r\nWHERE enabled = b'0';\r\n",
         "stats": {
-            "select": 0,
-            "from": 1,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "enabled"
             ],
@@ -20,17 +14,17 @@
             "string_types": [
                 "bit_string"
             ],
-            "tables": [
-                null
-            ],
+            "tables": [],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
-                "from": 0,
+                "from": 1,
+                "where": 3,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 3
+                "limit": 0,
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -43,15 +37,12 @@
                 "function": 0,
                 "string": 1
             },
-            "where": null,
             "meta": {
                 "case_usage": [
                     "snake_case"
                 ],
                 "quote_usage": [],
-                "table_usage": [
-                    null
-                ],
+                "table_usage": [],
                 "database_usage": []
             }
         },

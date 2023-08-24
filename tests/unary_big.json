@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT\r\n    'Fattura Prodotti Postali' AS `type`,\r\n    SUM(dpd.qta) AS `products_count_quantity`,\r\n    COUNT(dpd.IDlavorazione_dett) AS `products_count`,\r\n    GROUP_CONCAT(DISTINCT dp.prod_totali - CAST(dp.opzione1 AS UNSIGNED) SEPARATOR ' |-| ') AS `process_products_count`,\r\n    GROUP_CONCAT(DISTINCT dp.IDdistinta) AS `product_code`,\r\n    GROUP_CONCAT(DISTINCT dp.data_distinta) AS `process_date`,\r\n    GROUP_CONCAT(DISTINCT dp.IDesito) AS `process_status_id`,\r\n    GROUP_CONCAT(DISTINCT dp.note) AS `process_note`,\r\n    GROUP_CONCAT(DISTINCT dp.IDlavorazione) AS `unique_id`,\r\n    SUM(dpd.tariffa) AS `products_total`,\r\n    SUM(IF(o.IDdoc IS NULL,1,0)*dpd.qta) AS `tobill_count_quantity`,\r\n    SUM(IF(NOT o.IDdoc IS NULL,1,0)*dpd.qta) AS `billed_count_quantity`,\r\n    SUM(IF(o.IDdoc IS NULL,1,0)) AS `tobill_count`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa,0)) AS `tobill_total`,\r\n    SUM(IF(NOT o.IDdoc IS NULL,1,0)) AS `billed_count`,\r\n    SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa,0)) AS `billed_total`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa,0)-IF(NOT o.IDdoc IS NULL, dpd.tariffa,0)) AS `bill_diff`,\r\n    COUNT(dpd.IDlavorazione_dett) AS `products_count`,\r\n    SUM(dpd.tariffa) AS `products_total`,\r\n    SUM(dpd.tariffa*(dpd.iva/100)) AS `products_vat`,\r\n    SUM(dpd.tariffa*(dpd.sconto/100.0)) AS `products_discount`,\r\n    SUM(dpd.tariffa*(1.0-dpd.sconto/100.0)*(dpd.iva/100)) AS `products_discount_vat`,\r\n    SUM(dpd.tariffa*(1+(dpd.iva/100.0))) AS `products_total_vat`,\r\n    SUM(ROUND(dpd.tariffa*(1.0-dpd.sconto/100.0),5)) AS `products_total_discount`,\r\n    SUM(dpd.tariffa*(1.0-dpd.sconto/100.0)*(1+(dpd.iva/100.0))) AS `products_total_discount_vat`,\r\n    SUM(dpd.qta) AS `products_quantity`,\r\n    SUM(IF(o.IDdoc IS NULL,1,0)) AS `tobill_count`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa,0)) AS `tobill_total`,\r\n    SUM(IF(o.IDdoc IS NULL, dpd.tariffa*(1+(dpd.iva/100.0)),0)) AS `tobill_total_vat`,\r\n    SUM(IF(NOT o.IDdoc IS NULL,1,0)) AS `billed_count`,\r\n    SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa,0)) AS `billed_total`,\r\n    SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa*(1+(dpd.iva/100.0)),0)) AS `billed_total_vat`\r\nFROM doc_prodottipostali_dett dpd\r\n         INNER JOIN tracking t ON (dpd.IDlavorazione_dett=t.product_id)\r\n         LEFT JOIN prodotti_pp ppp ON (dpd.IDprodotto=ppp.IDprodotto)\r\n         LEFT JOIN categorie_pp cpp ON (ppp.categoria=cpp.IDcategoria)\r\n         LEFT JOIN categorie_pp cppp ON (CAST(dpd.IDcategoria AS UNSIGNED)=cppp.IDcategoria)\r\n         INNER JOIN doc_prodottipostali dp ON (dpd.IDlavorazione=dp.IDlavorazione)\r\n         LEFT JOIN ordini o ON (dpd.IDfattura=o.IDdoc)\r\nWHERE\r\n    (\r\n            (dp.tipo = 'PT' AND t.date >= '2022-05-15 00:00:00' AND t.date <= '2022-07-26 23:59:59') AND\r\n            ((IF(dpd.IDprodotto>0, cpp.codice, IF(CAST(dpd.IDcategoria AS UNSIGNED)>0, cppp.codice, 'NONE')) NOT IN ('LAW','AR','CAD','EMESSOCAD') OR IF(dpd.IDprodotto>0, cpp.codice, IF(CAST(dpd.IDcategoria AS UNSIGNED)>0, cppp.codice, 'NONE')) IS NULL)) AND\r\n            ((t.last IN (-1,2,3,6,7,10,11,34,35,130,131,258,514,4098,4354,8194,8450))) AND\r\n            (((dp.opzione2 = 'PI' AND dp.data_distinta < '2022-08-25')) OR ((dp.data_distinta >= '2022-08-25')) OR ((o.IDdoc >= '1'))) AND\r\n            (((t.last IN (-1,2,3,6,7,10,11,34,35,130,131,258,514,4098,4354,8194,8450))))\r\n        ) AND\r\n    (\r\n        ((NOT t.last IN (-1,4,5,6,7,20,21,132,133,149,516,532,1028,1157,8197)))\r\n        )\r\nGROUP BY dpd.IDlavorazione\r\nHAVING (1=1 AND ((tobill_count > '0')))\r\nORDER BY dp.data_distinta ASC;",
+        "query": "SELECT 'Fattura Prodotti Postali'                                                              AS `type`,\r\n       SUM(dpd.qta)                                                                            AS `products_count_quantity`,\r\n       COUNT(dpd.IDlavorazione_dett)                                                           AS `products_count`,\r\n       GROUP_CONCAT(DISTINCT dp.prod_totali - CAST(dp.opzione1 AS UNSIGNED) SEPARATOR\r\n                    ' |-| ')                                                                   AS `process_products_count`,\r\n       GROUP_CONCAT(DISTINCT dp.IDdistinta)                                                    AS `product_code`,\r\n       GROUP_CONCAT(DISTINCT dp.data_distinta)                                                 AS `process_date`,\r\n       GROUP_CONCAT(DISTINCT dp.IDesito)                                                       AS `process_status_id`,\r\n       GROUP_CONCAT(DISTINCT dp.note)                                                          AS `process_note`,\r\n       GROUP_CONCAT(DISTINCT dp.IDlavorazione)                                                 AS `unique_id`,\r\n       SUM(dpd.tariffa)                                                                        AS `products_total`,\r\n       SUM(IF(o.IDdoc IS NULL, 1, 0) * dpd.qta)                                                AS `tobill_count_quantity`,\r\n       SUM(IF(NOT o.IDdoc IS NULL, 1, 0) * dpd.qta)                                            AS `billed_count_quantity`,\r\n       SUM(IF(o.IDdoc IS NULL, 1, 0))                                                          AS `tobill_count`,\r\n       SUM(IF(o.IDdoc IS NULL, dpd.tariffa, 0))                                                AS `tobill_total`,\r\n       SUM(IF(NOT o.IDdoc IS NULL, 1, 0))                                                      AS `billed_count`,\r\n       SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa, 0))                                            AS `billed_total`,\r\n       SUM(IF(o.IDdoc IS NULL, dpd.tariffa, 0) - IF(NOT o.IDdoc IS NULL, dpd.tariffa, 0))      AS `bill_diff`,\r\n       COUNT(dpd.IDlavorazione_dett)                                                           AS `products_count`,\r\n       SUM(dpd.tariffa)                                                                        AS `products_total`,\r\n       SUM(dpd.tariffa * (dpd.iva / 100))                                                      AS `products_vat`,\r\n       SUM(dpd.tariffa * (dpd.sconto / 100.0))                                                 AS `products_discount`,\r\n       SUM(dpd.tariffa * (1.0 - dpd.sconto / 100.0) * (dpd.iva / 100))                         AS `products_discount_vat`,\r\n       SUM(dpd.tariffa * (1 + (dpd.iva / 100.0)))                                              AS `products_total_vat`,\r\n       SUM(ROUND(dpd.tariffa * (1.0 - dpd.sconto / 100.0), 5))                                 AS `products_total_discount`,\r\n       SUM(dpd.tariffa * (1.0 - dpd.sconto / 100.0) * (1 + (dpd.iva / 100.0)))                 AS `products_total_discount_vat`,\r\n       SUM(dpd.qta)                                                                            AS `products_quantity`,\r\n       SUM(IF(o.IDdoc IS NULL, 1, 0))                                                          AS `tobill_count`,\r\n       SUM(IF(o.IDdoc IS NULL, dpd.tariffa, 0))                                                AS `tobill_total`,\r\n       SUM(IF(o.IDdoc IS NULL, dpd.tariffa * (1 + (dpd.iva / 100.0)), 0))                      AS `tobill_total_vat`,\r\n       SUM(IF(NOT o.IDdoc IS NULL, 1, 0))                                                      AS `billed_count`,\r\n       SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa, 0))                                            AS `billed_total`,\r\n       SUM(IF(NOT o.IDdoc IS NULL, dpd.tariffa * (1 + (dpd.iva / 100.0)), 0))                  AS `billed_total_vat`\r\nFROM doc_prodottipostali_dett dpd\r\n         INNER JOIN tracking t ON (dpd.IDlavorazione_dett = t.product_id)\r\n         LEFT JOIN prodotti_pp ppp ON (dpd.IDprodotto = ppp.IDprodotto)\r\n         LEFT JOIN categorie_pp cpp ON (ppp.categoria = cpp.IDcategoria)\r\n         LEFT JOIN categorie_pp cppp ON (CAST(dpd.IDcategoria AS UNSIGNED) = cppp.IDcategoria)\r\n         INNER JOIN doc_prodottipostali dp ON (dpd.IDlavorazione = dp.IDlavorazione)\r\n         LEFT JOIN ordini o ON (dpd.IDfattura = o.IDdoc)\r\nWHERE (\r\n        (dp.tipo = 'PT' AND t.date >= '2022-05-15 00:00:00' AND t.date <= '2022-07-26 23:59:59') AND\r\n        ((IF(dpd.IDprodotto > 0, cpp.codice, IF(CAST(dpd.IDcategoria AS UNSIGNED) > 0, cppp.codice, 'NONE')) NOT IN\r\n          ('LAW', 'AR', 'CAD', 'EMESSOCAD') OR IF(dpd.IDprodotto > 0, cpp.codice,\r\n                                                  IF(CAST(dpd.IDcategoria AS UNSIGNED) > 0, cppp.codice, 'NONE')) IS NULL)) AND\r\n        ((t.last IN (-1, 2, 3, 6, 7, 10, 11, 34, 35, 130, 131, 258, 514, 4098, 4354, 8194, 8450))) AND\r\n        (((dp.opzione2 = 'PI' AND dp.data_distinta < '2022-08-25')) OR ((dp.data_distinta >= '2022-08-25')) OR\r\n         ((o.IDdoc >= '1'))) AND\r\n        (((t.last IN (-1, 2, 3, 6, 7, 10, 11, 34, 35, 130, 131, 258, 514, 4098, 4354, 8194, 8450))))\r\n    )\r\n  AND (\r\n    ((NOT t.last IN (-1, 4, 5, 6, 7, 20, 21, 132, 133, 149, 516, 532, 1028, 1157, 8197)))\r\n    )\r\nGROUP BY dpd.IDlavorazione\r\nHAVING (1 = 1 AND ((tobill_count > '0')))\r\nORDER BY dp.data_distinta ASC;",
         "stats": {
-            "select": 32,
-            "from": 7,
-            "group_by": 1,
-            "having": 1,
-            "order_by": 1,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "qta",
                 "IDlavorazione_dett",
@@ -246,15 +240,21 @@
                 "dpd",
                 "dpd",
                 "dpd",
+                "tracking",
                 "dpd",
                 "t",
+                "prodotti_pp",
                 "dpd",
                 "ppp",
+                "categorie_pp",
                 "ppp",
                 "cpp",
+                "categorie_pp",
                 "cppp",
+                "doc_prodottipostali",
                 "dpd",
                 "dp",
+                "ordini",
                 "dpd",
                 "o",
                 "dp",
@@ -273,17 +273,19 @@
                 "o",
                 "t",
                 "dpd",
-                null,
                 "dp"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 198,
-                "from": 18,
+                "from": 1,
+                "where": 107,
                 "group_by": 1,
                 "having": 7,
                 "order_by": 1,
-                "where": 107
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 8,
@@ -296,9 +298,10 @@
                 "function": 19,
                 "string": 15,
                 "cast": null,
-                "null": null
+                "null": null,
+                "undefined": null
             },
-            "where": null,
+            "select": null,
             "meta": {
                 "case_usage": [
                     "snake_case",
@@ -313,11 +316,15 @@
                     "dpd",
                     "dp",
                     "o",
+                    "tracking",
                     "t",
+                    "prodotti_pp",
                     "ppp",
+                    "categorie_pp",
                     "cpp",
                     "cppp",
-                    null
+                    "doc_prodottipostali",
+                    "ordini"
                 ],
                 "database_usage": []
             }
@@ -2322,6 +2329,6 @@
                 }
             ]
         },
-        "complexity": 187.1875
+        "complexity": 190.1875
     }
 ]

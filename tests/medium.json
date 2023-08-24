@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT users.*, roles.id AS role_id, COUNT(*) AS test, COUNT(DISTINCT id)\r\nFROM roles, (SELECT column1 FROM table1 WHERE column1 > 100) AS t1\r\n         JOIN users_to_roles ON users_to_roles.role_id = roles.id\r\n         JOIN users ON users.id = users_to_roles.user_id AND users.id=5\r\nWHERE roles.name = \"student\" AND roles.id = 5 AND roles.id IN (\r\n    SELECT id FROM roles JOIN users ON users.id = roles.user_id\r\n)\r\nORDER BY users.username",
+        "query": "SELECT users.*, roles.id AS role_id, COUNT(*) AS test, COUNT(DISTINCT id)\r\nFROM roles,\r\n     (SELECT column1 FROM table1 WHERE column1 > 100) AS t1\r\n         JOIN users_to_roles ON users_to_roles.role_id = roles.id\r\n         JOIN users ON users.id = users_to_roles.user_id AND users.id = 5\r\nWHERE roles.name = \"student\"\r\n  AND roles.id = 5\r\n  AND roles.id IN (SELECT id\r\n                   FROM roles\r\n                            JOIN users ON users.id = roles.user_id)\r\nORDER BY users.username",
         "stats": {
-            "select": 4,
-            "from": 7,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 1,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 2,
             "columns": [
                 "*",
                 "id",
@@ -40,52 +34,34 @@
                 "string"
             ],
             "tables": [
-                "*",
-                "id",
-                "id",
-                "column1",
-                "column1",
-                "role_id",
-                "id",
-                "id",
-                "user_id",
-                "id",
-                "name",
-                "id",
-                "id",
-                "id",
-                "id",
-                "user_id",
-                null,
+                "users",
+                "roles",
+                "users_to_roles",
+                "users_to_roles",
+                "roles",
+                "users",
+                "users",
+                "users_to_roles",
+                "users",
+                "roles",
+                "roles",
+                "roles",
+                "users",
                 "users",
                 "roles",
                 "users"
             ],
-            "databases": [
-                "*",
-                "id",
-                "id",
-                "column1",
-                "column1",
-                "role_id",
-                "id",
-                "id",
-                "user_id",
-                "id",
-                "name",
-                "id",
-                "id",
-                "id",
-                "id",
-                "user_id"
-            ],
+            "databases": [],
             "expressions_per_clause": {
                 "select": 8,
-                "from": 14,
+                "from": 4,
+                "where": 15,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 1,
-                "where": 15
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -99,7 +75,7 @@
                 "string": 1,
                 "undefined": null
             },
-            "where": null,
+            "select": null,
             "meta": {
                 "case_usage": [
                     "UPPERCASE",
@@ -110,24 +86,11 @@
                     "double"
                 ],
                 "table_usage": [
-                    "*",
-                    "id",
-                    "column1",
-                    "role_id",
-                    "user_id",
-                    "name",
-                    null,
                     "users",
-                    "roles"
+                    "roles",
+                    "users_to_roles"
                 ],
-                "database_usage": [
-                    "*",
-                    "id",
-                    "column1",
-                    "role_id",
-                    "user_id",
-                    "name"
-                ]
+                "database_usage": []
             }
         },
         "ast": {
@@ -478,6 +441,6 @@
                 "window": null
             }
         },
-        "complexity": 26.625
+        "complexity": 28.375
     }
 ]

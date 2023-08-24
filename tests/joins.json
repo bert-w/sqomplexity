@@ -1,18 +1,10 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT *\r\nFROM users u\r\n     LEFT JOIN tableA a ON a.id = u.id\r\n     LEFT OUTER join tableB b ON b.id = u.id\r\n     RIGHT OUTER JOIN tableC c ON c.id = u.id\r\n     RIGHT JOIN tableC c ON c.id = u.id\r\n     CROSS JOIN tableD d ON d.id = u.id\r\n     INNER JOIN tableE e ON e.id = u.id;\r\n",
+        "query": "SELECT *\r\nFROM users u\r\n         LEFT JOIN tableA a ON a.id = u.id\r\n         LEFT OUTER join tableB b ON b.id = u.id\r\n         RIGHT OUTER JOIN tableC c ON c.id = u.id\r\n         RIGHT JOIN tableC c ON c.id = u.id\r\n         CROSS JOIN tableD d\r\n         INNER JOIN tableE e ON e.id = u.id;\r\n",
         "stats": {
-            "select": 0,
-            "from": 7,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
-                "id",
-                "id",
                 "id",
                 "id",
                 "id",
@@ -28,38 +20,46 @@
             "strings": [],
             "string_types": [],
             "tables": [
+                "tableA",
                 "a",
                 "u",
+                "tableB",
                 "b",
                 "u",
+                "tableC",
                 "c",
                 "u",
+                "tableC",
                 "c",
                 "u",
-                "d",
-                "u",
+                "tableD",
+                "tableE",
                 "e",
                 "u"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
-                "from": 18,
+                "from": 1,
+                "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 0
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
-                "binary_expr": 6,
+                "binary_expr": 5,
                 "number": 0,
-                "column_ref": 12,
+                "column_ref": 10,
                 "aggr_func": 0,
                 "expr_list": 0,
                 "star": 1,
                 "function": 0,
-                "string": 0
+                "string": 0,
+                "undefined": null
             },
             "meta": {
                 "case_usage": [
@@ -67,11 +67,15 @@
                 ],
                 "quote_usage": [],
                 "table_usage": [
+                    "tableA",
                     "a",
                     "u",
+                    "tableB",
                     "b",
+                    "tableC",
                     "c",
-                    "d",
+                    "tableD",
+                    "tableE",
                     "e"
                 ],
                 "database_usage": []
@@ -92,7 +96,6 @@
                 "select::users::id",
                 "select::tableB::id",
                 "select::tableC::id",
-                "select::tableD::id",
                 "select::tableE::id"
             ],
             "ast": [
@@ -196,20 +199,7 @@
                             "table": "tableD",
                             "as": "d",
                             "join": "CROSS JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "d",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "u",
-                                    "column": "id"
-                                }
-                            }
+                            "on": null
                         },
                         {
                             "db": null,
@@ -242,6 +232,6 @@
                 }
             ]
         },
-        "complexity": 14.5
+        "complexity": 16
     }
 ]

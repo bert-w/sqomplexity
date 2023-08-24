@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "with cte as (\r\n    select\r\n        id,\r\n        amount,\r\n        case when amount > 1000 then 0 else amount end sm,\r\n        case when amount > 1000 then 0 else 1 end keep\r\n    from mytable\r\n    where id = 1\r\n    union all\r\n    select\r\n        t.id,\r\n        t.amount,\r\n        case when c.sm + t.amount > 1000 then c.sm else c.sm + t.amount end,\r\n        case when c.sm + t.amount > 1000 then 0 else 1 end\r\n    from cte c\r\n             inner join mytable t on t.id = c.id + 1\r\n)\r\nselect id, amount from cte where keep = 1 order by id",
+        "query": "with cte as (select id,\r\n                    amount,\r\n                    case when amount > 1000 then 0 else amount end sm,\r\n                    case when amount > 1000 then 0 else 1 end      keep\r\n             from mytable\r\n             where id = 1\r\n             union all\r\n             select t.id,\r\n                    t.amount,\r\n                    case when c.sm + t.amount > 1000 then c.sm else c.sm + t.amount end,\r\n                    case when c.sm + t.amount > 1000 then 0 else 1 end\r\n             from cte c\r\n                      inner join mytable t on t.id = c.id + 1)\r\nselect id, amount\r\nfrom cte\r\nwhere keep = 1\r\norder by id",
         "stats": {
-            "select": 2,
-            "from": 1,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 1,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 0,
             "columns": [
                 "id",
                 "amount",
@@ -21,20 +15,17 @@
             ],
             "strings": [],
             "string_types": [],
-            "tables": [
-                null,
-                null,
-                null,
-                null
-            ],
+            "tables": [],
             "databases": [],
             "expressions_per_clause": {
                 "select": 2,
-                "from": 0,
+                "from": 1,
+                "where": 3,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 1,
-                "where": 3
+                "limit": 0,
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -47,15 +38,13 @@
                 "function": 0,
                 "string": 0
             },
-            "where": null,
+            "select": null,
             "meta": {
                 "case_usage": [
                     "snake_case"
                 ],
                 "quote_usage": [],
-                "table_usage": [
-                    null
-                ],
+                "table_usage": [],
                 "database_usage": []
             }
         },

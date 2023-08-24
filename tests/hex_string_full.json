@@ -3,13 +3,7 @@
         "dialect": "mysql",
         "query": "SELECT 2 * (IF((SELECT *\r\n                FROM (SELECT CONCAT(0x716b626b71,\r\n                                    (SELECT (ELT(9092 = 9092, 1)))\r\n                                 , 0x71626b7071, 0x78)) s), 8446744073709551610, 8446744073709551610))\r\n",
         "stats": {
-            "select": 1,
-            "from": 1,
-            "group_by": 0,
-            "having": 0,
-            "order_by": 0,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 2,
             "columns": [],
             "numbers": [
                 2
@@ -29,10 +23,13 @@
             "expressions_per_clause": {
                 "select": 21,
                 "from": 1,
+                "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
-                "where": 0
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -47,6 +44,7 @@
                 "undefined": null,
                 "bigint": null
             },
+            "select": null,
             "meta": {
                 "case_usage": [],
                 "quote_usage": [],

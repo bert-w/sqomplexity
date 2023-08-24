@@ -1,1 +1,4 @@
-SELECT * FROM tableA, tableB WHERE id > 5
+SELECT *
+FROM tableA,
+     tableB
+WHERE id > 5

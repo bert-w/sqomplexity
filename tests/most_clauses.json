@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT titles.publication_id, AVG(titles.price)\r\nFROM titles\r\n         INNER JOIN authors\r\n                    ON titles.publication_id = authors.publication_id\r\nWHERE authors.status = 'approved' AND\r\n        authors.country_id IN (\r\n        SELECT id\r\n        FROM countries\r\n        WHERE continent = 'Europe'\r\n    )\r\nGROUP BY titles.publication_id\r\nHAVING AVG(price) > 10\r\nORDER BY titles.publication_id ASC;",
+        "query": "SELECT titles.publication_id, AVG(titles.price)\r\nFROM titles\r\n         INNER JOIN authors\r\n                    ON titles.publication_id = authors.publication_id\r\nWHERE authors.status = 'approved'\r\n  AND authors.country_id IN (SELECT id\r\n                             FROM countries\r\n                             WHERE continent = 'Europe')\r\nGROUP BY titles.publication_id\r\nHAVING AVG(price) > 10\r\nORDER BY titles.publication_id ASC;",
         "stats": {
-            "select": 2,
-            "from": 3,
-            "group_by": 1,
-            "having": 1,
-            "order_by": 1,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 1,
             "columns": [
                 "publication_id",
                 "price",
@@ -35,37 +29,27 @@
                 "single_quote_string"
             ],
             "tables": [
-                "publication_id",
-                "price",
-                "publication_id",
-                "publication_id",
-                "status",
-                "country_id",
-                "id",
-                "continent",
-                null,
-                null,
                 "titles",
-                null,
+                "titles",
+                "authors",
+                "titles",
+                "authors",
+                "authors",
+                "authors",
+                "titles",
                 "titles"
             ],
-            "databases": [
-                "publication_id",
-                "price",
-                "publication_id",
-                "publication_id",
-                "status",
-                "country_id",
-                "id",
-                "continent"
-            ],
+            "databases": [],
             "expressions_per_clause": {
                 "select": 4,
-                "from": 3,
+                "from": 2,
+                "where": 11,
                 "group_by": 1,
                 "having": 4,
                 "order_by": 1,
-                "where": 11
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -79,7 +63,7 @@
                 "string": 2,
                 "undefined": null
             },
-            "where": null,
+            "select": null,
             "meta": {
                 "case_usage": [
                     "snake_case"
@@ -88,23 +72,10 @@
                     "single"
                 ],
                 "table_usage": [
-                    "publication_id",
-                    "price",
-                    "status",
-                    "country_id",
-                    "id",
-                    "continent",
-                    null,
-                    "titles"
+                    "titles",
+                    "authors"
                 ],
-                "database_usage": [
-                    "publication_id",
-                    "price",
-                    "status",
-                    "country_id",
-                    "id",
-                    "continent"
-                ]
+                "database_usage": []
             }
         },
         "ast": {
@@ -317,6 +288,6 @@
                 }
             ]
         },
-        "complexity": 15.75
+        "complexity": 16.25
     }
 ]

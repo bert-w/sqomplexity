@@ -1,15 +1,9 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT\r\n    QuestionId,\r\n    QuestionUserId,\r\n    QuestionCreationDate,\r\n    QuestionSQLComplexity,\r\n    ROW_NUMBER() OVER (PARTITION BY QuestionUserId ORDER BY QuestionCreationDate) AS Ordering\r\nFROM\r\n    features\r\nWHERE QuestionUserId IN (SELECT QuestionUserId FROM features GROUP BY QuestionUserId HAVING COUNT(QuestionUserId) > 3)\r\nORDER BY QuestionUserId ASC, QuestionCreationDate ASC;",
+        "query": "SELECT QuestionId,\r\n       QuestionUserId,\r\n       QuestionCreationDate,\r\n       QuestionSQLComplexity,\r\n       ROW_NUMBER() OVER (PARTITION BY QuestionUserId ORDER BY QuestionCreationDate) AS Ordering\r\nFROM features\r\nWHERE QuestionUserId IN (SELECT QuestionUserId FROM features GROUP BY QuestionUserId HAVING COUNT(QuestionUserId) > 3)\r\nORDER BY QuestionUserId ASC, QuestionCreationDate ASC;",
         "stats": {
-            "select": 5,
-            "from": 2,
-            "group_by": 1,
-            "having": 1,
-            "order_by": 2,
-            "limit": 0,
-            "offset": 0,
+            "subqueries": 1,
             "columns": [
                 "QuestionId",
                 "QuestionUserId",
@@ -25,38 +19,18 @@
             "numbers": [],
             "strings": [],
             "string_types": [],
-            "tables": [
-                "QuestionId",
-                "QuestionUserId",
-                "QuestionCreationDate",
-                "QuestionSQLComplexity",
-                "QuestionUserId",
-                "QuestionUserId",
-                "QuestionUserId",
-                "QuestionUserId",
-                null,
-                null,
-                null,
-                null,
-                null
-            ],
-            "databases": [
-                "QuestionId",
-                "QuestionUserId",
-                "QuestionCreationDate",
-                "QuestionSQLComplexity",
-                "QuestionUserId",
-                "QuestionUserId",
-                "QuestionUserId",
-                "QuestionUserId"
-            ],
+            "tables": [],
+            "databases": [],
             "expressions_per_clause": {
                 "select": 7,
-                "from": 0,
+                "from": 2,
+                "where": 4,
                 "group_by": 1,
                 "having": 4,
                 "order_by": 2,
-                "where": 4
+                "limit": 0,
+                "offset": 0,
+                "join": null
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -70,25 +44,14 @@
                 "string": 0,
                 "undefined": null
             },
-            "where": null,
+            "select": null,
             "meta": {
                 "case_usage": [
                     "PascalCase"
                 ],
                 "quote_usage": [],
-                "table_usage": [
-                    "QuestionId",
-                    "QuestionUserId",
-                    "QuestionCreationDate",
-                    "QuestionSQLComplexity",
-                    null
-                ],
-                "database_usage": [
-                    "QuestionId",
-                    "QuestionUserId",
-                    "QuestionCreationDate",
-                    "QuestionSQLComplexity"
-                ]
+                "table_usage": [],
+                "database_usage": []
             }
         },
         "ast": {

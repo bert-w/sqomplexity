@@ -28,27 +28,26 @@ export class Calculator {
          * @private
          */
         this.stats = {
-            select: 0, // >= 0
-            from: 0, // >= 0
-            group_by: 0, // >= 0
-            having: 0, // >= 0
-            order_by: 0, // >= 0
-            limit: 0, // 0 or 1
-            offset: 0, // 0 or 1
+            subqueries: 0, // >= 0
+
             columns: [],
             numbers: [],
             strings: [],
             string_types: [],
             tables: [],
             databases: [],
+
             expressions_per_clause: {
                 select: 0,
                 from: 0,
+                where: 0,
                 group_by: 0,
                 having: 0,
                 order_by: 0,
-                where: 0,
+                limit: 0,
+                offset: 0,
             },
+
             expressions_per_type: {
                 unary_expr: 0,
                 binary_expr: 0,
@@ -136,12 +135,13 @@ export class Calculator {
     /**
      * Apply a calculation to a nested expression, increasing the nesting level.
      * @param {object|array} ast
-     * @param {this} parent Parent object to add the stats to.
      * @returns {number}
      */
-    _calculateNested(ast, parent) {
+    _calculateNested(ast) {
         const calculator = (new Calculator(ast, this.weights, this.nesting + 1));
-        parent._addStats(calculator.stats);
+        // Add stats to the parent (this).
+        this._addStats(calculator.stats);
+        this.stats.subqueries++;
 
         return calculator.score;
     }
@@ -173,15 +173,6 @@ export class Calculator {
         let score = 0;
         (ast.from || []).forEach((i) => {
             score += this.weights.from._base;
-            this.stats.from++;
-
-            // JOIN type.
-            score += this._map(i.join, {
-                'left join': this.weights.from.left_join,
-                'right join': this.weights.from.right_join,
-                'inner join': this.weights.from.inner_join,
-                'cross join': this.weights.from.cross_join,
-            });
 
             if (i.db) {
                 // Database prefix.
@@ -189,14 +180,28 @@ export class Calculator {
                 this.stats.databases.push(i.db);
             }
 
-            if (i.expr) {
-                // Subexpression.
-                score += this._expression(i.expr, 'from');
-            }
+            if (i.join) {
+                // JOIN type.
+                score += this._expression({
+                    table: i.table,
+                }, 'join');
 
-            if (_(i, 'on.type') === 'binary_expr') {
-                // Conditions.
-                score += this._expression(i.on, 'from');
+                score += this._map(i.join, {
+                    'left join': this.weights.from.left_join,
+                    'right join': this.weights.from.right_join,
+                    'inner join': this.weights.from.inner_join,
+                    'cross join': this.weights.from.cross_join,
+                });
+
+                if (i.on) {
+                    score += this._expression(i.on, 'join');
+                }
+            } else if (i.expr) {
+                // Subexpression like a subquery.
+                score += this._expression(i.expr, 'from');
+            } else {
+                // Count anything else as a FROM expression.
+                this.stats.expressions_per_clause.from++;
             }
         });
 
@@ -206,7 +211,6 @@ export class Calculator {
     _calculateGroupBy(ast) {
         let score = 0;
         (ast.groupby || []).forEach((el) => {
-            this.stats.group_by++;
             score += this.weights.m_group_by * this._expression(el, 'group_by');
         });
 
@@ -216,7 +220,6 @@ export class Calculator {
     _calculateHaving(ast) {
         let score = 0;
         if (_(ast, 'having.type') === 'binary_expr') {
-            this.stats.having++;
             score += this.weights.m_having * this._expression(ast.having, 'having')
         }
 
@@ -226,13 +229,13 @@ export class Calculator {
     _calculateLimitOffset(ast) {
         if (_(ast, 'limit.separator') === 'offset') {
             // LIMIT and OFFSET provided.
-            this.stats.limit++;
-            this.stats.offset++;
+            this.stats.expressions_per_clause.limit++;
+            this.stats.expressions_per_clause.offset++;
             return this.weights.limit + this.weights.offset;
         }
 
         if (ast.limit) {
-            this.stats.limit++;
+            this.stats.expressions_per_clause.limit++;
             return this.weights.limit;
         }
 
@@ -243,7 +246,6 @@ export class Calculator {
         let score = 0;
         if (ast.orderby) {
             ast.orderby.forEach((el) => {
-                this.stats.order_by++;
                 score += this.weights.m_order_by * this._expression(el.expr, 'order_by');
             });
         }
@@ -253,7 +255,6 @@ export class Calculator {
 
     _calculateWhere(ast) {
         if (ast.where) {
-            this.stats.where++;
             return this.weights.m_where * this._expression(ast.where, 'where');
         }
 
@@ -261,11 +262,10 @@ export class Calculator {
     }
 
     _map(el, map, ifNull = 0, ifNoMap = 0) {
-        if (el == null) {
-            return ifNull;
+        if (el != null) {
+            return map[el.toLowerCase()] || ifNoMap;
         }
-
-        return map[el.toLowerCase()] || ifNoMap;
+        return ifNull;
     }
 
     /**
@@ -335,13 +335,13 @@ export class Calculator {
                 break;
         }
 
-        if (expr.table !== undefined) {
+        if (expr.table != null) {
             // `null` values are pushed too (intended).
             this.stats.tables.push(expr.table);
         }
 
         if (expr.ast) {
-            score += this._calculateNested(expr.ast, this);
+            score += this._calculateNested(expr.ast);
         }
 
         if (expr.args && expr.args.expr) {
@@ -409,24 +409,22 @@ export class Calculator {
      * @private
      */
     _addStats(stats) {
-        this.stats.from += stats.from;
-        this.stats.group_by += stats.group_by;
-        this.stats.having += stats.having;
-        this.stats.order_by += stats.order_by;
-        this.stats.limit += stats.limit;
-        this.stats.offset += stats.offset;
+        this.stats.subqueries += stats.subqueries;
         this.stats.strings = this.stats.strings.concat(stats.strings);
         this.stats.string_types = this.stats.string_types.concat(stats.string_types);
         this.stats.columns = this.stats.columns.concat(stats.columns);
-        this.stats.tables = this.stats.columns.concat(stats.tables);
-        this.stats.databases = this.stats.columns.concat(stats.databases);
+        this.stats.tables = this.stats.tables.concat(stats.tables);
+        this.stats.databases = this.stats.databases.concat(stats.databases);
 
         this.stats.expressions_per_clause.select += stats.expressions_per_clause.select;
         this.stats.expressions_per_clause.from += stats.expressions_per_clause.from;
+        this.stats.expressions_per_clause.join += stats.expressions_per_clause.join;
+        this.stats.expressions_per_clause.where += stats.expressions_per_clause.where;
         this.stats.expressions_per_clause.group_by += stats.expressions_per_clause.group_by;
         this.stats.expressions_per_clause.having += stats.expressions_per_clause.having;
         this.stats.expressions_per_clause.order_by += stats.expressions_per_clause.order_by;
-        this.stats.expressions_per_clause.where += stats.expressions_per_clause.where;
+        this.stats.expressions_per_clause.limit += stats.expressions_per_clause.limit;
+        this.stats.expressions_per_clause.offset += stats.expressions_per_clause.offset;
 
         this.stats.expressions_per_type.binary_expr += stats.expressions_per_type.binary_expr;
         this.stats.expressions_per_type.unary_expr += stats.expressions_per_type.unary_expr;
