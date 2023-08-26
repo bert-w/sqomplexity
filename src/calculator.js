@@ -261,9 +261,18 @@ export class Calculator {
         return 0;
     }
 
-    _map(el, map, ifNull = 0, ifNoMap = 0) {
+    /**
+     * Map a given input to a key in a score object.
+     * @param {string} el
+     * @param {object} scores
+     * @param {number} ifNull Score to assign if the given el is null or undefined.
+     * @param {number} ifNoMap Score to assign if the given el cannot be found in the map.
+     * @returns {number}
+     * @private
+     */
+    _map(el, scores, ifNull = 0, ifNoMap = 0) {
         if (el != null) {
-            return map[el.toLowerCase()] || ifNoMap;
+            return scores.hasOwnProperty(el.toLowerCase()) ? scores[el.toLowerCase()] : ifNoMap;
         }
         return ifNull;
     }
@@ -276,16 +285,9 @@ export class Calculator {
      */
     _expression(expr, clause) {
         let score = this.weights.expressions._base;
-        score += this._map(expr.operator, {
-            or: this.weights.expressions.operators.or,
-            in: this.weights.expressions.operators.in,
-            and: this.weights.expressions.operators.and,
-            '=': this.weights.expressions.operators['='],
-            '>': this.weights.expressions.operators['>'],
-            '<': this.weights.expressions.operators['<'],
-            '>=': this.weights.expressions.operators['>='],
-            '<=': this.weights.expressions.operators['<='],
-        }, 0, this.weights.expressions.operators._base);
+
+        // Add weight for specific operator.
+        score += this._map(expr.operator, this.weights.expressions.operators, 0, this.weights.expressions.operators._base);
 
         this.stats.expressions_per_clause[clause]++;
 
@@ -354,7 +356,8 @@ export class Calculator {
 
     /**
      * Determines the casing (camelcase/snakecase/titlecase) for the input.
-     * @param str
+     * @param {string} str
+     * @returns {string}
      * @private
      */
     _getStringCase(str) {
@@ -437,6 +440,14 @@ export class Calculator {
         this.stats.expressions_per_type.string += stats.expressions_per_type.string;
     }
 
+    /**
+     * Callback function for filtering unique values in an array.
+     * @param {any} value
+     * @param {number} index
+     * @param {array} array
+     * @returns {boolean}
+     * @private
+     */
     _unique(value, index, array) {
         return array.indexOf(value) === index;
     }
