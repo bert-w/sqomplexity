@@ -31,11 +31,13 @@
             "tables": [
                 "titles",
                 "titles",
-                "authors",
+                "titles",
                 "titles",
                 "authors",
                 "authors",
                 "authors",
+                "authors",
+                "countries",
                 "titles",
                 "titles"
             ],
@@ -43,13 +45,13 @@
             "expressions_per_clause": {
                 "select": 4,
                 "from": 2,
+                "join": 4,
                 "where": 11,
                 "group_by": 1,
                 "having": 4,
                 "order_by": 1,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -61,6 +63,7 @@
                 "star": 0,
                 "function": 0,
                 "string": 2,
+                "table": null,
                 "undefined": null
             },
             "select": null,
@@ -265,6 +268,6 @@
                 "window": null
             }
         ],
-        "complexity": 16.25
+        "complexity": 17.5
     }
 ]

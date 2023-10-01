@@ -12,11 +12,15 @@
             ],
             "strings": [],
             "string_types": [],
-            "tables": [],
+            "tables": [
+                "tableA",
+                "tableb"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 2,
                 "from": 2,
+                "join": 0,
                 "where": 4,
                 "group_by": 0,
                 "having": 0,
@@ -33,7 +37,8 @@
                 "expr_list": 0,
                 "star": 2,
                 "function": 0,
-                "string": 0
+                "string": 0,
+                "table": null
             },
             "case_usage": [
                 "snake_case"
@@ -119,6 +124,6 @@
                 "window": null
             }
         ],
-        "complexity": 4
+        "complexity": 5
     }
 ]

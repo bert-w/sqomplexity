@@ -20,34 +20,35 @@
             "strings": [],
             "string_types": [],
             "tables": [
-                "tableA",
+                "users",
                 "a",
                 "u",
-                "tableB",
+                "tableA",
                 "b",
                 "u",
-                "tableC",
+                "tableB",
                 "c",
                 "u",
                 "tableC",
                 "c",
                 "u",
+                "tableC",
                 "tableD",
-                "tableE",
                 "e",
-                "u"
+                "u",
+                "tableE"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
                 "from": 1,
+                "join": 21,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -59,7 +60,7 @@
                 "star": 1,
                 "function": 0,
                 "string": 0,
-                "undefined": null
+                "table": null
             },
             "case_usage": [
                 "snake_case"
@@ -200,6 +201,6 @@
                 "window": null
             }
         ],
-        "complexity": 16
+        "complexity": 16.5
     }
 ]

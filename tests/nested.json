@@ -17,18 +17,21 @@
             "string_types": [
                 "single_quote_string"
             ],
-            "tables": [],
+            "tables": [
+                "users",
+                "orders"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 2,
                 "from": 2,
+                "join": 0,
                 "where": 11,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -40,6 +43,7 @@
                 "star": 1,
                 "function": 0,
                 "string": 1,
+                "table": null,
                 "undefined": null
             },
             "case_usage": [
@@ -162,6 +166,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 9.5
+        "complexity": 10.75
     }
 ]

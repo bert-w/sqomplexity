@@ -23,13 +23,13 @@
             "expressions_per_clause": {
                 "select": 21,
                 "from": 1,
+                "join": 0,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,

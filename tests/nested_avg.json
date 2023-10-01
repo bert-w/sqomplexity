@@ -16,6 +16,8 @@
             "strings": [],
             "string_types": [],
             "tables": [
+                "Employees",
+                "Salaries",
                 "s",
                 "e"
             ],
@@ -23,13 +25,13 @@
             "expressions_per_clause": {
                 "select": 4,
                 "from": 2,
+                "join": 0,
                 "where": 6,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -41,6 +43,7 @@
                 "star": 0,
                 "function": 0,
                 "string": 0,
+                "table": null,
                 "undefined": null
             },
             "select": null,
@@ -166,6 +169,6 @@
                 "window": null
             }
         ],
-        "complexity": 7.5
+        "complexity": 8.75
     }
 ]

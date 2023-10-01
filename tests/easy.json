@@ -8,11 +8,14 @@
             "numbers": [],
             "strings": [],
             "string_types": [],
-            "tables": [],
+            "tables": [
+                "users"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
                 "from": 1,
+                "join": 0,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,
@@ -29,7 +32,8 @@
                 "expr_list": 0,
                 "star": 1,
                 "function": 0,
-                "string": 0
+                "string": 0,
+                "table": null
             },
             "case_usage": [],
             "quote_usage": [],
@@ -59,6 +63,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 0.75
+        "complexity": 1.25
     }
 ]

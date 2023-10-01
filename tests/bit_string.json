@@ -14,11 +14,14 @@
             "string_types": [
                 "bit_string"
             ],
-            "tables": [],
+            "tables": [
+                "my_table"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
                 "from": 1,
+                "join": 0,
                 "where": 3,
                 "group_by": 0,
                 "having": 0,
@@ -35,7 +38,8 @@
                 "expr_list": 0,
                 "star": 1,
                 "function": 0,
-                "string": 1
+                "string": 1,
+                "table": null
             },
             "case_usage": [
                 "snake_case"
@@ -82,6 +86,6 @@
                 "window": null
             }
         ],
-        "complexity": 2.5
+        "complexity": 3
     }
 ]

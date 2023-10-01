@@ -1,0 +1,121 @@
+[
+    {
+        "dialect": "mysql",
+        "query": "# Testcase for cycle detection where aliases are set but not always used.\r\nSELECT *\r\nFROM table_a a\r\n         JOIN table_b b ON a.id = b.id\r\n         JOIN table_c c ON table_b.id = table_a.id",
+        "stats": {
+            "subqueries": 0,
+            "columns": [
+                "id",
+                "id",
+                "id",
+                "id"
+            ],
+            "numbers": [],
+            "strings": [],
+            "string_types": [],
+            "tables": [
+                "table_a",
+                "a",
+                "b",
+                "table_b",
+                "table_b",
+                "table_a",
+                "table_c"
+            ],
+            "databases": [],
+            "expressions_per_clause": {
+                "select": 1,
+                "from": 1,
+                "join": 8,
+                "where": 0,
+                "group_by": 0,
+                "having": 0,
+                "order_by": 0,
+                "limit": 0,
+                "offset": 0
+            },
+            "expressions_per_type": {
+                "unary_expr": 0,
+                "binary_expr": 2,
+                "number": 0,
+                "column_ref": 4,
+                "aggr_func": 0,
+                "expr_list": 0,
+                "star": 1,
+                "function": 0,
+                "string": 0,
+                "table": null
+            },
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": true
+        },
+        "ast": {
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": "*",
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "table_a",
+                    "as": "a"
+                },
+                {
+                    "db": null,
+                    "table": "table_b",
+                    "as": "b",
+                    "join": "INNER JOIN",
+                    "on": {
+                        "type": "binary_expr",
+                        "operator": "=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": "a",
+                            "column": "id"
+                        },
+                        "right": {
+                            "type": "column_ref",
+                            "table": "b",
+                            "column": "id"
+                        }
+                    }
+                },
+                {
+                    "db": null,
+                    "table": "table_c",
+                    "as": "c",
+                    "join": "INNER JOIN",
+                    "on": {
+                        "type": "binary_expr",
+                        "operator": "=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": "table_b",
+                            "column": "id"
+                        },
+                        "right": {
+                            "type": "column_ref",
+                            "table": "table_a",
+                            "column": "id"
+                        }
+                    }
+                }
+            ],
+            "where": null,
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
+        },
+        "complexity": 6.75
+    }
+]

@@ -51,18 +51,28 @@
                 "single_quote_string",
                 "single_quote_string"
             ],
-            "tables": [],
+            "tables": [
+                "properties",
+                "advanced_options",
+                "advanced_options",
+                "advanced_options",
+                "advanced_options",
+                "advanced_options",
+                "advanced_options",
+                "advanced_options",
+                "advanced_options"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 9,
                 "from": 9,
+                "join": 0,
                 "where": 63,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -74,6 +84,7 @@
                 "star": 1,
                 "function": 0,
                 "string": 8,
+                "table": null,
                 "undefined": null
             },
             "case_usage": [
@@ -720,6 +731,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 5345304.583
+        "complexity": 6482748.4888
     }
 ]

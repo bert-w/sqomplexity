@@ -19,18 +19,21 @@
             "numbers": [],
             "strings": [],
             "string_types": [],
-            "tables": [],
+            "tables": [
+                "features",
+                "features"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 7,
                 "from": 2,
+                "join": 0,
                 "where": 4,
                 "group_by": 1,
                 "having": 4,
                 "order_by": 2,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -42,6 +45,7 @@
                 "star": 0,
                 "function": 1,
                 "string": 0,
+                "table": null,
                 "undefined": null
             },
             "select": null,
@@ -253,6 +257,6 @@
                 "window": null
             }
         ],
-        "complexity": 12.75
+        "complexity": 14
     }
 ]

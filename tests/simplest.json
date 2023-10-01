@@ -15,6 +15,7 @@
             "expressions_per_clause": {
                 "select": 1,
                 "from": 0,
+                "join": 0,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,

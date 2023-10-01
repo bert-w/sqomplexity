@@ -15,19 +15,21 @@
             "string_types": [],
             "tables": [
                 "order_items",
+                "order_items",
+                "orders",
                 "orders"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 5,
                 "from": 2,
+                "join": 0,
                 "where": 3,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -39,7 +41,8 @@
                 "star": 1,
                 "function": 0,
                 "string": 0,
-                "undefined": null
+                "undefined": null,
+                "table": null
             },
             "select": null,
             "case_usage": [
@@ -158,6 +161,6 @@
                 "window": null
             }
         ],
-        "complexity": 6.25
+        "complexity": 7.5
     }
 ]

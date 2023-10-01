@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "# Assumes a table `friends` where for some friend relation there exist 2 rows in a single friendship relation,\r\n# e.g. A (`left_user_id`) to B (`right_user_id`) and B (`left_user_id`) to A (`right_user_id`).\r\nSELECT *\r\nFROM users u\r\n         JOIN friends f1 ON u.id = f1.left_user_id\r\n         JOIN friends f2 ON f1.left_user_id = f2.right_user_id\r\n         JOIN friends f3 ON f2.right_user_id = f3.left_user_id AND f3.left_user_id = u.id\r\n",
+        "query": "# Assumes a table `friends` where a friend relation is given by a single row\r\n# connecting a `left_user_id` to a `right_user_id`.\r\nSELECT *\r\nFROM users u\r\n         JOIN friends f1 ON u.id = f1.left_user_id\r\n         JOIN friends f2 ON f1.left_user_id = f2.right_user_id\r\n         JOIN friends f3 ON f2.right_user_id = f3.left_user_id AND f3.left_user_id = u.id\r\n",
         "stats": {
             "subqueries": 0,
             "columns": [
@@ -18,7 +18,7 @@
             "strings": [],
             "string_types": [],
             "tables": [
-                "friends",
+                "users",
                 "u",
                 "f1",
                 "friends",
@@ -28,19 +28,20 @@
                 "f2",
                 "f3",
                 "f3",
-                "u"
+                "u",
+                "friends"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
                 "from": 1,
+                "join": 16,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -52,7 +53,7 @@
                 "star": 1,
                 "function": 0,
                 "string": 0,
-                "undefined": null
+                "table": null
             },
             "case_usage": [
                 "snake_case"
@@ -162,6 +163,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 11
+        "complexity": 11.5
     }
 ]

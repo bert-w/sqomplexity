@@ -13,11 +13,14 @@
             ],
             "strings": [],
             "string_types": [],
-            "tables": [],
+            "tables": [
+                "TableName"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 7,
                 "from": 1,
+                "join": 0,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,
@@ -34,7 +37,8 @@
                 "expr_list": 2,
                 "star": 0,
                 "function": 2,
-                "string": 0
+                "string": 0,
+                "table": null
             },
             "select": null,
             "case_usage": [
@@ -104,6 +108,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 3.75
+        "complexity": 4.25
     }
 ]

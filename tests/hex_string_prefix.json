@@ -33,11 +33,14 @@
                 "single_quote_string",
                 "hex_string"
             ],
-            "tables": [],
+            "tables": [
+                "DSLServiceOnsandOffs"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 1,
                 "from": 1,
+                "join": 0,
                 "where": 27,
                 "group_by": 0,
                 "having": 0,
@@ -54,7 +57,8 @@
                 "expr_list": 0,
                 "star": 0,
                 "function": 0,
-                "string": 7
+                "string": 7,
+                "table": null
             },
             "select": null,
             "case_usage": [
@@ -220,6 +224,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 16.5
+        "complexity": 17
     }
 ]

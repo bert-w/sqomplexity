@@ -17,21 +17,22 @@
             "strings": [],
             "string_types": [],
             "tables": [
-                "departments",
+                "employees",
                 "dept_salaries",
+                "departments",
                 "departments"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 5,
                 "from": 2,
+                "join": 4,
                 "where": 0,
                 "group_by": 1,
                 "having": 0,
                 "order_by": 0,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -43,7 +44,8 @@
                 "star": 0,
                 "function": 0,
                 "string": 0,
-                "undefined": null
+                "undefined": null,
+                "table": null
             },
             "select": null,
             "case_usage": [
@@ -179,6 +181,6 @@
                 "window": null
             }
         ],
-        "complexity": 8.4375
+        "complexity": 9.1875
     }
 ]

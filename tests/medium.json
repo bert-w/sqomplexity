@@ -36,32 +36,35 @@
             "tables": [
                 "users",
                 "roles",
+                "roles",
+                "table1",
                 "users_to_roles",
-                "users_to_roles",
                 "roles",
-                "users",
-                "users",
                 "users_to_roles",
                 "users",
+                "users_to_roles",
+                "users",
+                "users",
+                "roles",
                 "roles",
                 "roles",
                 "roles",
                 "users",
-                "users",
                 "roles",
+                "users",
                 "users"
             ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 8,
                 "from": 4,
+                "join": 16,
                 "where": 15,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 1,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 0,
@@ -73,6 +76,7 @@
                 "star": 1,
                 "function": 0,
                 "string": 1,
+                "table": null,
                 "undefined": null
             },
             "select": null,
@@ -414,6 +418,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 28.375
+        "complexity": 30.375
     }
 ]

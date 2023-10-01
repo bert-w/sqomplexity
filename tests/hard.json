@@ -15,11 +15,14 @@
             ],
             "strings": [],
             "string_types": [],
-            "tables": [],
+            "tables": [
+                "cte"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 2,
                 "from": 1,
+                "join": 0,
                 "where": 3,
                 "group_by": 0,
                 "having": 0,
@@ -36,7 +39,8 @@
                 "expr_list": 0,
                 "star": 0,
                 "function": 0,
-                "string": 0
+                "string": 0,
+                "table": null
             },
             "select": null,
             "case_usage": [
@@ -427,6 +431,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 3.125
+        "complexity": 3.625
     }
 ]

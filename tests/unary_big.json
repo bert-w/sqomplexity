@@ -240,23 +240,24 @@
                 "dpd",
                 "dpd",
                 "dpd",
-                "tracking",
+                "doc_prodottipostali_dett",
                 "dpd",
                 "t",
-                "prodotti_pp",
+                "tracking",
                 "dpd",
                 "ppp",
-                "categorie_pp",
+                "prodotti_pp",
                 "ppp",
                 "cpp",
                 "categorie_pp",
                 "cppp",
-                "doc_prodottipostali",
+                "categorie_pp",
                 "dpd",
                 "dp",
-                "ordini",
+                "doc_prodottipostali",
                 "dpd",
                 "o",
+                "ordini",
                 "dp",
                 "t",
                 "t",
@@ -279,13 +280,13 @@
             "expressions_per_clause": {
                 "select": 198,
                 "from": 1,
+                "join": 24,
                 "where": 107,
                 "group_by": 1,
                 "having": 7,
                 "order_by": 1,
                 "limit": 0,
-                "offset": 0,
-                "join": null
+                "offset": 0
             },
             "expressions_per_type": {
                 "unary_expr": 8,
@@ -299,7 +300,7 @@
                 "string": 15,
                 "cast": null,
                 "null": null,
-                "undefined": null
+                "table": null
             },
             "select": null,
             "case_usage": [
@@ -2274,6 +2275,6 @@
                 "window": null
             }
         ],
-        "complexity": 189.0625
+        "complexity": 189.5625
     }
 ]

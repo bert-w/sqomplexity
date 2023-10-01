@@ -19,11 +19,14 @@
             "numbers": [],
             "strings": [],
             "string_types": [],
-            "tables": [],
+            "tables": [
+                "sales"
+            ],
             "databases": [],
             "expressions_per_clause": {
                 "select": 8,
                 "from": 1,
+                "join": 0,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,
@@ -40,7 +43,8 @@
                 "expr_list": 0,
                 "star": 0,
                 "function": 0,
-                "string": 0
+                "string": 0,
+                "table": null
             },
             "select": null,
             "case_usage": [
@@ -202,6 +206,6 @@
                 "window": null
             }
         ],
-        "complexity": 6.25
+        "complexity": 6.75
     }
 ]
