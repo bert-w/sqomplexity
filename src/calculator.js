@@ -5,11 +5,18 @@ import _ from 'lodash.get';
  */
 export class Calculator {
     /**
-     * @param {object} ast
+     * @param {Sqomplexity.AST[]|Sqomplexity.AST} asts
      * @param {Sqomplexity.Weights} weights
      * @param {int} nesting
+     * @param {{expression: Sqomplexity.Hook[]}} hooks
      */
-    constructor(ast, weights, nesting = 0) {
+    constructor(asts, weights, nesting = 0, hooks = {}) {
+        /**
+         * @type {Sqomplexity.AST[]}
+         * @private
+         */
+        this.asts = Array.isArray(asts) ? asts : [asts];
+
         /**
          * @type {Sqomplexity.Weights}
          * @private
@@ -21,6 +28,12 @@ export class Calculator {
          * @private
          */
         this.nesting = nesting;
+
+        /**
+         * @type {{expression: Sqomplexity.Hook[]}}
+         * @private
+         */
+        this.hooks = hooks;
 
         /**
          * General stats that keeps a count of clauses and expressions.
@@ -62,39 +75,71 @@ export class Calculator {
         }
 
         /**
-         * @type {number}
-         * @private
-         */
-        this.score = this.calculate(ast);
-
-        /**
          * Stats that depend on the base stats and usually consist of filtered lists to indicate
          * different expression usage.
          * @type {object}
          * @private
          */
-        this.meta_stats = {
-            case_usage: this._calculateCaseUsage(this.stats.columns),
-            quote_usage: this._calculateQuoteUsage(this.stats.string_types),
-            table_usage: this.stats.tables.filter(this._unique),
-            database_usage: this.stats.databases.filter(this._unique),
-        }
+        this.meta_stats = {};
+
+        /**
+         * @type {number|null}
+         * @private
+         */
+        this.score = null;
     }
 
+    /**
+     * @param {string} type
+     * @param {Sqomplexity.Hook} hook
+     * @returns {this}
+     */
+    addHook(type, hook) {
+        if (!this.hooks[type]) {
+            this.hooks[type] = [];
+        }
+        this.hooks[type].push(hook);
+
+        return this;
+    }
+
+    /**
+     * @param {{expression: Sqomplexity.Hook[]}} hooks
+     * @returns {this}
+     */
+    setHooks(hooks) {
+        this.hooks = hooks;
+
+        return this;
+    }
+
+    /**
+     * @returns {object}
+     */
     getStats() {
+        // Retrieve extra data from hooks.
+        const hookMeta = Object.entries(this.hooks).flatMap(([key, value]) => value.map((hook) => hook.stats()));
+        let hookData = {};
+        hookMeta.forEach((value) => hookData = {...hookData, ...value});
+
         return {
             ...this.stats,
-            ...{
-                meta: this.meta_stats,
-            }
+            ...this.meta_stats,
+            ...hookData,
         };
     }
 
+    /**
+     * @returns {number}
+     */
     getScore() {
         return this.weights.m_score * this.score +
             this.weights.m_meta_score * this.getMetaScore();
     }
 
+    /**
+     * @returns {number}
+     */
     getMetaScore() {
         let score = 0;
         score += this.meta_stats.case_usage.length > 1 ? this.weights.meta_score.case_usage * this.meta_stats.case_usage.length : 0;
@@ -104,15 +149,14 @@ export class Calculator {
     }
 
     /**
-     * @param {object|array} ast
-     * @returns {number}
+     * @returns {this}
      */
-    calculate(ast) {
+    calculate() {
         let score = 0;
 
         // Loop AST's. This property will be an array if a query is given
         // with a semicolon at the end.
-        (Array.isArray(ast) ? ast : [ast]).forEach((el) => {
+        this.asts.forEach((el) => {
             score += this._calculateSelect(el);
 
             score += this._calculateFrom(el);
@@ -128,24 +172,48 @@ export class Calculator {
             score += this._calculateOrderBy(el);
         });
 
+
+        this.meta_stats = this._calculateStats();
+
         // Apply multiplier if nesting takes place.
-        return score * Math.pow(this.weights.m_nesting, this.nesting);
+        this.score = score * Math.pow(this.weights.m_nesting, this.nesting);
+
+        return this;
+    }
+
+    /**
+     * @returns {object}
+     * @private
+     */
+    _calculateStats() {
+        return {
+            case_usage: this._calculateCaseUsage(this.stats.columns),
+            quote_usage: this._calculateQuoteUsage(this.stats.string_types),
+        };
     }
 
     /**
      * Apply a calculation to a nested expression, increasing the nesting level.
-     * @param {object|array} ast
+     * @param {Sqomplexity.AST[]|Sqomplexity.AST} ast
      * @returns {number}
      */
     _calculateNested(ast) {
-        const calculator = (new Calculator(ast, this.weights, this.nesting + 1));
-        // Add stats to the parent (this).
+        const calculator = (new Calculator(ast, this.weights, this.nesting + 1, this.hooks))
+            .calculate();
+
+        // Add stats to the current scope.
         this._addStats(calculator.stats);
+        // Add 1 extra subquery since we always have 1 nesting.
         this.stats.subqueries++;
 
         return calculator.score;
     }
 
+    /**
+     * @param {Sqomplexity.AST} ast
+     * @returns {number}
+     * @private
+     */
     _calculateSelect(ast) {
         let score = 0;
         if (Array.isArray(ast.columns)) {
@@ -159,7 +227,7 @@ export class Calculator {
                 score += this._expression(el.expr, 'select');
             }, 0);
         } else if (ast.columns === '*') {
-            // Star is not parsed as an expression so we manually create one.
+            // Star is not parsed as an expression, so we manually create one.
             score += this._expression({
                 type: 'star',
                 value: '*'
@@ -169,6 +237,11 @@ export class Calculator {
         return score;
     }
 
+    /**
+     * @param {Sqomplexity.AST} ast
+     * @returns {number}
+     * @private
+     */
     _calculateFrom(ast) {
         let score = 0;
         (ast.from || []).forEach((i) => {
@@ -208,6 +281,11 @@ export class Calculator {
         return score;
     }
 
+    /**
+     * @param {Sqomplexity.AST} ast
+     * @returns {number}
+     * @private
+     */
     _calculateGroupBy(ast) {
         let score = 0;
         (ast.groupby || []).forEach((el) => {
@@ -217,6 +295,11 @@ export class Calculator {
         return score;
     }
 
+    /**
+     * @param {Sqomplexity.AST} ast
+     * @returns {number}
+     * @private
+     */
     _calculateHaving(ast) {
         let score = 0;
         if (_(ast, 'having.type') === 'binary_expr') {
@@ -226,6 +309,11 @@ export class Calculator {
         return score;
     }
 
+    /**
+     * @param {Sqomplexity.AST} ast
+     * @returns {number}
+     * @private
+     */
     _calculateLimitOffset(ast) {
         if (_(ast, 'limit.separator') === 'offset') {
             // LIMIT and OFFSET provided.
@@ -242,6 +330,11 @@ export class Calculator {
         return 0;
     }
 
+    /**
+     * @param {Sqomplexity.AST} ast
+     * @returns {number}
+     * @private
+     */
     _calculateOrderBy(ast) {
         let score = 0;
         if (ast.orderby) {
@@ -253,6 +346,11 @@ export class Calculator {
         return score;
     }
 
+    /**
+     * @param {Sqomplexity.AST} ast
+     * @returns {number}
+     * @private
+     */
     _calculateWhere(ast) {
         if (ast.where) {
             return this.weights.m_where * this._expression(ast.where, 'where');
@@ -278,12 +376,16 @@ export class Calculator {
     }
 
     /**
-     * @param {object} expr
+     * @param {Sqomplexity.Expression} expr
      * @param {string} clause
      * @returns {number}
      * @private
      */
     _expression(expr, clause) {
+        (this.hooks.expression ?? []).forEach((hook) => {
+            hook.handle(...arguments, this);
+        });
+
         let score = this.weights.expressions._base;
 
         // Add weight for specific operator.
@@ -291,7 +393,7 @@ export class Calculator {
 
         this.stats.expressions_per_clause[clause]++;
 
-        // Add base weight for the expression type (may fall back to _base if it is not set.
+        // Add base weight for the expression type (may fall back to _base if it is not set).
         score += _(this.weights.expressions, expr.type, _(this.weights.expressions, '_base', 0));
 
         if (['string', 'natural_string', 'single_quote_string', 'hex_string', 'full_hex_string', 'bit_string'].indexOf(expr.type) >= 0) {

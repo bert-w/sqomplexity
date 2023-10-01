@@ -1,4 +1,55 @@
 declare namespace Sqomplexity {
+    export interface Expression {
+        type?: string,
+        name?: string,
+        table?: string | null,
+        column?: string,
+        operator?: string,
+        left?: Expression,
+        right?: Expression,
+        value?: any,
+        args?: Expression | {
+            distinct?: any,
+            expr: Expression,
+        } | Expression[],
+        cond?: Expression,
+        ast?: AST,
+    }
+
+    export interface AST {
+        with: any,
+        type: any,
+        options: any,
+        distinct: any,
+        columns: any | '*' | {
+            expr: Expression,
+            as: string | null,
+        }[],
+        into: {
+            position: any,
+        },
+        from: {
+            db: string | null,
+            table: string,
+            as: string | null,
+            join?: string,
+            on?: Expression,
+        }[],
+        where: null | Expression,
+        groupby: null | Expression[],
+        having: null | Expression,
+        orderby: null | {
+            expr: Expression,
+            type: "ASC" | "DESC",
+        }[],
+        limit: null | number | {
+            separator: string,
+            value: Expression,
+        },
+        locking_read: any,
+        window: any,
+    }
+
     export interface Weights {
         from: {
             _base: number,
@@ -58,5 +109,10 @@ declare namespace Sqomplexity {
             case_usage: number,
             quote_usage: number,
         }
+    }
+
+    interface Hook {
+        handle(): void,
+        stats(): object,
     }
 }

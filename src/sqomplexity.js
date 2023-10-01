@@ -1,6 +1,7 @@
 import parserMysql from './../build/pegjs-parser-mysql.cjs';
 // import parserMariaDb from './../build/pegjs-parser-mariadb.cjs';
 import {Calculator} from './calculator.js';
+import {BinaryExpressionCycleDetection} from './hooks/binary-expression-cycle-detection.js';
 
 export class Sqomplexity {
     /**
@@ -56,13 +57,17 @@ export class Sqomplexity {
             }
         }
 
-        const calculator = (new Calculator(parsed.ast || {}, this.weights));
+        const calculator = (new Calculator(parsed.ast || [], this.weights));
+
+        calculator
+            .addHook('expression', new BinaryExpressionCycleDetection())
+            .calculate();
 
         return {
             dialect: this.dialect,
             query: this.query,
             stats: calculator.getStats(),
-            ast: parsed,
+            ast: parsed.ast,
             // Round to 4 decimal places.
             complexity: Math.round(calculator.getScore() * 10000) / 10000,
         }
