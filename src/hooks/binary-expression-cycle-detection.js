@@ -13,7 +13,7 @@ export class BinaryExpressionCycleDetection extends Hook {
     /**
      * @param {Sqomplexity.Expression} expr
      * @param {string} clause
-     * @param {Sqomplexity} self
+     * @param {Calculator} self
      */
     handle(expr, clause, self) {
         if (expr.type === 'binary_expr') {
@@ -36,11 +36,12 @@ export class BinaryExpressionCycleDetection extends Hook {
     }
 
     /**
+     * Create a unique identifier for the used column using the table,
      * @param {object} operand
      * @returns {string}
      * @private
      */
     _makeKeyForOperand(operand) {
-        return (operand.table ?? '_') + '.' + operand.column;
+        return [operand.table ?? '_', operand.column].join('.');
     }
 }

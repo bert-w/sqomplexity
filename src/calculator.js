@@ -7,10 +7,10 @@ export class Calculator {
     /**
      * @param {Sqomplexity.AST[]|Sqomplexity.AST} asts
      * @param {Sqomplexity.Weights} weights
-     * @param {int} nesting
+     * @param {int} nesting_level
      * @param {{expression: Sqomplexity.Hook[]}} hooks
      */
-    constructor(asts, weights, nesting = 0, hooks = {}) {
+    constructor(asts, weights, nesting_level = 0, hooks = {}) {
         /**
          * @type {Sqomplexity.AST[]}
          * @private
@@ -27,7 +27,7 @@ export class Calculator {
          * @type {number}
          * @private
          */
-        this.nesting = nesting;
+        this.nesting_level = nesting_level;
 
         /**
          * @type {{expression: Sqomplexity.Hook[]}}
@@ -149,6 +149,13 @@ export class Calculator {
     }
 
     /**
+     * @returns {number}
+     */
+    getNestingLevel() {
+        return this.nesting_level;
+    }
+
+    /**
      * @returns {this}
      */
     calculate() {
@@ -176,7 +183,7 @@ export class Calculator {
         this.meta_stats = this._calculateStats();
 
         // Apply multiplier if nesting takes place.
-        this.score = score * Math.pow(this.weights.m_nesting, this.nesting);
+        this.score = score * Math.pow(this.weights.m_nesting, this.nesting_level);
 
         return this;
     }
@@ -198,7 +205,7 @@ export class Calculator {
      * @returns {number}
      */
     _calculateNested(ast) {
-        const calculator = (new Calculator(ast, this.weights, this.nesting + 1, this.hooks))
+        const calculator = (new Calculator(ast, this.weights, this.nesting_level + 1, this.hooks))
             .calculate();
 
         // Add stats to the current scope.
