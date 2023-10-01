@@ -53,6 +53,7 @@ export class Calculator {
             expressions_per_clause: {
                 select: 0,
                 from: 0,
+                join: 0,
                 where: 0,
                 group_by: 0,
                 having: 0,
@@ -251,37 +252,24 @@ export class Calculator {
      */
     _calculateFrom(ast) {
         let score = 0;
-        (ast.from || []).forEach((i) => {
+        (ast.from || []).forEach((expr) => {
             score += this.weights.from._base;
 
-            if (i.db) {
-                // Database prefix.
-                score += this.weights.from.database_prefix;
-                this.stats.databases.push(i.db);
-            }
-
-            if (i.join) {
-                // JOIN type.
+            if (expr.join) {
+                // Make custom expression since there was none for table.
                 score += this._expression({
-                    table: i.table,
+                    type: 'table',
+                    ...expr,
                 }, 'join');
-
-                score += this._map(i.join, {
-                    'left join': this.weights.from.left_join,
-                    'right join': this.weights.from.right_join,
-                    'inner join': this.weights.from.inner_join,
-                    'cross join': this.weights.from.cross_join,
-                });
-
-                if (i.on) {
-                    score += this._expression(i.on, 'join');
-                }
-            } else if (i.expr) {
+            } else if (expr.expr) {
                 // Subexpression like a subquery.
-                score += this._expression(i.expr, 'from');
+                score += this._expression(expr.expr, 'from');
             } else {
-                // Count anything else as a FROM expression.
-                this.stats.expressions_per_clause.from++;
+                // Make custom expression since there was none for table.
+                score += this._expression({
+                    type: 'table',
+                    ...expr,
+                }, 'from');
             }
         });
 
@@ -412,6 +400,24 @@ export class Calculator {
 
         // Add stats + recurring expressions.
         switch (expr.type) {
+            case 'table':
+                // ON clause (JOINs).
+                score += expr.on ? this._expression(expr.on, clause) : 0;
+
+                if (expr.db) {
+                    // Database prefix (if any).
+                    score += this.weights.from.database_prefix;
+                    this.stats.databases.push(expr.db);
+                }
+
+                // Join type.
+                score += this._map(expr.join, {
+                    'left join': this.weights.from.left_join,
+                    'right join': this.weights.from.right_join,
+                    'inner join': this.weights.from.inner_join,
+                    'cross join': this.weights.from.cross_join,
+                });
+                break;
             case 'binary_expr':
                 score += (this._expression(expr.left, clause) + this._expression(expr.right, clause));
                 break;

@@ -14,6 +14,10 @@ declare namespace Sqomplexity {
         } | Expression[],
         cond?: Expression,
         ast?: AST,
+        on?: Expression,
+        db?: string | null,
+        join?: string,
+        as?: string | null,
     }
 
     export interface AST {
