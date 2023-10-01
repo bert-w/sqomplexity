@@ -37,63 +37,51 @@
                 "function": 0,
                 "string": 1
             },
-            "meta": {
-                "case_usage": [
-                    "snake_case"
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
+        },
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": "*",
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "my_table",
+                        "as": null
+                    }
                 ],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
+                "where": {
+                    "type": "binary_expr",
+                    "operator": "=",
+                    "left": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "enabled"
+                    },
+                    "right": {
+                        "type": "bit_string",
+                        "prefix": null,
+                        "value": "0"
+                    }
+                },
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
             }
-        },
-        "ast": {
-            "tableList": [
-                "select::null::my_table"
-            ],
-            "columnList": [
-                "select::null::(.*)",
-                "select::null::enabled"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": "*",
-                    "into": {
-                        "position": null
-                    },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "my_table",
-                            "as": null
-                        }
-                    ],
-                    "where": {
-                        "type": "binary_expr",
-                        "operator": "=",
-                        "left": {
-                            "type": "column_ref",
-                            "table": null,
-                            "column": "enabled"
-                        },
-                        "right": {
-                            "type": "bit_string",
-                            "prefix": null,
-                            "value": "0"
-                        }
-                    },
-                    "groupby": null,
-                    "having": null,
-                    "orderby": null,
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+        ],
         "complexity": 2.5
     }
 ]

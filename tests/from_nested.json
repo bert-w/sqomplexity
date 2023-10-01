@@ -46,159 +46,139 @@
                 "undefined": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [
-                    "departments",
-                    "dept_salaries"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::employees",
-                "select::null::departments"
-            ],
-            "columnList": [
-                "select::null::department_name",
-                "select::null::total_salary",
-                "select::null::department_id",
-                "select::null::salary",
-                "select::dept_salaries::department_id",
-                "select::departments::department_id"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "department_name"
-                            },
-                            "as": null
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "department_name"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "total_salary"
-                            },
-                            "as": null
-                        }
-                    ],
-                    "into": {
-                        "position": null
+                        "as": null
                     },
-                    "from": [
-                        {
-                            "expr": {
-                                "tableList": [
-                                    "select::null::employees"
-                                ],
-                                "columnList": [
-                                    "select::null::department_name",
-                                    "select::null::total_salary",
-                                    "select::null::department_id",
-                                    "select::null::salary"
-                                ],
-                                "ast": {
-                                    "with": null,
-                                    "type": "select",
-                                    "options": null,
-                                    "distinct": null,
-                                    "columns": [
-                                        {
-                                            "expr": {
-                                                "type": "column_ref",
-                                                "table": null,
-                                                "column": "department_id"
-                                            },
-                                            "as": null
-                                        },
-                                        {
-                                            "expr": {
-                                                "type": "aggr_func",
-                                                "name": "SUM",
-                                                "args": {
-                                                    "expr": {
-                                                        "type": "column_ref",
-                                                        "table": null,
-                                                        "column": "salary"
-                                                    }
-                                                },
-                                                "over": null
-                                            },
-                                            "as": "total_salary"
-                                        }
-                                    ],
-                                    "into": {
-                                        "position": null
-                                    },
-                                    "from": [
-                                        {
-                                            "db": null,
-                                            "table": "employees",
-                                            "as": null
-                                        }
-                                    ],
-                                    "where": null,
-                                    "groupby": [
-                                        {
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "total_salary"
+                        },
+                        "as": null
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "expr": {
+                            "tableList": [
+                                "select::null::employees"
+                            ],
+                            "columnList": [
+                                "select::null::department_name",
+                                "select::null::total_salary",
+                                "select::null::department_id",
+                                "select::null::salary"
+                            ],
+                            "ast": {
+                                "with": null,
+                                "type": "select",
+                                "options": null,
+                                "distinct": null,
+                                "columns": [
+                                    {
+                                        "expr": {
                                             "type": "column_ref",
                                             "table": null,
                                             "column": "department_id"
-                                        }
-                                    ],
-                                    "having": null,
-                                    "orderby": null,
-                                    "limit": null,
-                                    "locking_read": null,
-                                    "window": null
+                                        },
+                                        "as": null
+                                    },
+                                    {
+                                        "expr": {
+                                            "type": "aggr_func",
+                                            "name": "SUM",
+                                            "args": {
+                                                "expr": {
+                                                    "type": "column_ref",
+                                                    "table": null,
+                                                    "column": "salary"
+                                                }
+                                            },
+                                            "over": null
+                                        },
+                                        "as": "total_salary"
+                                    }
+                                ],
+                                "into": {
+                                    "position": null
                                 },
-                                "parentheses": true
+                                "from": [
+                                    {
+                                        "db": null,
+                                        "table": "employees",
+                                        "as": null
+                                    }
+                                ],
+                                "where": null,
+                                "groupby": [
+                                    {
+                                        "type": "column_ref",
+                                        "table": null,
+                                        "column": "department_id"
+                                    }
+                                ],
+                                "having": null,
+                                "orderby": null,
+                                "limit": null,
+                                "locking_read": null,
+                                "window": null
                             },
-                            "as": "dept_salaries"
+                            "parentheses": true
                         },
-                        {
-                            "db": null,
-                            "table": "departments",
-                            "as": null,
-                            "join": "INNER JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "dept_salaries",
-                                    "column": "department_id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "departments",
-                                    "column": "department_id"
-                                }
+                        "as": "dept_salaries"
+                    },
+                    {
+                        "db": null,
+                        "table": "departments",
+                        "as": null,
+                        "join": "INNER JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "dept_salaries",
+                                "column": "department_id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "departments",
+                                "column": "department_id"
                             }
                         }
-                    ],
-                    "where": null,
-                    "groupby": null,
-                    "having": null,
-                    "orderby": null,
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                    }
+                ],
+                "where": null,
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 8.4375
     }
 ]

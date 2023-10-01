@@ -44,146 +44,128 @@
                 "undefined": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "PascalCase"
-                ],
-                "quote_usage": [],
-                "table_usage": [
-                    "s",
-                    "e"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "PascalCase"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::Salaries",
-                "select::null::Employees"
-            ],
-            "columnList": [
-                "select::null::Name",
-                "select::null::Salary",
-                "select::Salaries::DepartmentID",
-                "select::Employees::DepartmentID"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "Name"
-                            },
-                            "as": null
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "Name"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "Salary"
-                            },
-                            "as": null
-                        }
-                    ],
-                    "into": {
-                        "position": null
+                        "as": null
                     },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "Employees",
-                            "as": "e"
-                        }
-                    ],
-                    "where": {
-                        "type": "binary_expr",
-                        "operator": ">",
-                        "left": {
+                    {
+                        "expr": {
                             "type": "column_ref",
                             "table": null,
                             "column": "Salary"
                         },
-                        "right": {
-                            "tableList": [
-                                "select::null::Salaries"
-                            ],
-                            "columnList": [
-                                "select::null::Name",
-                                "select::null::Salary",
-                                "select::Salaries::DepartmentID",
-                                "select::Employees::DepartmentID"
-                            ],
-                            "ast": {
-                                "with": null,
-                                "type": "select",
-                                "options": null,
-                                "distinct": null,
-                                "columns": [
-                                    {
-                                        "expr": {
-                                            "type": "aggr_func",
-                                            "name": "AVG",
-                                            "args": {
-                                                "expr": {
-                                                    "type": "column_ref",
-                                                    "table": null,
-                                                    "column": "Salary"
-                                                }
-                                            },
-                                            "over": null
-                                        },
-                                        "as": null
-                                    }
-                                ],
-                                "into": {
-                                    "position": null
-                                },
-                                "from": [
-                                    {
-                                        "db": null,
-                                        "table": "Salaries",
-                                        "as": "s"
-                                    }
-                                ],
-                                "where": {
-                                    "type": "binary_expr",
-                                    "operator": "=",
-                                    "left": {
-                                        "type": "column_ref",
-                                        "table": "s",
-                                        "column": "DepartmentID"
-                                    },
-                                    "right": {
-                                        "type": "column_ref",
-                                        "table": "e",
-                                        "column": "DepartmentID"
-                                    }
-                                },
-                                "groupby": null,
-                                "having": null,
-                                "orderby": null,
-                                "limit": null,
-                                "locking_read": null,
-                                "window": null
-                            },
-                            "parentheses": true
-                        }
+                        "as": null
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "Employees",
+                        "as": "e"
+                    }
+                ],
+                "where": {
+                    "type": "binary_expr",
+                    "operator": ">",
+                    "left": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "Salary"
                     },
-                    "groupby": null,
-                    "having": null,
-                    "orderby": null,
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                    "right": {
+                        "tableList": [
+                            "select::null::Salaries"
+                        ],
+                        "columnList": [
+                            "select::null::Name",
+                            "select::null::Salary",
+                            "select::Salaries::DepartmentID",
+                            "select::Employees::DepartmentID"
+                        ],
+                        "ast": {
+                            "with": null,
+                            "type": "select",
+                            "options": null,
+                            "distinct": null,
+                            "columns": [
+                                {
+                                    "expr": {
+                                        "type": "aggr_func",
+                                        "name": "AVG",
+                                        "args": {
+                                            "expr": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "Salary"
+                                            }
+                                        },
+                                        "over": null
+                                    },
+                                    "as": null
+                                }
+                            ],
+                            "into": {
+                                "position": null
+                            },
+                            "from": [
+                                {
+                                    "db": null,
+                                    "table": "Salaries",
+                                    "as": "s"
+                                }
+                            ],
+                            "where": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": "s",
+                                    "column": "DepartmentID"
+                                },
+                                "right": {
+                                    "type": "column_ref",
+                                    "table": "e",
+                                    "column": "DepartmentID"
+                                }
+                            },
+                            "groupby": null,
+                            "having": null,
+                            "orderby": null,
+                            "limit": null,
+                            "locking_read": null,
+                            "window": null
+                        },
+                        "parentheses": true
+                    }
+                },
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 7.5
     }
 ]

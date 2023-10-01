@@ -45,143 +45,65 @@
                 "undefined": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "PascalCase"
-                ],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [
+                "PascalCase"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::features"
-            ],
-            "columnList": [
-                "select::null::QuestionId",
-                "select::null::QuestionUserId",
-                "select::null::QuestionCreationDate",
-                "select::null::QuestionSQLComplexity"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "QuestionId"
-                            },
-                            "as": null
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "QuestionId"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "QuestionUserId"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "QuestionCreationDate"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "QuestionSQLComplexity"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "function",
-                                "name": "ROW_NUMBER",
-                                "args": {
-                                    "type": "expr_list",
-                                    "value": []
-                                },
-                                "over": {
-                                    "type": "window",
-                                    "as_window_specification": {
-                                        "window_specification": {
-                                            "name": null,
-                                            "partitionby": [
-                                                {
-                                                    "expr": {
-                                                        "type": "column_ref",
-                                                        "table": null,
-                                                        "column": "QuestionUserId"
-                                                    },
-                                                    "as": null
-                                                }
-                                            ],
-                                            "orderby": [
-                                                {
-                                                    "expr": {
-                                                        "type": "column_ref",
-                                                        "table": null,
-                                                        "column": "QuestionCreationDate"
-                                                    },
-                                                    "type": "ASC"
-                                                }
-                                            ],
-                                            "window_frame_clause": null
-                                        },
-                                        "parentheses": true
-                                    }
-                                }
-                            },
-                            "as": "Ordering"
-                        }
-                    ],
-                    "into": {
-                        "position": null
+                        "as": null
                     },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "features",
-                            "as": null
-                        }
-                    ],
-                    "where": {
-                        "type": "binary_expr",
-                        "operator": "IN",
-                        "left": {
+                    {
+                        "expr": {
                             "type": "column_ref",
                             "table": null,
                             "column": "QuestionUserId"
                         },
-                        "right": {
-                            "type": "expr_list",
-                            "value": [
-                                {
-                                    "tableList": [
-                                        "select::null::features"
-                                    ],
-                                    "columnList": [
-                                        "select::null::QuestionId",
-                                        "select::null::QuestionUserId",
-                                        "select::null::QuestionCreationDate",
-                                        "select::null::QuestionSQLComplexity"
-                                    ],
-                                    "ast": {
-                                        "with": null,
-                                        "type": "select",
-                                        "options": null,
-                                        "distinct": null,
-                                        "columns": [
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "QuestionCreationDate"
+                        },
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "QuestionSQLComplexity"
+                        },
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "type": "function",
+                            "name": "ROW_NUMBER",
+                            "args": {
+                                "type": "expr_list",
+                                "value": []
+                            },
+                            "over": {
+                                "type": "window",
+                                "as_window_specification": {
+                                    "window_specification": {
+                                        "name": null,
+                                        "partitionby": [
                                             {
                                                 "expr": {
                                                     "type": "column_ref",
@@ -191,82 +113,146 @@
                                                 "as": null
                                             }
                                         ],
-                                        "into": {
-                                            "position": null
-                                        },
-                                        "from": [
+                                        "orderby": [
                                             {
-                                                "db": null,
-                                                "table": "features",
-                                                "as": null
+                                                "expr": {
+                                                    "type": "column_ref",
+                                                    "table": null,
+                                                    "column": "QuestionCreationDate"
+                                                },
+                                                "type": "ASC"
                                             }
                                         ],
-                                        "where": null,
-                                        "groupby": [
-                                            {
+                                        "window_frame_clause": null
+                                    },
+                                    "parentheses": true
+                                }
+                            }
+                        },
+                        "as": "Ordering"
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "features",
+                        "as": null
+                    }
+                ],
+                "where": {
+                    "type": "binary_expr",
+                    "operator": "IN",
+                    "left": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "QuestionUserId"
+                    },
+                    "right": {
+                        "type": "expr_list",
+                        "value": [
+                            {
+                                "tableList": [
+                                    "select::null::features"
+                                ],
+                                "columnList": [
+                                    "select::null::QuestionId",
+                                    "select::null::QuestionUserId",
+                                    "select::null::QuestionCreationDate",
+                                    "select::null::QuestionSQLComplexity"
+                                ],
+                                "ast": {
+                                    "with": null,
+                                    "type": "select",
+                                    "options": null,
+                                    "distinct": null,
+                                    "columns": [
+                                        {
+                                            "expr": {
                                                 "type": "column_ref",
                                                 "table": null,
                                                 "column": "QuestionUserId"
-                                            }
-                                        ],
-                                        "having": {
-                                            "type": "binary_expr",
-                                            "operator": ">",
-                                            "left": {
-                                                "type": "aggr_func",
-                                                "name": "COUNT",
-                                                "args": {
-                                                    "distinct": null,
-                                                    "expr": {
-                                                        "type": "column_ref",
-                                                        "table": null,
-                                                        "column": "QuestionUserId"
-                                                    },
-                                                    "orderby": null,
-                                                    "separator": null
-                                                },
-                                                "over": null
                                             },
-                                            "right": {
-                                                "type": "number",
-                                                "value": 3
-                                            }
+                                            "as": null
+                                        }
+                                    ],
+                                    "into": {
+                                        "position": null
+                                    },
+                                    "from": [
+                                        {
+                                            "db": null,
+                                            "table": "features",
+                                            "as": null
+                                        }
+                                    ],
+                                    "where": null,
+                                    "groupby": [
+                                        {
+                                            "type": "column_ref",
+                                            "table": null,
+                                            "column": "QuestionUserId"
+                                        }
+                                    ],
+                                    "having": {
+                                        "type": "binary_expr",
+                                        "operator": ">",
+                                        "left": {
+                                            "type": "aggr_func",
+                                            "name": "COUNT",
+                                            "args": {
+                                                "distinct": null,
+                                                "expr": {
+                                                    "type": "column_ref",
+                                                    "table": null,
+                                                    "column": "QuestionUserId"
+                                                },
+                                                "orderby": null,
+                                                "separator": null
+                                            },
+                                            "over": null
                                         },
-                                        "orderby": null,
-                                        "limit": null,
-                                        "locking_read": null,
-                                        "window": null
-                                    }
+                                        "right": {
+                                            "type": "number",
+                                            "value": 3
+                                        }
+                                    },
+                                    "orderby": null,
+                                    "limit": null,
+                                    "locking_read": null,
+                                    "window": null
                                 }
-                            ]
-                        }
-                    },
-                    "groupby": null,
-                    "having": null,
-                    "orderby": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "QuestionUserId"
-                            },
-                            "type": "ASC"
+                            }
+                        ]
+                    }
+                },
+                "groupby": null,
+                "having": null,
+                "orderby": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "QuestionUserId"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "QuestionCreationDate"
-                            },
-                            "type": "ASC"
-                        }
-                    ],
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                        "type": "ASC"
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "QuestionCreationDate"
+                        },
+                        "type": "ASC"
+                    }
+                ],
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 12.75
     }
 ]

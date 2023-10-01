@@ -35,65 +35,52 @@
                 "function": 0,
                 "string": 0
             },
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [
-                "select::null::tableA",
-                "select::null::tableB"
-            ],
-            "columnList": [
-                "select::null::(.*)",
-                "select::null::id"
-            ],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": "*",
-                "into": {
-                    "position": null
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": "*",
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "tableA",
+                    "as": null
                 },
-                "from": [
-                    {
-                        "db": null,
-                        "table": "tableA",
-                        "as": null
-                    },
-                    {
-                        "db": null,
-                        "table": "tableB",
-                        "as": null
-                    }
-                ],
-                "where": {
-                    "type": "binary_expr",
-                    "operator": ">",
-                    "left": {
-                        "type": "column_ref",
-                        "table": null,
-                        "column": "id"
-                    },
-                    "right": {
-                        "type": "number",
-                        "value": 5
-                    }
+                {
+                    "db": null,
+                    "table": "tableB",
+                    "as": null
+                }
+            ],
+            "where": {
+                "type": "binary_expr",
+                "operator": ">",
+                "left": {
+                    "type": "column_ref",
+                    "table": null,
+                    "column": "id"
                 },
-                "groupby": null,
-                "having": null,
-                "orderby": null,
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+                "right": {
+                    "type": "number",
+                    "value": 5
+                }
+            },
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 2.75
     }

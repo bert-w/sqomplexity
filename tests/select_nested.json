@@ -42,140 +42,122 @@
                 "undefined": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [
-                    "order_items",
-                    "orders"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::order_items",
-                "select::null::orders"
-            ],
-            "columnList": [
-                "select::null::order_id",
-                "select::null::order_date",
-                "select::order_items::order_id",
-                "select::orders::order_id"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "order_id"
-                            },
-                            "as": null
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "order_id"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "order_date"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "tableList": [
-                                    "select::null::order_items"
-                                ],
-                                "columnList": [
-                                    "select::null::order_id",
-                                    "select::null::order_date",
-                                    "select::order_items::order_id",
-                                    "select::orders::order_id"
-                                ],
-                                "ast": {
-                                    "with": null,
-                                    "type": "select",
-                                    "options": null,
-                                    "distinct": null,
-                                    "columns": [
-                                        {
-                                            "expr": {
-                                                "type": "aggr_func",
-                                                "name": "COUNT",
-                                                "args": {
-                                                    "expr": {
-                                                        "type": "star",
-                                                        "value": "*"
-                                                    }
-                                                },
-                                                "over": null
-                                            },
-                                            "as": null
-                                        }
-                                    ],
-                                    "into": {
-                                        "position": null
-                                    },
-                                    "from": [
-                                        {
-                                            "db": null,
-                                            "table": "order_items",
-                                            "as": null
-                                        }
-                                    ],
-                                    "where": {
-                                        "type": "binary_expr",
-                                        "operator": "=",
-                                        "left": {
-                                            "type": "column_ref",
-                                            "table": "order_items",
-                                            "column": "order_id"
-                                        },
-                                        "right": {
-                                            "type": "column_ref",
-                                            "table": "orders",
-                                            "column": "order_id"
-                                        }
-                                    },
-                                    "groupby": null,
-                                    "having": null,
-                                    "orderby": null,
-                                    "limit": null,
-                                    "locking_read": null,
-                                    "window": null
-                                },
-                                "parentheses": true
-                            },
-                            "as": "item_count"
-                        }
-                    ],
-                    "into": {
-                        "position": null
+                        "as": null
                     },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "orders",
-                            "as": null
-                        }
-                    ],
-                    "where": null,
-                    "groupby": null,
-                    "having": null,
-                    "orderby": null,
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "order_date"
+                        },
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "tableList": [
+                                "select::null::order_items"
+                            ],
+                            "columnList": [
+                                "select::null::order_id",
+                                "select::null::order_date",
+                                "select::order_items::order_id",
+                                "select::orders::order_id"
+                            ],
+                            "ast": {
+                                "with": null,
+                                "type": "select",
+                                "options": null,
+                                "distinct": null,
+                                "columns": [
+                                    {
+                                        "expr": {
+                                            "type": "aggr_func",
+                                            "name": "COUNT",
+                                            "args": {
+                                                "expr": {
+                                                    "type": "star",
+                                                    "value": "*"
+                                                }
+                                            },
+                                            "over": null
+                                        },
+                                        "as": null
+                                    }
+                                ],
+                                "into": {
+                                    "position": null
+                                },
+                                "from": [
+                                    {
+                                        "db": null,
+                                        "table": "order_items",
+                                        "as": null
+                                    }
+                                ],
+                                "where": {
+                                    "type": "binary_expr",
+                                    "operator": "=",
+                                    "left": {
+                                        "type": "column_ref",
+                                        "table": "order_items",
+                                        "column": "order_id"
+                                    },
+                                    "right": {
+                                        "type": "column_ref",
+                                        "table": "orders",
+                                        "column": "order_id"
+                                    }
+                                },
+                                "groupby": null,
+                                "having": null,
+                                "orderby": null,
+                                "limit": null,
+                                "locking_read": null,
+                                "window": null
+                            },
+                            "parentheses": true
+                        },
+                        "as": "item_count"
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "orders",
+                        "as": null
+                    }
+                ],
+                "where": null,
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 6.25
     }
 ]

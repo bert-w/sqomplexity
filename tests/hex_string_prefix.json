@@ -57,60 +57,46 @@
                 "string": 7
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "snake_case",
-                    "camelCase",
-                    "Unknown case",
-                    "PascalCase"
-                ],
-                "quote_usage": [
-                    "single"
-                ],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case",
+                "camelCase",
+                "Unknown case",
+                "PascalCase"
+            ],
+            "quote_usage": [
+                "single"
+            ],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [
-                "select::null::DSLServiceOnsandOffs"
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": [
+                {
+                    "expr": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "onoffid"
+                    },
+                    "as": null
+                }
             ],
-            "columnList": [
-                "select::null::onoffid",
-                "select::null::insertDate",
-                "select::null::Service_No",
-                "select::null::PON",
-                "select::null::Order_No",
-                "select::null::Segment_No",
-                "select::null::Completion_Date",
-                "select::null::On_Off"
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "DSLServiceOnsandOffs",
+                    "as": null
+                }
             ],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": [
-                    {
-                        "expr": {
-                            "type": "column_ref",
-                            "table": null,
-                            "column": "onoffid"
-                        },
-                        "as": null
-                    }
-                ],
-                "into": {
-                    "position": null
-                },
-                "from": [
-                    {
-                        "db": null,
-                        "table": "DSLServiceOnsandOffs",
-                        "as": null
-                    }
-                ],
-                "where": {
+            "where": {
+                "type": "binary_expr",
+                "operator": "AND",
+                "left": {
                     "type": "binary_expr",
                     "operator": "AND",
                     "left": {
@@ -127,33 +113,15 @@
                                     "operator": "AND",
                                     "left": {
                                         "type": "binary_expr",
-                                        "operator": "AND",
+                                        "operator": "=",
                                         "left": {
-                                            "type": "binary_expr",
-                                            "operator": "=",
-                                            "left": {
-                                                "type": "column_ref",
-                                                "table": null,
-                                                "column": "insertDate"
-                                            },
-                                            "right": {
-                                                "type": "single_quote_string",
-                                                "value": "2017-02-14"
-                                            }
+                                            "type": "column_ref",
+                                            "table": null,
+                                            "column": "insertDate"
                                         },
                                         "right": {
-                                            "type": "binary_expr",
-                                            "operator": "=",
-                                            "left": {
-                                                "type": "column_ref",
-                                                "table": null,
-                                                "column": "Service_No"
-                                            },
-                                            "right": {
-                                                "type": "hex_string",
-                                                "prefix": null,
-                                                "value": "323439533313034"
-                                            }
+                                            "type": "single_quote_string",
+                                            "value": "2017-02-14"
                                         }
                                     },
                                     "right": {
@@ -162,12 +130,12 @@
                                         "left": {
                                             "type": "column_ref",
                                             "table": null,
-                                            "column": "PON"
+                                            "column": "Service_No"
                                         },
                                         "right": {
                                             "type": "hex_string",
                                             "prefix": null,
-                                            "value": "33330343230"
+                                            "value": "323439533313034"
                                         }
                                     }
                                 },
@@ -177,12 +145,12 @@
                                     "left": {
                                         "type": "column_ref",
                                         "table": null,
-                                        "column": "Order_No"
+                                        "column": "PON"
                                     },
                                     "right": {
                                         "type": "hex_string",
                                         "prefix": null,
-                                        "value": "393313833"
+                                        "value": "33330343230"
                                     }
                                 }
                             },
@@ -192,12 +160,12 @@
                                 "left": {
                                     "type": "column_ref",
                                     "table": null,
-                                    "column": "Segment_No"
+                                    "column": "Order_No"
                                 },
                                 "right": {
                                     "type": "hex_string",
                                     "prefix": null,
-                                    "value": "31"
+                                    "value": "393313833"
                                 }
                             }
                         },
@@ -207,11 +175,12 @@
                             "left": {
                                 "type": "column_ref",
                                 "table": null,
-                                "column": "Completion_Date"
+                                "column": "Segment_No"
                             },
                             "right": {
-                                "type": "single_quote_string",
-                                "value": "2017-02-13"
+                                "type": "hex_string",
+                                "prefix": null,
+                                "value": "31"
                             }
                         }
                     },
@@ -221,22 +190,35 @@
                         "left": {
                             "type": "column_ref",
                             "table": null,
-                            "column": "On_Off"
+                            "column": "Completion_Date"
                         },
                         "right": {
-                            "type": "hex_string",
-                            "prefix": null,
-                            "value": "4f4e"
+                            "type": "single_quote_string",
+                            "value": "2017-02-13"
                         }
                     }
                 },
-                "groupby": null,
-                "having": null,
-                "orderby": null,
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+                "right": {
+                    "type": "binary_expr",
+                    "operator": "=",
+                    "left": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "On_Off"
+                    },
+                    "right": {
+                        "type": "hex_string",
+                        "prefix": null,
+                        "value": "4f4e"
+                    }
+                }
+            },
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 16.5
     }

@@ -39,51 +39,159 @@
                 "string": 0
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [
-                "select::null::mytable",
-                "select::null::cte"
-            ],
-            "columnList": [
-                "select::null::id",
-                "select::null::amount",
-                "select::mytable::id",
-                "select::mytable::amount",
-                "select::cte::sm",
-                "select::cte::id",
-                "select::null::keep"
-            ],
-            "ast": {
-                "with": [
-                    {
-                        "name": {
-                            "type": "default",
-                            "value": "cte"
-                        },
-                        "stmt": {
-                            "tableList": [
-                                "select::null::mytable",
-                                "select::null::cte"
+            "with": [
+                {
+                    "name": {
+                        "type": "default",
+                        "value": "cte"
+                    },
+                    "stmt": {
+                        "tableList": [
+                            "select::null::mytable",
+                            "select::null::cte"
+                        ],
+                        "columnList": [
+                            "select::null::id",
+                            "select::null::amount",
+                            "select::mytable::id",
+                            "select::mytable::amount",
+                            "select::cte::sm",
+                            "select::cte::id",
+                            "select::null::keep"
+                        ],
+                        "ast": {
+                            "with": null,
+                            "type": "select",
+                            "options": null,
+                            "distinct": null,
+                            "columns": [
+                                {
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": null,
+                                        "column": "id"
+                                    },
+                                    "as": null
+                                },
+                                {
+                                    "expr": {
+                                        "type": "column_ref",
+                                        "table": null,
+                                        "column": "amount"
+                                    },
+                                    "as": null
+                                },
+                                {
+                                    "expr": {
+                                        "type": "case",
+                                        "expr": null,
+                                        "args": [
+                                            {
+                                                "type": "when",
+                                                "cond": {
+                                                    "type": "binary_expr",
+                                                    "operator": ">",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": null,
+                                                        "column": "amount"
+                                                    },
+                                                    "right": {
+                                                        "type": "number",
+                                                        "value": 1000
+                                                    }
+                                                },
+                                                "result": {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            },
+                                            {
+                                                "type": "else",
+                                                "result": {
+                                                    "type": "column_ref",
+                                                    "table": null,
+                                                    "column": "amount"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "as": "sm"
+                                },
+                                {
+                                    "expr": {
+                                        "type": "case",
+                                        "expr": null,
+                                        "args": [
+                                            {
+                                                "type": "when",
+                                                "cond": {
+                                                    "type": "binary_expr",
+                                                    "operator": ">",
+                                                    "left": {
+                                                        "type": "column_ref",
+                                                        "table": null,
+                                                        "column": "amount"
+                                                    },
+                                                    "right": {
+                                                        "type": "number",
+                                                        "value": 1000
+                                                    }
+                                                },
+                                                "result": {
+                                                    "type": "number",
+                                                    "value": 0
+                                                }
+                                            },
+                                            {
+                                                "type": "else",
+                                                "result": {
+                                                    "type": "number",
+                                                    "value": 1
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "as": "keep"
+                                }
                             ],
-                            "columnList": [
-                                "select::null::id",
-                                "select::null::amount",
-                                "select::mytable::id",
-                                "select::mytable::amount",
-                                "select::cte::sm",
-                                "select::cte::id",
-                                "select::null::keep"
+                            "into": {
+                                "position": null
+                            },
+                            "from": [
+                                {
+                                    "db": null,
+                                    "table": "mytable",
+                                    "as": null
+                                }
                             ],
-                            "ast": {
+                            "where": {
+                                "type": "binary_expr",
+                                "operator": "=",
+                                "left": {
+                                    "type": "column_ref",
+                                    "table": null,
+                                    "column": "id"
+                                },
+                                "right": {
+                                    "type": "number",
+                                    "value": 1
+                                }
+                            },
+                            "groupby": null,
+                            "having": null,
+                            "orderby": null,
+                            "limit": null,
+                            "locking_read": null,
+                            "window": null,
+                            "_next": {
                                 "with": null,
                                 "type": "select",
                                 "options": null,
@@ -92,7 +200,7 @@
                                     {
                                         "expr": {
                                             "type": "column_ref",
-                                            "table": null,
+                                            "table": "t",
                                             "column": "id"
                                         },
                                         "as": null
@@ -100,7 +208,7 @@
                                     {
                                         "expr": {
                                             "type": "column_ref",
-                                            "table": null,
+                                            "table": "t",
                                             "column": "amount"
                                         },
                                         "as": null
@@ -116,158 +224,6 @@
                                                         "type": "binary_expr",
                                                         "operator": ">",
                                                         "left": {
-                                                            "type": "column_ref",
-                                                            "table": null,
-                                                            "column": "amount"
-                                                        },
-                                                        "right": {
-                                                            "type": "number",
-                                                            "value": 1000
-                                                        }
-                                                    },
-                                                    "result": {
-                                                        "type": "number",
-                                                        "value": 0
-                                                    }
-                                                },
-                                                {
-                                                    "type": "else",
-                                                    "result": {
-                                                        "type": "column_ref",
-                                                        "table": null,
-                                                        "column": "amount"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        "as": "sm"
-                                    },
-                                    {
-                                        "expr": {
-                                            "type": "case",
-                                            "expr": null,
-                                            "args": [
-                                                {
-                                                    "type": "when",
-                                                    "cond": {
-                                                        "type": "binary_expr",
-                                                        "operator": ">",
-                                                        "left": {
-                                                            "type": "column_ref",
-                                                            "table": null,
-                                                            "column": "amount"
-                                                        },
-                                                        "right": {
-                                                            "type": "number",
-                                                            "value": 1000
-                                                        }
-                                                    },
-                                                    "result": {
-                                                        "type": "number",
-                                                        "value": 0
-                                                    }
-                                                },
-                                                {
-                                                    "type": "else",
-                                                    "result": {
-                                                        "type": "number",
-                                                        "value": 1
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        "as": "keep"
-                                    }
-                                ],
-                                "into": {
-                                    "position": null
-                                },
-                                "from": [
-                                    {
-                                        "db": null,
-                                        "table": "mytable",
-                                        "as": null
-                                    }
-                                ],
-                                "where": {
-                                    "type": "binary_expr",
-                                    "operator": "=",
-                                    "left": {
-                                        "type": "column_ref",
-                                        "table": null,
-                                        "column": "id"
-                                    },
-                                    "right": {
-                                        "type": "number",
-                                        "value": 1
-                                    }
-                                },
-                                "groupby": null,
-                                "having": null,
-                                "orderby": null,
-                                "limit": null,
-                                "locking_read": null,
-                                "window": null,
-                                "_next": {
-                                    "with": null,
-                                    "type": "select",
-                                    "options": null,
-                                    "distinct": null,
-                                    "columns": [
-                                        {
-                                            "expr": {
-                                                "type": "column_ref",
-                                                "table": "t",
-                                                "column": "id"
-                                            },
-                                            "as": null
-                                        },
-                                        {
-                                            "expr": {
-                                                "type": "column_ref",
-                                                "table": "t",
-                                                "column": "amount"
-                                            },
-                                            "as": null
-                                        },
-                                        {
-                                            "expr": {
-                                                "type": "case",
-                                                "expr": null,
-                                                "args": [
-                                                    {
-                                                        "type": "when",
-                                                        "cond": {
-                                                            "type": "binary_expr",
-                                                            "operator": ">",
-                                                            "left": {
-                                                                "type": "binary_expr",
-                                                                "operator": "+",
-                                                                "left": {
-                                                                    "type": "column_ref",
-                                                                    "table": "c",
-                                                                    "column": "sm"
-                                                                },
-                                                                "right": {
-                                                                    "type": "column_ref",
-                                                                    "table": "t",
-                                                                    "column": "amount"
-                                                                }
-                                                            },
-                                                            "right": {
-                                                                "type": "number",
-                                                                "value": 1000
-                                                            }
-                                                        },
-                                                        "result": {
-                                                            "type": "column_ref",
-                                                            "table": "c",
-                                                            "column": "sm"
-                                                        }
-                                                    },
-                                                    {
-                                                        "type": "else",
-                                                        "result": {
                                                             "type": "binary_expr",
                                                             "operator": "+",
                                                             "left": {
@@ -280,170 +236,196 @@
                                                                 "table": "t",
                                                                 "column": "amount"
                                                             }
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                            "as": null
-                                        },
-                                        {
-                                            "expr": {
-                                                "type": "case",
-                                                "expr": null,
-                                                "args": [
-                                                    {
-                                                        "type": "when",
-                                                        "cond": {
-                                                            "type": "binary_expr",
-                                                            "operator": ">",
-                                                            "left": {
-                                                                "type": "binary_expr",
-                                                                "operator": "+",
-                                                                "left": {
-                                                                    "type": "column_ref",
-                                                                    "table": "c",
-                                                                    "column": "sm"
-                                                                },
-                                                                "right": {
-                                                                    "type": "column_ref",
-                                                                    "table": "t",
-                                                                    "column": "amount"
-                                                                }
-                                                            },
-                                                            "right": {
-                                                                "type": "number",
-                                                                "value": 1000
-                                                            }
                                                         },
-                                                        "result": {
+                                                        "right": {
                                                             "type": "number",
-                                                            "value": 0
+                                                            "value": 1000
                                                         }
                                                     },
-                                                    {
-                                                        "type": "else",
-                                                        "result": {
-                                                            "type": "number",
-                                                            "value": 1
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                            "as": null
-                                        }
-                                    ],
-                                    "into": {
-                                        "position": null
-                                    },
-                                    "from": [
-                                        {
-                                            "db": null,
-                                            "table": "cte",
-                                            "as": "c"
-                                        },
-                                        {
-                                            "db": null,
-                                            "table": "mytable",
-                                            "as": "t",
-                                            "join": "INNER JOIN",
-                                            "on": {
-                                                "type": "binary_expr",
-                                                "operator": "=",
-                                                "left": {
-                                                    "type": "column_ref",
-                                                    "table": "t",
-                                                    "column": "id"
-                                                },
-                                                "right": {
-                                                    "type": "binary_expr",
-                                                    "operator": "+",
-                                                    "left": {
+                                                    "result": {
                                                         "type": "column_ref",
                                                         "table": "c",
-                                                        "column": "id"
+                                                        "column": "sm"
+                                                    }
+                                                },
+                                                {
+                                                    "type": "else",
+                                                    "result": {
+                                                        "type": "binary_expr",
+                                                        "operator": "+",
+                                                        "left": {
+                                                            "type": "column_ref",
+                                                            "table": "c",
+                                                            "column": "sm"
+                                                        },
+                                                        "right": {
+                                                            "type": "column_ref",
+                                                            "table": "t",
+                                                            "column": "amount"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "as": null
+                                    },
+                                    {
+                                        "expr": {
+                                            "type": "case",
+                                            "expr": null,
+                                            "args": [
+                                                {
+                                                    "type": "when",
+                                                    "cond": {
+                                                        "type": "binary_expr",
+                                                        "operator": ">",
+                                                        "left": {
+                                                            "type": "binary_expr",
+                                                            "operator": "+",
+                                                            "left": {
+                                                                "type": "column_ref",
+                                                                "table": "c",
+                                                                "column": "sm"
+                                                            },
+                                                            "right": {
+                                                                "type": "column_ref",
+                                                                "table": "t",
+                                                                "column": "amount"
+                                                            }
+                                                        },
+                                                        "right": {
+                                                            "type": "number",
+                                                            "value": 1000
+                                                        }
                                                     },
-                                                    "right": {
+                                                    "result": {
+                                                        "type": "number",
+                                                        "value": 0
+                                                    }
+                                                },
+                                                {
+                                                    "type": "else",
+                                                    "result": {
                                                         "type": "number",
                                                         "value": 1
                                                     }
                                                 }
+                                            ]
+                                        },
+                                        "as": null
+                                    }
+                                ],
+                                "into": {
+                                    "position": null
+                                },
+                                "from": [
+                                    {
+                                        "db": null,
+                                        "table": "cte",
+                                        "as": "c"
+                                    },
+                                    {
+                                        "db": null,
+                                        "table": "mytable",
+                                        "as": "t",
+                                        "join": "INNER JOIN",
+                                        "on": {
+                                            "type": "binary_expr",
+                                            "operator": "=",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": "t",
+                                                "column": "id"
+                                            },
+                                            "right": {
+                                                "type": "binary_expr",
+                                                "operator": "+",
+                                                "left": {
+                                                    "type": "column_ref",
+                                                    "table": "c",
+                                                    "column": "id"
+                                                },
+                                                "right": {
+                                                    "type": "number",
+                                                    "value": 1
+                                                }
                                             }
                                         }
-                                    ],
-                                    "where": null,
-                                    "groupby": null,
-                                    "having": null,
-                                    "orderby": null,
-                                    "limit": null,
-                                    "locking_read": null,
-                                    "window": null
-                                },
-                                "set_op": "union all"
-                            }
-                        },
-                        "columns": null
-                    }
-                ],
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": [
-                    {
-                        "expr": {
-                            "type": "column_ref",
-                            "table": null,
-                            "column": "id"
-                        },
-                        "as": null
+                                    }
+                                ],
+                                "where": null,
+                                "groupby": null,
+                                "having": null,
+                                "orderby": null,
+                                "limit": null,
+                                "locking_read": null,
+                                "window": null
+                            },
+                            "set_op": "union all"
+                        }
                     },
-                    {
-                        "expr": {
-                            "type": "column_ref",
-                            "table": null,
-                            "column": "amount"
-                        },
-                        "as": null
-                    }
-                ],
-                "into": {
-                    "position": null
-                },
-                "from": [
-                    {
-                        "db": null,
-                        "table": "cte",
-                        "as": null
-                    }
-                ],
-                "where": {
-                    "type": "binary_expr",
-                    "operator": "=",
-                    "left": {
+                    "columns": null
+                }
+            ],
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": [
+                {
+                    "expr": {
                         "type": "column_ref",
                         "table": null,
-                        "column": "keep"
+                        "column": "id"
                     },
-                    "right": {
-                        "type": "number",
-                        "value": 1
-                    }
+                    "as": null
                 },
-                "groupby": null,
-                "having": null,
-                "orderby": [
-                    {
-                        "expr": {
-                            "type": "column_ref",
-                            "table": null,
-                            "column": "id"
-                        },
-                        "type": "ASC"
-                    }
-                ],
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+                {
+                    "expr": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "amount"
+                    },
+                    "as": null
+                }
+            ],
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "cte",
+                    "as": null
+                }
+            ],
+            "where": {
+                "type": "binary_expr",
+                "operator": "=",
+                "left": {
+                    "type": "column_ref",
+                    "table": null,
+                    "column": "keep"
+                },
+                "right": {
+                    "type": "number",
+                    "value": 1
+                }
+            },
+            "groupby": null,
+            "having": null,
+            "orderby": [
+                {
+                    "expr": {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "id"
+                    },
+                    "type": "ASC"
+                }
+            ],
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 3.125
     }

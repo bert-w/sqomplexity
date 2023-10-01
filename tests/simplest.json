@@ -34,42 +34,35 @@
                 "string": 0
             },
             "select": null,
-            "meta": {
-                "case_usage": [],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [],
+            "quote_usage": [],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [],
-            "columnList": [],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": [
-                    {
-                        "expr": {
-                            "type": "number",
-                            "value": 5
-                        },
-                        "as": null
-                    }
-                ],
-                "into": {
-                    "position": null
-                },
-                "from": null,
-                "where": null,
-                "groupby": null,
-                "having": null,
-                "orderby": null,
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": [
+                {
+                    "expr": {
+                        "type": "number",
+                        "value": 5
+                    },
+                    "as": null
+                }
+            ],
+            "into": {
+                "position": null
+            },
+            "from": null,
+            "where": null,
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 0.5
     }

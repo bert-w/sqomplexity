@@ -31,44 +31,33 @@
                 "function": 0,
                 "string": 0
             },
-            "meta": {
-                "case_usage": [],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [],
+            "quote_usage": [],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [
-                "select::null::users"
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": "*",
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "users",
+                    "as": null
+                }
             ],
-            "columnList": [
-                "select::null::(.*)"
-            ],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": "*",
-                "into": {
-                    "position": null
-                },
-                "from": [
-                    {
-                        "db": null,
-                        "table": "users",
-                        "as": null
-                    }
-                ],
-                "where": null,
-                "groupby": null,
-                "having": null,
-                "orderby": null,
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+            "where": null,
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 0.75
     }

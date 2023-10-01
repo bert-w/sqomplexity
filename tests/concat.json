@@ -37,83 +37,72 @@
                 "string": 0
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "PascalCase"
-                ],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [
+                "PascalCase"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [
-                "select::null::TableName"
-            ],
-            "columnList": [
-                "select::null::DueDate"
-            ],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": [
-                    {
-                        "expr": {
-                            "type": "function",
-                            "name": "concat",
-                            "args": {
-                                "type": "expr_list",
-                                "value": [
-                                    {
-                                        "type": "function",
-                                        "name": "mid",
-                                        "args": {
-                                            "type": "expr_list",
-                                            "value": [
-                                                {
-                                                    "type": "column_ref",
-                                                    "table": null,
-                                                    "column": "DueDate"
-                                                },
-                                                {
-                                                    "type": "number",
-                                                    "value": 7
-                                                },
-                                                {
-                                                    "type": "number",
-                                                    "value": 4
-                                                }
-                                            ]
-                                        },
-                                        "over": null
-                                    }
-                                ]
-                            },
-                            "over": null
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": [
+                {
+                    "expr": {
+                        "type": "function",
+                        "name": "concat",
+                        "args": {
+                            "type": "expr_list",
+                            "value": [
+                                {
+                                    "type": "function",
+                                    "name": "mid",
+                                    "args": {
+                                        "type": "expr_list",
+                                        "value": [
+                                            {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "DueDate"
+                                            },
+                                            {
+                                                "type": "number",
+                                                "value": 7
+                                            },
+                                            {
+                                                "type": "number",
+                                                "value": 4
+                                            }
+                                        ]
+                                    },
+                                    "over": null
+                                }
+                            ]
                         },
-                        "as": "DueDate"
-                    }
-                ],
-                "into": {
-                    "position": null
-                },
-                "from": [
-                    {
-                        "db": null,
-                        "table": "TableName",
-                        "as": null
-                    }
-                ],
-                "where": null,
-                "groupby": null,
-                "having": null,
-                "orderby": null,
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+                        "over": null
+                    },
+                    "as": "DueDate"
+                }
+            ],
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "TableName",
+                    "as": null
+                }
+            ],
+            "where": null,
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 3.75
     }

@@ -40,75 +40,58 @@
                 "string": 0,
                 "undefined": null
             },
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [
-                    "tableB",
-                    "tableA"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::tableA",
-                "select::null::tableB"
-            ],
-            "columnList": [
-                "select::null::(.*)",
-                "select::tableA::id",
-                "select::tableB::id"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": "*",
-                    "into": {
-                        "position": null
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": "*",
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "tableA",
+                        "as": null
                     },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "tableA",
-                            "as": null
-                        },
-                        {
-                            "db": null,
-                            "table": "tableB",
-                            "as": null,
-                            "join": "CROSS JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "tableA",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "tableB",
-                                    "column": "id"
-                                }
+                    {
+                        "db": null,
+                        "table": "tableB",
+                        "as": null,
+                        "join": "CROSS JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "tableA",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "tableB",
+                                "column": "id"
                             }
                         }
-                    ],
-                    "where": null,
-                    "groupby": null,
-                    "having": null,
-                    "orderby": null,
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                    }
+                ],
+                "where": null,
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 3.75
     }
 ]

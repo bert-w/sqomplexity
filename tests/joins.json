@@ -61,177 +61,145 @@
                 "string": 0,
                 "undefined": null
             },
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [
-                    "tableA",
-                    "a",
-                    "u",
-                    "tableB",
-                    "b",
-                    "tableC",
-                    "c",
-                    "tableD",
-                    "tableE",
-                    "e"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": true
         },
-        "ast": {
-            "tableList": [
-                "select::null::users",
-                "select::null::tableA",
-                "select::null::tableB",
-                "select::null::tableC",
-                "select::null::tableD",
-                "select::null::tableE"
-            ],
-            "columnList": [
-                "select::null::(.*)",
-                "select::tableA::id",
-                "select::users::id",
-                "select::tableB::id",
-                "select::tableC::id",
-                "select::tableE::id"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": "*",
-                    "into": {
-                        "position": null
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": "*",
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "users",
+                        "as": "u"
                     },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "users",
-                            "as": "u"
-                        },
-                        {
-                            "db": null,
-                            "table": "tableA",
-                            "as": "a",
-                            "join": "LEFT JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "a",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "u",
-                                    "column": "id"
-                                }
-                            }
-                        },
-                        {
-                            "db": null,
-                            "table": "tableB",
-                            "as": "b",
-                            "join": "LEFT JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "b",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "u",
-                                    "column": "id"
-                                }
-                            }
-                        },
-                        {
-                            "db": null,
-                            "table": "tableC",
-                            "as": "c",
-                            "join": "RIGHT JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "c",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "u",
-                                    "column": "id"
-                                }
-                            }
-                        },
-                        {
-                            "db": null,
-                            "table": "tableC",
-                            "as": "c",
-                            "join": "RIGHT JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "c",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "u",
-                                    "column": "id"
-                                }
-                            }
-                        },
-                        {
-                            "db": null,
-                            "table": "tableD",
-                            "as": "d",
-                            "join": "CROSS JOIN",
-                            "on": null
-                        },
-                        {
-                            "db": null,
-                            "table": "tableE",
-                            "as": "e",
-                            "join": "INNER JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "e",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "u",
-                                    "column": "id"
-                                }
+                    {
+                        "db": null,
+                        "table": "tableA",
+                        "as": "a",
+                        "join": "LEFT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "a",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
                             }
                         }
-                    ],
-                    "where": null,
-                    "groupby": null,
-                    "having": null,
-                    "orderby": null,
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                    },
+                    {
+                        "db": null,
+                        "table": "tableB",
+                        "as": "b",
+                        "join": "LEFT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "b",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableC",
+                        "as": "c",
+                        "join": "RIGHT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "c",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableC",
+                        "as": "c",
+                        "join": "RIGHT JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "c",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    },
+                    {
+                        "db": null,
+                        "table": "tableD",
+                        "as": "d",
+                        "join": "CROSS JOIN",
+                        "on": null
+                    },
+                    {
+                        "db": null,
+                        "table": "tableE",
+                        "as": "e",
+                        "join": "INNER JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "e",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "u",
+                                "column": "id"
+                            }
+                        }
+                    }
+                ],
+                "where": null,
+                "groupby": null,
+                "having": null,
+                "orderby": null,
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 16
     }
 ]

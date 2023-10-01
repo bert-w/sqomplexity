@@ -76,237 +76,175 @@
                 "undefined": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "UPPERCASE",
-                    "snake_case",
-                    "lowercase"
-                ],
-                "quote_usage": [
-                    "double"
-                ],
-                "table_usage": [
-                    "users",
-                    "roles",
-                    "users_to_roles"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "UPPERCASE",
+                "snake_case",
+                "lowercase"
+            ],
+            "quote_usage": [
+                "double"
+            ],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [
-                "select::null::table1",
-                "select::null::roles",
-                "select::null::users",
-                "select::null::users_to_roles"
-            ],
-            "columnList": [
-                "select::users::(.*)",
-                "select::roles::id",
-                "select::null::id",
-                "select::null::column1",
-                "select::users_to_roles::role_id",
-                "select::users::id",
-                "select::users_to_roles::user_id",
-                "select::roles::name",
-                "select::roles::user_id",
-                "select::users::username"
-            ],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": [
-                    {
-                        "expr": {
-                            "type": "column_ref",
-                            "table": "users",
-                            "column": "*"
-                        },
-                        "as": null
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": [
+                {
+                    "expr": {
+                        "type": "column_ref",
+                        "table": "users",
+                        "column": "*"
                     },
-                    {
-                        "expr": {
-                            "type": "column_ref",
-                            "table": "roles",
-                            "column": "id"
-                        },
-                        "as": "role_id"
-                    },
-                    {
-                        "expr": {
-                            "type": "aggr_func",
-                            "name": "COUNT",
-                            "args": {
-                                "expr": {
-                                    "type": "star",
-                                    "value": "*"
-                                }
-                            },
-                            "over": null
-                        },
-                        "as": "test"
-                    },
-                    {
-                        "expr": {
-                            "type": "aggr_func",
-                            "name": "COUNT",
-                            "args": {
-                                "distinct": "DISTINCT",
-                                "expr": {
-                                    "type": "column_ref",
-                                    "table": null,
-                                    "column": "id"
-                                },
-                                "orderby": null,
-                                "separator": null
-                            },
-                            "over": null
-                        },
-                        "as": null
-                    }
-                ],
-                "into": {
-                    "position": null
+                    "as": null
                 },
-                "from": [
-                    {
-                        "db": null,
+                {
+                    "expr": {
+                        "type": "column_ref",
                         "table": "roles",
-                        "as": null
+                        "column": "id"
                     },
-                    {
-                        "expr": {
-                            "tableList": [
-                                "select::null::table1",
-                                "select::null::roles",
-                                "select::null::users",
-                                "select::null::users_to_roles"
-                            ],
-                            "columnList": [
-                                "select::users::(.*)",
-                                "select::roles::id",
-                                "select::null::id",
-                                "select::null::column1",
-                                "select::users_to_roles::role_id",
-                                "select::users::id",
-                                "select::users_to_roles::user_id",
-                                "select::roles::name",
-                                "select::roles::user_id",
-                                "select::users::username"
-                            ],
-                            "ast": {
-                                "with": null,
-                                "type": "select",
-                                "options": null,
-                                "distinct": null,
-                                "columns": [
-                                    {
-                                        "expr": {
-                                            "type": "column_ref",
-                                            "table": null,
-                                            "column": "column1"
-                                        },
-                                        "as": null
-                                    }
-                                ],
-                                "into": {
-                                    "position": null
-                                },
-                                "from": [
-                                    {
-                                        "db": null,
-                                        "table": "table1",
-                                        "as": null
-                                    }
-                                ],
-                                "where": {
-                                    "type": "binary_expr",
-                                    "operator": ">",
-                                    "left": {
+                    "as": "role_id"
+                },
+                {
+                    "expr": {
+                        "type": "aggr_func",
+                        "name": "COUNT",
+                        "args": {
+                            "expr": {
+                                "type": "star",
+                                "value": "*"
+                            }
+                        },
+                        "over": null
+                    },
+                    "as": "test"
+                },
+                {
+                    "expr": {
+                        "type": "aggr_func",
+                        "name": "COUNT",
+                        "args": {
+                            "distinct": "DISTINCT",
+                            "expr": {
+                                "type": "column_ref",
+                                "table": null,
+                                "column": "id"
+                            },
+                            "orderby": null,
+                            "separator": null
+                        },
+                        "over": null
+                    },
+                    "as": null
+                }
+            ],
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "roles",
+                    "as": null
+                },
+                {
+                    "expr": {
+                        "tableList": [
+                            "select::null::table1",
+                            "select::null::roles",
+                            "select::null::users",
+                            "select::null::users_to_roles"
+                        ],
+                        "columnList": [
+                            "select::users::(.*)",
+                            "select::roles::id",
+                            "select::null::id",
+                            "select::null::column1",
+                            "select::users_to_roles::role_id",
+                            "select::users::id",
+                            "select::users_to_roles::user_id",
+                            "select::roles::name",
+                            "select::roles::user_id",
+                            "select::users::username"
+                        ],
+                        "ast": {
+                            "with": null,
+                            "type": "select",
+                            "options": null,
+                            "distinct": null,
+                            "columns": [
+                                {
+                                    "expr": {
                                         "type": "column_ref",
                                         "table": null,
                                         "column": "column1"
                                     },
-                                    "right": {
-                                        "type": "number",
-                                        "value": 100
-                                    }
-                                },
-                                "groupby": null,
-                                "having": null,
-                                "orderby": null,
-                                "limit": null,
-                                "locking_read": null,
-                                "window": null
-                            },
-                            "parentheses": true
-                        },
-                        "as": "t1"
-                    },
-                    {
-                        "db": null,
-                        "table": "users_to_roles",
-                        "as": null,
-                        "join": "INNER JOIN",
-                        "on": {
-                            "type": "binary_expr",
-                            "operator": "=",
-                            "left": {
-                                "type": "column_ref",
-                                "table": "users_to_roles",
-                                "column": "role_id"
-                            },
-                            "right": {
-                                "type": "column_ref",
-                                "table": "roles",
-                                "column": "id"
-                            }
-                        }
-                    },
-                    {
-                        "db": null,
-                        "table": "users",
-                        "as": null,
-                        "join": "INNER JOIN",
-                        "on": {
-                            "type": "binary_expr",
-                            "operator": "AND",
-                            "left": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "users",
-                                    "column": "id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "users_to_roles",
-                                    "column": "user_id"
+                                    "as": null
                                 }
+                            ],
+                            "into": {
+                                "position": null
                             },
-                            "right": {
+                            "from": [
+                                {
+                                    "db": null,
+                                    "table": "table1",
+                                    "as": null
+                                }
+                            ],
+                            "where": {
                                 "type": "binary_expr",
-                                "operator": "=",
+                                "operator": ">",
                                 "left": {
                                     "type": "column_ref",
-                                    "table": "users",
-                                    "column": "id"
+                                    "table": null,
+                                    "column": "column1"
                                 },
                                 "right": {
                                     "type": "number",
-                                    "value": 5
+                                    "value": 100
                                 }
-                            }
+                            },
+                            "groupby": null,
+                            "having": null,
+                            "orderby": null,
+                            "limit": null,
+                            "locking_read": null,
+                            "window": null
+                        },
+                        "parentheses": true
+                    },
+                    "as": "t1"
+                },
+                {
+                    "db": null,
+                    "table": "users_to_roles",
+                    "as": null,
+                    "join": "INNER JOIN",
+                    "on": {
+                        "type": "binary_expr",
+                        "operator": "=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": "users_to_roles",
+                            "column": "role_id"
+                        },
+                        "right": {
+                            "type": "column_ref",
+                            "table": "roles",
+                            "column": "id"
                         }
                     }
-                ],
-                "where": {
-                    "type": "binary_expr",
-                    "operator": "AND",
-                    "left": {
+                },
+                {
+                    "db": null,
+                    "table": "users",
+                    "as": null,
+                    "join": "INNER JOIN",
+                    "on": {
                         "type": "binary_expr",
                         "operator": "AND",
                         "left": {
@@ -314,12 +252,13 @@
                             "operator": "=",
                             "left": {
                                 "type": "column_ref",
-                                "table": "roles",
-                                "column": "name"
+                                "table": "users",
+                                "column": "id"
                             },
                             "right": {
-                                "type": "string",
-                                "value": "student"
+                                "type": "column_ref",
+                                "table": "users_to_roles",
+                                "column": "user_id"
                             }
                         },
                         "right": {
@@ -327,7 +266,7 @@
                             "operator": "=",
                             "left": {
                                 "type": "column_ref",
-                                "table": "roles",
+                                "table": "users",
                                 "column": "id"
                             },
                             "right": {
@@ -335,111 +274,145 @@
                                 "value": 5
                             }
                         }
+                    }
+                }
+            ],
+            "where": {
+                "type": "binary_expr",
+                "operator": "AND",
+                "left": {
+                    "type": "binary_expr",
+                    "operator": "AND",
+                    "left": {
+                        "type": "binary_expr",
+                        "operator": "=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": "roles",
+                            "column": "name"
+                        },
+                        "right": {
+                            "type": "string",
+                            "value": "student"
+                        }
                     },
                     "right": {
                         "type": "binary_expr",
-                        "operator": "IN",
+                        "operator": "=",
                         "left": {
                             "type": "column_ref",
                             "table": "roles",
                             "column": "id"
                         },
                         "right": {
-                            "type": "expr_list",
-                            "value": [
-                                {
-                                    "tableList": [
-                                        "select::null::table1",
-                                        "select::null::roles",
-                                        "select::null::users",
-                                        "select::null::users_to_roles"
-                                    ],
-                                    "columnList": [
-                                        "select::users::(.*)",
-                                        "select::roles::id",
-                                        "select::null::id",
-                                        "select::null::column1",
-                                        "select::users_to_roles::role_id",
-                                        "select::users::id",
-                                        "select::users_to_roles::user_id",
-                                        "select::roles::name",
-                                        "select::roles::user_id",
-                                        "select::users::username"
-                                    ],
-                                    "ast": {
-                                        "with": null,
-                                        "type": "select",
-                                        "options": null,
-                                        "distinct": null,
-                                        "columns": [
-                                            {
-                                                "expr": {
-                                                    "type": "column_ref",
-                                                    "table": null,
-                                                    "column": "id"
-                                                },
-                                                "as": null
-                                            }
-                                        ],
-                                        "into": {
-                                            "position": null
-                                        },
-                                        "from": [
-                                            {
-                                                "db": null,
-                                                "table": "roles",
-                                                "as": null
-                                            },
-                                            {
-                                                "db": null,
-                                                "table": "users",
-                                                "as": null,
-                                                "join": "INNER JOIN",
-                                                "on": {
-                                                    "type": "binary_expr",
-                                                    "operator": "=",
-                                                    "left": {
-                                                        "type": "column_ref",
-                                                        "table": "users",
-                                                        "column": "id"
-                                                    },
-                                                    "right": {
-                                                        "type": "column_ref",
-                                                        "table": "roles",
-                                                        "column": "user_id"
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "where": null,
-                                        "groupby": null,
-                                        "having": null,
-                                        "orderby": null,
-                                        "limit": null,
-                                        "locking_read": null,
-                                        "window": null
-                                    }
-                                }
-                            ]
+                            "type": "number",
+                            "value": 5
                         }
                     }
                 },
-                "groupby": null,
-                "having": null,
-                "orderby": [
-                    {
-                        "expr": {
-                            "type": "column_ref",
-                            "table": "users",
-                            "column": "username"
-                        },
-                        "type": "ASC"
+                "right": {
+                    "type": "binary_expr",
+                    "operator": "IN",
+                    "left": {
+                        "type": "column_ref",
+                        "table": "roles",
+                        "column": "id"
+                    },
+                    "right": {
+                        "type": "expr_list",
+                        "value": [
+                            {
+                                "tableList": [
+                                    "select::null::table1",
+                                    "select::null::roles",
+                                    "select::null::users",
+                                    "select::null::users_to_roles"
+                                ],
+                                "columnList": [
+                                    "select::users::(.*)",
+                                    "select::roles::id",
+                                    "select::null::id",
+                                    "select::null::column1",
+                                    "select::users_to_roles::role_id",
+                                    "select::users::id",
+                                    "select::users_to_roles::user_id",
+                                    "select::roles::name",
+                                    "select::roles::user_id",
+                                    "select::users::username"
+                                ],
+                                "ast": {
+                                    "with": null,
+                                    "type": "select",
+                                    "options": null,
+                                    "distinct": null,
+                                    "columns": [
+                                        {
+                                            "expr": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "id"
+                                            },
+                                            "as": null
+                                        }
+                                    ],
+                                    "into": {
+                                        "position": null
+                                    },
+                                    "from": [
+                                        {
+                                            "db": null,
+                                            "table": "roles",
+                                            "as": null
+                                        },
+                                        {
+                                            "db": null,
+                                            "table": "users",
+                                            "as": null,
+                                            "join": "INNER JOIN",
+                                            "on": {
+                                                "type": "binary_expr",
+                                                "operator": "=",
+                                                "left": {
+                                                    "type": "column_ref",
+                                                    "table": "users",
+                                                    "column": "id"
+                                                },
+                                                "right": {
+                                                    "type": "column_ref",
+                                                    "table": "roles",
+                                                    "column": "user_id"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "where": null,
+                                    "groupby": null,
+                                    "having": null,
+                                    "orderby": null,
+                                    "limit": null,
+                                    "locking_read": null,
+                                    "window": null
+                                }
+                            }
+                        ]
                     }
-                ],
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+                }
+            },
+            "groupby": null,
+            "having": null,
+            "orderby": [
+                {
+                    "expr": {
+                        "type": "column_ref",
+                        "table": "users",
+                        "column": "username"
+                    },
+                    "type": "ASC"
+                }
+            ],
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 28.375
     }

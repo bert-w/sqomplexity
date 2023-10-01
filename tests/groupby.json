@@ -57,196 +57,176 @@
                 "undefined": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [
-                    "users",
-                    "tests"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::users",
-                "select::null::tests"
-            ],
-            "columnList": [
-                "select::users::id",
-                "select::users::income",
-                "select::tests::user_id",
-                "select::null::user_id",
-                "select::tests::test_id",
-                "select::users::test"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": [
-                        {
-                            "expr": {
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": "users",
+                            "column": "id"
+                        },
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "type": "aggr_func",
+                            "name": "COUNT",
+                            "args": {
+                                "distinct": null,
+                                "expr": {
+                                    "type": "column_ref",
+                                    "table": "users",
+                                    "column": "income"
+                                },
+                                "orderby": null,
+                                "separator": null
+                            },
+                            "over": null
+                        },
+                        "as": null
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "users",
+                        "as": null
+                    },
+                    {
+                        "db": null,
+                        "table": "tests",
+                        "as": null,
+                        "join": "INNER JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "tests",
+                                "column": "user_id"
+                            },
+                            "right": {
                                 "type": "column_ref",
                                 "table": "users",
                                 "column": "id"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "aggr_func",
-                                "name": "COUNT",
-                                "args": {
-                                    "distinct": null,
-                                    "expr": {
-                                        "type": "column_ref",
-                                        "table": "users",
-                                        "column": "income"
-                                    },
-                                    "orderby": null,
-                                    "separator": null
-                                },
-                                "over": null
-                            },
-                            "as": null
+                            }
                         }
-                    ],
-                    "into": {
-                        "position": null
+                    }
+                ],
+                "where": null,
+                "groupby": [
+                    {
+                        "type": "column_ref",
+                        "table": null,
+                        "column": "user_id"
                     },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "users",
-                            "as": null
-                        },
-                        {
-                            "db": null,
-                            "table": "tests",
-                            "as": null,
-                            "join": "INNER JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "tests",
-                                    "column": "user_id"
-                                },
-                                "right": {
+                    {
+                        "type": "column_ref",
+                        "table": "tests",
+                        "column": "test_id"
+                    }
+                ],
+                "having": {
+                    "type": "binary_expr",
+                    "operator": "AND",
+                    "left": {
+                        "type": "binary_expr",
+                        "operator": ">",
+                        "left": {
+                            "type": "aggr_func",
+                            "name": "COUNT",
+                            "args": {
+                                "distinct": null,
+                                "expr": {
                                     "type": "column_ref",
                                     "table": "users",
-                                    "column": "id"
-                                }
-                            }
-                        }
-                    ],
-                    "where": null,
-                    "groupby": [
-                        {
-                            "type": "column_ref",
-                            "table": null,
-                            "column": "user_id"
-                        },
-                        {
-                            "type": "column_ref",
-                            "table": "tests",
-                            "column": "test_id"
-                        }
-                    ],
-                    "having": {
-                        "type": "binary_expr",
-                        "operator": "AND",
-                        "left": {
-                            "type": "binary_expr",
-                            "operator": ">",
-                            "left": {
-                                "type": "aggr_func",
-                                "name": "COUNT",
-                                "args": {
-                                    "distinct": null,
-                                    "expr": {
-                                        "type": "column_ref",
-                                        "table": "users",
-                                        "column": "income"
-                                    },
-                                    "orderby": null,
-                                    "separator": null
+                                    "column": "income"
                                 },
-                                "over": null
+                                "orderby": null,
+                                "separator": null
                             },
-                            "right": {
-                                "type": "number",
-                                "value": 100
-                            }
+                            "over": null
                         },
                         "right": {
-                            "type": "binary_expr",
-                            "operator": ">",
-                            "left": {
-                                "type": "aggr_func",
-                                "name": "COUNT",
-                                "args": {
-                                    "distinct": null,
-                                    "expr": {
-                                        "type": "column_ref",
-                                        "table": "users",
-                                        "column": "test"
-                                    },
-                                    "orderby": null,
-                                    "separator": null
-                                },
-                                "over": null
-                            },
-                            "right": {
-                                "type": "number",
-                                "value": 50
-                            }
+                            "type": "number",
+                            "value": 100
                         }
                     },
-                    "orderby": [
+                    "right": {
+                        "type": "binary_expr",
+                        "operator": ">",
+                        "left": {
+                            "type": "aggr_func",
+                            "name": "COUNT",
+                            "args": {
+                                "distinct": null,
+                                "expr": {
+                                    "type": "column_ref",
+                                    "table": "users",
+                                    "column": "test"
+                                },
+                                "orderby": null,
+                                "separator": null
+                            },
+                            "over": null
+                        },
+                        "right": {
+                            "type": "number",
+                            "value": 50
+                        }
+                    }
+                },
+                "orderby": [
+                    {
+                        "expr": {
+                            "type": "aggr_func",
+                            "name": "COUNT",
+                            "args": {
+                                "distinct": null,
+                                "expr": {
+                                    "type": "column_ref",
+                                    "table": "users",
+                                    "column": "income"
+                                },
+                                "orderby": null,
+                                "separator": null
+                            },
+                            "over": null
+                        },
+                        "type": "ASC"
+                    }
+                ],
+                "limit": {
+                    "separator": "offset",
+                    "value": [
                         {
-                            "expr": {
-                                "type": "aggr_func",
-                                "name": "COUNT",
-                                "args": {
-                                    "distinct": null,
-                                    "expr": {
-                                        "type": "column_ref",
-                                        "table": "users",
-                                        "column": "income"
-                                    },
-                                    "orderby": null,
-                                    "separator": null
-                                },
-                                "over": null
-                            },
-                            "type": "ASC"
+                            "type": "number",
+                            "value": 5
+                        },
+                        {
+                            "type": "number",
+                            "value": 10
                         }
-                    ],
-                    "limit": {
-                        "separator": "offset",
-                        "value": [
-                            {
-                                "type": "number",
-                                "value": 5
-                            },
-                            {
-                                "type": "number",
-                                "value": 10
-                            }
-                        ]
-                    },
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                    ]
+                },
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 14.3125
     }
 ]

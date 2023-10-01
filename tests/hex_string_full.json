@@ -45,187 +45,178 @@
                 "bigint": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [],
+            "quote_usage": [],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [],
-            "columnList": [
-                "select::null::(.*)"
-            ],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": [
-                    {
-                        "expr": {
-                            "type": "binary_expr",
-                            "operator": "*",
-                            "left": {
-                                "type": "number",
-                                "value": 2
-                            },
-                            "right": {
-                                "type": "function",
-                                "name": "IF",
-                                "args": {
-                                    "type": "expr_list",
-                                    "value": [
-                                        {
-                                            "tableList": [],
-                                            "columnList": [
-                                                "select::null::(.*)"
-                                            ],
-                                            "ast": {
-                                                "with": null,
-                                                "type": "select",
-                                                "options": null,
-                                                "distinct": null,
-                                                "columns": "*",
-                                                "into": {
-                                                    "position": null
-                                                },
-                                                "from": [
-                                                    {
-                                                        "expr": {
-                                                            "tableList": [],
-                                                            "columnList": [
-                                                                "select::null::(.*)"
-                                                            ],
-                                                            "ast": {
-                                                                "with": null,
-                                                                "type": "select",
-                                                                "options": null,
-                                                                "distinct": null,
-                                                                "columns": [
-                                                                    {
-                                                                        "expr": {
-                                                                            "type": "function",
-                                                                            "name": "CONCAT",
-                                                                            "args": {
-                                                                                "type": "expr_list",
-                                                                                "value": [
-                                                                                    {
-                                                                                        "type": "full_hex_string",
-                                                                                        "prefix": null,
-                                                                                        "value": "716b626b71"
-                                                                                    },
-                                                                                    {
-                                                                                        "type": "function",
-                                                                                        "name": "SELECT",
-                                                                                        "args": {
-                                                                                            "type": "expr_list",
-                                                                                            "value": [
-                                                                                                {
-                                                                                                    "type": "function",
-                                                                                                    "name": "ELT",
-                                                                                                    "args": {
-                                                                                                        "type": "expr_list",
-                                                                                                        "value": [
-                                                                                                            {
-                                                                                                                "type": "binary_expr",
-                                                                                                                "operator": "=",
-                                                                                                                "left": {
-                                                                                                                    "type": "number",
-                                                                                                                    "value": 9092
-                                                                                                                },
-                                                                                                                "right": {
-                                                                                                                    "type": "number",
-                                                                                                                    "value": 9092
-                                                                                                                }
-                                                                                                            },
-                                                                                                            {
-                                                                                                                "type": "number",
-                                                                                                                "value": 1
-                                                                                                            }
-                                                                                                        ]
-                                                                                                    },
-                                                                                                    "over": null
-                                                                                                }
-                                                                                            ]
-                                                                                        },
-                                                                                        "over": null,
-                                                                                        "parentheses": true
-                                                                                    },
-                                                                                    {
-                                                                                        "type": "full_hex_string",
-                                                                                        "prefix": null,
-                                                                                        "value": "71626b7071"
-                                                                                    },
-                                                                                    {
-                                                                                        "type": "full_hex_string",
-                                                                                        "prefix": null,
-                                                                                        "value": "78"
-                                                                                    }
-                                                                                ]
-                                                                            },
-                                                                            "over": null
-                                                                        },
-                                                                        "as": null
-                                                                    }
-                                                                ],
-                                                                "into": {
-                                                                    "position": null
-                                                                },
-                                                                "from": null,
-                                                                "where": null,
-                                                                "groupby": null,
-                                                                "having": null,
-                                                                "orderby": null,
-                                                                "limit": null,
-                                                                "locking_read": null,
-                                                                "window": null
-                                                            },
-                                                            "parentheses": true
-                                                        },
-                                                        "as": "s"
-                                                    }
-                                                ],
-                                                "where": null,
-                                                "groupby": null,
-                                                "having": null,
-                                                "orderby": null,
-                                                "limit": null,
-                                                "locking_read": null,
-                                                "window": null
-                                            },
-                                            "parentheses": true
-                                        },
-                                        {
-                                            "type": "bigint",
-                                            "value": "8446744073709551610"
-                                        },
-                                        {
-                                            "type": "bigint",
-                                            "value": "8446744073709551610"
-                                        }
-                                    ]
-                                },
-                                "over": null,
-                                "parentheses": true
-                            }
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": [
+                {
+                    "expr": {
+                        "type": "binary_expr",
+                        "operator": "*",
+                        "left": {
+                            "type": "number",
+                            "value": 2
                         },
-                        "as": null
-                    }
-                ],
-                "into": {
-                    "position": null
-                },
-                "from": null,
-                "where": null,
-                "groupby": null,
-                "having": null,
-                "orderby": null,
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+                        "right": {
+                            "type": "function",
+                            "name": "IF",
+                            "args": {
+                                "type": "expr_list",
+                                "value": [
+                                    {
+                                        "tableList": [],
+                                        "columnList": [
+                                            "select::null::(.*)"
+                                        ],
+                                        "ast": {
+                                            "with": null,
+                                            "type": "select",
+                                            "options": null,
+                                            "distinct": null,
+                                            "columns": "*",
+                                            "into": {
+                                                "position": null
+                                            },
+                                            "from": [
+                                                {
+                                                    "expr": {
+                                                        "tableList": [],
+                                                        "columnList": [
+                                                            "select::null::(.*)"
+                                                        ],
+                                                        "ast": {
+                                                            "with": null,
+                                                            "type": "select",
+                                                            "options": null,
+                                                            "distinct": null,
+                                                            "columns": [
+                                                                {
+                                                                    "expr": {
+                                                                        "type": "function",
+                                                                        "name": "CONCAT",
+                                                                        "args": {
+                                                                            "type": "expr_list",
+                                                                            "value": [
+                                                                                {
+                                                                                    "type": "full_hex_string",
+                                                                                    "prefix": null,
+                                                                                    "value": "716b626b71"
+                                                                                },
+                                                                                {
+                                                                                    "type": "function",
+                                                                                    "name": "SELECT",
+                                                                                    "args": {
+                                                                                        "type": "expr_list",
+                                                                                        "value": [
+                                                                                            {
+                                                                                                "type": "function",
+                                                                                                "name": "ELT",
+                                                                                                "args": {
+                                                                                                    "type": "expr_list",
+                                                                                                    "value": [
+                                                                                                        {
+                                                                                                            "type": "binary_expr",
+                                                                                                            "operator": "=",
+                                                                                                            "left": {
+                                                                                                                "type": "number",
+                                                                                                                "value": 9092
+                                                                                                            },
+                                                                                                            "right": {
+                                                                                                                "type": "number",
+                                                                                                                "value": 9092
+                                                                                                            }
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "number",
+                                                                                                            "value": 1
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                "over": null
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    "over": null,
+                                                                                    "parentheses": true
+                                                                                },
+                                                                                {
+                                                                                    "type": "full_hex_string",
+                                                                                    "prefix": null,
+                                                                                    "value": "71626b7071"
+                                                                                },
+                                                                                {
+                                                                                    "type": "full_hex_string",
+                                                                                    "prefix": null,
+                                                                                    "value": "78"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        "over": null
+                                                                    },
+                                                                    "as": null
+                                                                }
+                                                            ],
+                                                            "into": {
+                                                                "position": null
+                                                            },
+                                                            "from": null,
+                                                            "where": null,
+                                                            "groupby": null,
+                                                            "having": null,
+                                                            "orderby": null,
+                                                            "limit": null,
+                                                            "locking_read": null,
+                                                            "window": null
+                                                        },
+                                                        "parentheses": true
+                                                    },
+                                                    "as": "s"
+                                                }
+                                            ],
+                                            "where": null,
+                                            "groupby": null,
+                                            "having": null,
+                                            "orderby": null,
+                                            "limit": null,
+                                            "locking_read": null,
+                                            "window": null
+                                        },
+                                        "parentheses": true
+                                    },
+                                    {
+                                        "type": "bigint",
+                                        "value": "8446744073709551610"
+                                    },
+                                    {
+                                        "type": "bigint",
+                                        "value": "8446744073709551610"
+                                    }
+                                ]
+                            },
+                            "over": null,
+                            "parentheses": true
+                        }
+                    },
+                    "as": null
+                }
+            ],
+            "into": {
+                "position": null
+            },
+            "from": null,
+            "where": null,
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 29.8438
     }

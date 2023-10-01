@@ -43,179 +43,165 @@
                 "string": 0
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::sales"
-            ],
-            "columnList": [
-                "select::null::year",
-                "select::null::country",
-                "select::null::product",
-                "select::null::profit"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "year"
-                            },
-                            "as": null
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "year"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "country"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "product"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "profit"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "aggr_func",
-                                "name": "SUM",
-                                "args": {
-                                    "expr": {
-                                        "type": "column_ref",
-                                        "table": null,
-                                        "column": "profit"
-                                    }
-                                },
-                                "over": {
-                                    "type": "window",
-                                    "as_window_specification": {
-                                        "window_specification": {
-                                            "name": null,
-                                            "partitionby": null,
-                                            "orderby": null,
-                                            "window_frame_clause": null
-                                        },
-                                        "parentheses": true
-                                    }
-                                }
-                            },
-                            "as": "total_profit"
-                        },
-                        {
-                            "expr": {
-                                "type": "aggr_func",
-                                "name": "SUM",
-                                "args": {
-                                    "expr": {
-                                        "type": "column_ref",
-                                        "table": null,
-                                        "column": "profit"
-                                    }
-                                },
-                                "over": {
-                                    "type": "window",
-                                    "as_window_specification": {
-                                        "window_specification": {
-                                            "name": null,
-                                            "partitionby": [
-                                                {
-                                                    "expr": {
-                                                        "type": "column_ref",
-                                                        "table": null,
-                                                        "column": "country"
-                                                    },
-                                                    "as": null
-                                                }
-                                            ],
-                                            "orderby": null,
-                                            "window_frame_clause": null
-                                        },
-                                        "parentheses": true
-                                    }
-                                }
-                            },
-                            "as": "country_profit"
-                        }
-                    ],
-                    "into": {
-                        "position": null
+                        "as": null
                     },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "sales",
-                            "as": null
-                        }
-                    ],
-                    "where": null,
-                    "groupby": null,
-                    "having": null,
-                    "orderby": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "country"
-                            },
-                            "type": "ASC"
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "country"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "year"
-                            },
-                            "type": "ASC"
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "product"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "product"
-                            },
-                            "type": "ASC"
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "profit"
                         },
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": null,
-                                "column": "profit"
+                        "as": null
+                    },
+                    {
+                        "expr": {
+                            "type": "aggr_func",
+                            "name": "SUM",
+                            "args": {
+                                "expr": {
+                                    "type": "column_ref",
+                                    "table": null,
+                                    "column": "profit"
+                                }
                             },
-                            "type": "ASC"
-                        }
-                    ],
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                            "over": {
+                                "type": "window",
+                                "as_window_specification": {
+                                    "window_specification": {
+                                        "name": null,
+                                        "partitionby": null,
+                                        "orderby": null,
+                                        "window_frame_clause": null
+                                    },
+                                    "parentheses": true
+                                }
+                            }
+                        },
+                        "as": "total_profit"
+                    },
+                    {
+                        "expr": {
+                            "type": "aggr_func",
+                            "name": "SUM",
+                            "args": {
+                                "expr": {
+                                    "type": "column_ref",
+                                    "table": null,
+                                    "column": "profit"
+                                }
+                            },
+                            "over": {
+                                "type": "window",
+                                "as_window_specification": {
+                                    "window_specification": {
+                                        "name": null,
+                                        "partitionby": [
+                                            {
+                                                "expr": {
+                                                    "type": "column_ref",
+                                                    "table": null,
+                                                    "column": "country"
+                                                },
+                                                "as": null
+                                            }
+                                        ],
+                                        "orderby": null,
+                                        "window_frame_clause": null
+                                    },
+                                    "parentheses": true
+                                }
+                            }
+                        },
+                        "as": "country_profit"
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "sales",
+                        "as": null
+                    }
+                ],
+                "where": null,
+                "groupby": null,
+                "having": null,
+                "orderby": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "country"
+                        },
+                        "type": "ASC"
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "year"
+                        },
+                        "type": "ASC"
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "product"
+                        },
+                        "type": "ASC"
+                    },
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": null,
+                            "column": "profit"
+                        },
+                        "type": "ASC"
+                    }
+                ],
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 6.25
     }
 ]

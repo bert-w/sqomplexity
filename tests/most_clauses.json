@@ -64,230 +64,207 @@
                 "undefined": null
             },
             "select": null,
-            "meta": {
-                "case_usage": [
-                    "snake_case"
-                ],
-                "quote_usage": [
-                    "single"
-                ],
-                "table_usage": [
-                    "titles",
-                    "authors"
-                ],
-                "database_usage": []
-            }
+            "case_usage": [
+                "snake_case"
+            ],
+            "quote_usage": [
+                "single"
+            ],
+            "is_cyclic": false
         },
-        "ast": {
-            "tableList": [
-                "select::null::countries",
-                "select::null::titles",
-                "select::null::authors"
-            ],
-            "columnList": [
-                "select::titles::publication_id",
-                "select::titles::price",
-                "select::authors::publication_id",
-                "select::authors::status",
-                "select::authors::country_id",
-                "select::null::id",
-                "select::null::continent",
-                "select::null::price"
-            ],
-            "ast": [
-                {
-                    "with": null,
-                    "type": "select",
-                    "options": null,
-                    "distinct": null,
-                    "columns": [
-                        {
-                            "expr": {
-                                "type": "column_ref",
-                                "table": "titles",
-                                "column": "publication_id"
-                            },
-                            "as": null
-                        },
-                        {
-                            "expr": {
-                                "type": "aggr_func",
-                                "name": "AVG",
-                                "args": {
-                                    "expr": {
-                                        "type": "column_ref",
-                                        "table": "titles",
-                                        "column": "price"
-                                    }
-                                },
-                                "over": null
-                            },
-                            "as": null
-                        }
-                    ],
-                    "into": {
-                        "position": null
-                    },
-                    "from": [
-                        {
-                            "db": null,
-                            "table": "titles",
-                            "as": null
-                        },
-                        {
-                            "db": null,
-                            "table": "authors",
-                            "as": null,
-                            "join": "INNER JOIN",
-                            "on": {
-                                "type": "binary_expr",
-                                "operator": "=",
-                                "left": {
-                                    "type": "column_ref",
-                                    "table": "titles",
-                                    "column": "publication_id"
-                                },
-                                "right": {
-                                    "type": "column_ref",
-                                    "table": "authors",
-                                    "column": "publication_id"
-                                }
-                            }
-                        }
-                    ],
-                    "where": {
-                        "type": "binary_expr",
-                        "operator": "AND",
-                        "left": {
-                            "type": "binary_expr",
-                            "operator": "=",
-                            "left": {
-                                "type": "column_ref",
-                                "table": "authors",
-                                "column": "status"
-                            },
-                            "right": {
-                                "type": "single_quote_string",
-                                "value": "approved"
-                            }
-                        },
-                        "right": {
-                            "type": "binary_expr",
-                            "operator": "IN",
-                            "left": {
-                                "type": "column_ref",
-                                "table": "authors",
-                                "column": "country_id"
-                            },
-                            "right": {
-                                "type": "expr_list",
-                                "value": [
-                                    {
-                                        "tableList": [
-                                            "select::null::countries"
-                                        ],
-                                        "columnList": [
-                                            "select::titles::publication_id",
-                                            "select::titles::price",
-                                            "select::authors::publication_id",
-                                            "select::authors::status",
-                                            "select::authors::country_id",
-                                            "select::null::id",
-                                            "select::null::continent"
-                                        ],
-                                        "ast": {
-                                            "with": null,
-                                            "type": "select",
-                                            "options": null,
-                                            "distinct": null,
-                                            "columns": [
-                                                {
-                                                    "expr": {
-                                                        "type": "column_ref",
-                                                        "table": null,
-                                                        "column": "id"
-                                                    },
-                                                    "as": null
-                                                }
-                                            ],
-                                            "into": {
-                                                "position": null
-                                            },
-                                            "from": [
-                                                {
-                                                    "db": null,
-                                                    "table": "countries",
-                                                    "as": null
-                                                }
-                                            ],
-                                            "where": {
-                                                "type": "binary_expr",
-                                                "operator": "=",
-                                                "left": {
-                                                    "type": "column_ref",
-                                                    "table": null,
-                                                    "column": "continent"
-                                                },
-                                                "right": {
-                                                    "type": "single_quote_string",
-                                                    "value": "Europe"
-                                                }
-                                            },
-                                            "groupby": null,
-                                            "having": null,
-                                            "orderby": null,
-                                            "limit": null,
-                                            "locking_read": null,
-                                            "window": null
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    },
-                    "groupby": [
-                        {
+        "ast": [
+            {
+                "with": null,
+                "type": "select",
+                "options": null,
+                "distinct": null,
+                "columns": [
+                    {
+                        "expr": {
                             "type": "column_ref",
                             "table": "titles",
                             "column": "publication_id"
-                        }
-                    ],
-                    "having": {
-                        "type": "binary_expr",
-                        "operator": ">",
-                        "left": {
+                        },
+                        "as": null
+                    },
+                    {
+                        "expr": {
                             "type": "aggr_func",
                             "name": "AVG",
                             "args": {
                                 "expr": {
                                     "type": "column_ref",
-                                    "table": null,
+                                    "table": "titles",
                                     "column": "price"
                                 }
                             },
                             "over": null
                         },
-                        "right": {
-                            "type": "number",
-                            "value": 10
-                        }
+                        "as": null
+                    }
+                ],
+                "into": {
+                    "position": null
+                },
+                "from": [
+                    {
+                        "db": null,
+                        "table": "titles",
+                        "as": null
                     },
-                    "orderby": [
-                        {
-                            "expr": {
+                    {
+                        "db": null,
+                        "table": "authors",
+                        "as": null,
+                        "join": "INNER JOIN",
+                        "on": {
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
                                 "type": "column_ref",
                                 "table": "titles",
                                 "column": "publication_id"
                             },
-                            "type": "ASC"
+                            "right": {
+                                "type": "column_ref",
+                                "table": "authors",
+                                "column": "publication_id"
+                            }
                         }
-                    ],
-                    "limit": null,
-                    "locking_read": null,
-                    "window": null
-                }
-            ]
-        },
+                    }
+                ],
+                "where": {
+                    "type": "binary_expr",
+                    "operator": "AND",
+                    "left": {
+                        "type": "binary_expr",
+                        "operator": "=",
+                        "left": {
+                            "type": "column_ref",
+                            "table": "authors",
+                            "column": "status"
+                        },
+                        "right": {
+                            "type": "single_quote_string",
+                            "value": "approved"
+                        }
+                    },
+                    "right": {
+                        "type": "binary_expr",
+                        "operator": "IN",
+                        "left": {
+                            "type": "column_ref",
+                            "table": "authors",
+                            "column": "country_id"
+                        },
+                        "right": {
+                            "type": "expr_list",
+                            "value": [
+                                {
+                                    "tableList": [
+                                        "select::null::countries"
+                                    ],
+                                    "columnList": [
+                                        "select::titles::publication_id",
+                                        "select::titles::price",
+                                        "select::authors::publication_id",
+                                        "select::authors::status",
+                                        "select::authors::country_id",
+                                        "select::null::id",
+                                        "select::null::continent"
+                                    ],
+                                    "ast": {
+                                        "with": null,
+                                        "type": "select",
+                                        "options": null,
+                                        "distinct": null,
+                                        "columns": [
+                                            {
+                                                "expr": {
+                                                    "type": "column_ref",
+                                                    "table": null,
+                                                    "column": "id"
+                                                },
+                                                "as": null
+                                            }
+                                        ],
+                                        "into": {
+                                            "position": null
+                                        },
+                                        "from": [
+                                            {
+                                                "db": null,
+                                                "table": "countries",
+                                                "as": null
+                                            }
+                                        ],
+                                        "where": {
+                                            "type": "binary_expr",
+                                            "operator": "=",
+                                            "left": {
+                                                "type": "column_ref",
+                                                "table": null,
+                                                "column": "continent"
+                                            },
+                                            "right": {
+                                                "type": "single_quote_string",
+                                                "value": "Europe"
+                                            }
+                                        },
+                                        "groupby": null,
+                                        "having": null,
+                                        "orderby": null,
+                                        "limit": null,
+                                        "locking_read": null,
+                                        "window": null
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "groupby": [
+                    {
+                        "type": "column_ref",
+                        "table": "titles",
+                        "column": "publication_id"
+                    }
+                ],
+                "having": {
+                    "type": "binary_expr",
+                    "operator": ">",
+                    "left": {
+                        "type": "aggr_func",
+                        "name": "AVG",
+                        "args": {
+                            "expr": {
+                                "type": "column_ref",
+                                "table": null,
+                                "column": "price"
+                            }
+                        },
+                        "over": null
+                    },
+                    "right": {
+                        "type": "number",
+                        "value": 10
+                    }
+                },
+                "orderby": [
+                    {
+                        "expr": {
+                            "type": "column_ref",
+                            "table": "titles",
+                            "column": "publication_id"
+                        },
+                        "type": "ASC"
+                    }
+                ],
+                "limit": null,
+                "locking_read": null,
+                "window": null
+            }
+        ],
         "complexity": 16.25
     }
 ]

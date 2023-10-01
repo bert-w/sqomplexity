@@ -42,141 +42,125 @@
                 "string": 1,
                 "undefined": null
             },
-            "meta": {
-                "case_usage": [
-                    "PascalCase"
-                ],
-                "quote_usage": [
-                    "single"
-                ],
-                "table_usage": [],
-                "database_usage": []
-            }
+            "case_usage": [
+                "PascalCase"
+            ],
+            "quote_usage": [
+                "single"
+            ],
+            "is_cyclic": false
         },
         "ast": {
-            "tableList": [
-                "select::null::orders",
-                "select::null::users"
+            "with": null,
+            "type": "select",
+            "options": null,
+            "distinct": null,
+            "columns": "*",
+            "into": {
+                "position": null
+            },
+            "from": [
+                {
+                    "db": null,
+                    "table": "users",
+                    "as": null
+                }
             ],
-            "columnList": [
-                "select::null::(.*)",
-                "select::null::Id",
-                "select::null::UserId",
-                "select::null::CreationDate",
-                "select::null::Status"
-            ],
-            "ast": {
-                "with": null,
-                "type": "select",
-                "options": null,
-                "distinct": null,
-                "columns": "*",
-                "into": {
-                    "position": null
+            "where": {
+                "type": "binary_expr",
+                "operator": "IN",
+                "left": {
+                    "type": "column_ref",
+                    "table": null,
+                    "column": "Id"
                 },
-                "from": [
-                    {
-                        "db": null,
-                        "table": "users",
-                        "as": null
-                    }
-                ],
-                "where": {
-                    "type": "binary_expr",
-                    "operator": "IN",
-                    "left": {
-                        "type": "column_ref",
-                        "table": null,
-                        "column": "Id"
-                    },
-                    "right": {
-                        "type": "expr_list",
-                        "value": [
-                            {
-                                "tableList": [
-                                    "select::null::orders",
-                                    "select::null::users"
+                "right": {
+                    "type": "expr_list",
+                    "value": [
+                        {
+                            "tableList": [
+                                "select::null::orders",
+                                "select::null::users"
+                            ],
+                            "columnList": [
+                                "select::null::(.*)",
+                                "select::null::Id",
+                                "select::null::UserId",
+                                "select::null::CreationDate",
+                                "select::null::Status"
+                            ],
+                            "ast": {
+                                "with": null,
+                                "type": "select",
+                                "options": null,
+                                "distinct": null,
+                                "columns": [
+                                    {
+                                        "expr": {
+                                            "type": "column_ref",
+                                            "table": null,
+                                            "column": "UserId"
+                                        },
+                                        "as": null
+                                    }
                                 ],
-                                "columnList": [
-                                    "select::null::(.*)",
-                                    "select::null::Id",
-                                    "select::null::UserId",
-                                    "select::null::CreationDate",
-                                    "select::null::Status"
+                                "into": {
+                                    "position": null
+                                },
+                                "from": [
+                                    {
+                                        "db": null,
+                                        "table": "orders",
+                                        "as": null
+                                    }
                                 ],
-                                "ast": {
-                                    "with": null,
-                                    "type": "select",
-                                    "options": null,
-                                    "distinct": null,
-                                    "columns": [
-                                        {
-                                            "expr": {
-                                                "type": "column_ref",
-                                                "table": null,
-                                                "column": "UserId"
-                                            },
-                                            "as": null
-                                        }
-                                    ],
-                                    "into": {
-                                        "position": null
-                                    },
-                                    "from": [
-                                        {
-                                            "db": null,
-                                            "table": "orders",
-                                            "as": null
-                                        }
-                                    ],
-                                    "where": {
+                                "where": {
+                                    "type": "binary_expr",
+                                    "operator": "AND",
+                                    "left": {
                                         "type": "binary_expr",
-                                        "operator": "AND",
+                                        "operator": ">",
                                         "left": {
-                                            "type": "binary_expr",
-                                            "operator": ">",
-                                            "left": {
-                                                "type": "column_ref",
-                                                "table": null,
-                                                "column": "CreationDate"
-                                            },
-                                            "right": {
-                                                "type": "single_quote_string",
-                                                "value": "2020-01-01"
-                                            }
+                                            "type": "column_ref",
+                                            "table": null,
+                                            "column": "CreationDate"
                                         },
                                         "right": {
-                                            "type": "binary_expr",
-                                            "operator": "=",
-                                            "left": {
-                                                "type": "column_ref",
-                                                "table": null,
-                                                "column": "Status"
-                                            },
-                                            "right": {
-                                                "type": "number",
-                                                "value": 1
-                                            }
+                                            "type": "single_quote_string",
+                                            "value": "2020-01-01"
                                         }
                                     },
-                                    "groupby": null,
-                                    "having": null,
-                                    "orderby": null,
-                                    "limit": null,
-                                    "locking_read": null,
-                                    "window": null
-                                }
+                                    "right": {
+                                        "type": "binary_expr",
+                                        "operator": "=",
+                                        "left": {
+                                            "type": "column_ref",
+                                            "table": null,
+                                            "column": "Status"
+                                        },
+                                        "right": {
+                                            "type": "number",
+                                            "value": 1
+                                        }
+                                    }
+                                },
+                                "groupby": null,
+                                "having": null,
+                                "orderby": null,
+                                "limit": null,
+                                "locking_read": null,
+                                "window": null
                             }
-                        ]
-                    }
-                },
-                "groupby": null,
-                "having": null,
-                "orderby": null,
-                "limit": null,
-                "locking_read": null,
-                "window": null
-            }
+                        }
+                    ]
+                }
+            },
+            "groupby": null,
+            "having": null,
+            "orderby": null,
+            "limit": null,
+            "locking_read": null,
+            "window": null
         },
         "complexity": 9.5
     }
