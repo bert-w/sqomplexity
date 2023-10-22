@@ -312,19 +312,20 @@ export class Calculator {
      * @private
      */
     _calculateLimitOffset(ast) {
-        if (_(ast, 'limit.separator') === 'offset') {
-            // LIMIT and OFFSET provided.
-            this.stats.expressions_per_clause.limit++;
-            this.stats.expressions_per_clause.offset++;
-            return this.weights.clauses.limit + this.weights.clauses.offset;
-        }
-
+        let score = 0;
         if (ast.limit) {
+            // LIMIT provided.
             this.stats.expressions_per_clause.limit++;
-            return this.weights.clauses.limit;
+            score += this._expression(ast.limit.value[0], 'limit') * this.weights.clauses.limit;
+
+            if (ast.limit.separator === 'offset') {
+                // OFFSET provided.
+                this.stats.expressions_per_clause.offset++;
+                score += this._expression(ast.limit.value[1], 'offset') * this.weights.clauses.offset;
+            }
         }
 
-        return 0;
+        return score;
     }
 
     /**
