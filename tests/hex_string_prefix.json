@@ -60,7 +60,6 @@
                 "string": 7,
                 "table": null
             },
-            "select": null,
             "case_usage": [
                 "snake_case",
                 "camelCase",

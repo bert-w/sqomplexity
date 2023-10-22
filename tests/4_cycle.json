@@ -59,7 +59,7 @@
                 "snake_case"
             ],
             "quote_usage": [],
-            "is_cyclic": true
+            "is_cyclic": false
         },
         "ast": {
             "with": null,

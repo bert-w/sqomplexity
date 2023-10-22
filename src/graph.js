@@ -27,8 +27,16 @@ export class Graph {
             this.addVertex(w);
         }
 
-        this.map.get(v).push(w);
-        this.map.get(w).push(v);
+        const vEdges = this.map.get(v);
+        const wEdges = this.map.get(w);
+
+        if (vEdges.indexOf(w) < 0) {
+            vEdges.push(w);
+        }
+
+        if (wEdges.indexOf(v) < 0) {
+            wEdges.push(v);
+        }
 
         return this;
     }

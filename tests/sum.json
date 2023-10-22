@@ -46,7 +46,6 @@
                 "string": 0,
                 "table": null
             },
-            "select": null,
             "case_usage": [
                 "snake_case"
             ],

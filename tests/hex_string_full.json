@@ -44,7 +44,6 @@
                 "undefined": null,
                 "bigint": null
             },
-            "select": null,
             "case_usage": [],
             "quote_usage": [],
             "is_cyclic": false

@@ -1,10 +1,12 @@
 [
     {
         "dialect": "mysql",
-        "query": "# Testcase for cycle detection where aliases are set but not always used.\r\nSELECT *\r\nFROM table_a a\r\n         JOIN table_b b ON a.id = b.id\r\n         JOIN table_c c ON table_b.id = table_a.id",
+        "query": "# Testcase for cycle detection where aliases are set but not always used.\r\nSELECT *\r\nFROM table_a a\r\n         JOIN table_b b ON a.id = b.id\r\n         JOIN table_c c ON table_b.id = table_c.id AND table_c.id = table_a.id",
         "stats": {
             "subqueries": 0,
             "columns": [
+                "id",
+                "id",
                 "id",
                 "id",
                 "id",
@@ -19,6 +21,8 @@
                 "b",
                 "table_b",
                 "table_b",
+                "table_c",
+                "table_c",
                 "table_a",
                 "table_c"
             ],
@@ -26,7 +30,7 @@
             "expressions_per_clause": {
                 "select": 1,
                 "from": 1,
-                "join": 8,
+                "join": 12,
                 "where": 0,
                 "group_by": 0,
                 "having": 0,
@@ -36,9 +40,9 @@
             },
             "expressions_per_type": {
                 "unary_expr": 0,
-                "binary_expr": 2,
+                "binary_expr": 4,
                 "number": 0,
-                "column_ref": 4,
+                "column_ref": 6,
                 "aggr_func": 0,
                 "expr_list": 0,
                 "star": 1,
@@ -94,16 +98,34 @@
                     "join": "INNER JOIN",
                     "on": {
                         "type": "binary_expr",
-                        "operator": "=",
+                        "operator": "AND",
                         "left": {
-                            "type": "column_ref",
-                            "table": "table_b",
-                            "column": "id"
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "table_b",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "table_c",
+                                "column": "id"
+                            }
                         },
                         "right": {
-                            "type": "column_ref",
-                            "table": "table_a",
-                            "column": "id"
+                            "type": "binary_expr",
+                            "operator": "=",
+                            "left": {
+                                "type": "column_ref",
+                                "table": "table_c",
+                                "column": "id"
+                            },
+                            "right": {
+                                "type": "column_ref",
+                                "table": "table_a",
+                                "column": "id"
+                            }
                         }
                     }
                 }
@@ -116,6 +138,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 6.75
+        "complexity": 8.75
     }
 ]

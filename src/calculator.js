@@ -226,7 +226,6 @@ export class Calculator {
         let score = 0;
         if (Array.isArray(ast.columns)) {
             ast.columns.forEach((el) => {
-                this.stats.select++;
                 if (!el.expr) {
                     // Fallback for empty expressions (take column_ref score).
                     score += this.weights.expressions.column_ref;

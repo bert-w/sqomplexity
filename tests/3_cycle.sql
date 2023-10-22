@@ -2,4 +2,4 @@
 SELECT *
 FROM table_a a
          JOIN table_b b ON a.id = b.id
-         JOIN table_c c ON table_b.id = table_a.id
+         JOIN table_c c ON table_b.id = table_c.id AND table_c.id = table_a.id

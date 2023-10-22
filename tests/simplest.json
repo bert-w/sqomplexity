@@ -34,7 +34,6 @@
                 "function": 0,
                 "string": 0
             },
-            "select": null,
             "case_usage": [],
             "quote_usage": [],
             "is_cyclic": false

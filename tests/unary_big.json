@@ -302,7 +302,6 @@
                 "null": null,
                 "table": null
             },
-            "select": null,
             "case_usage": [
                 "snake_case",
                 "Unknown case",

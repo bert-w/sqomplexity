@@ -46,7 +46,6 @@
                 "table": null,
                 "undefined": null
             },
-            "select": null,
             "case_usage": [
                 "PascalCase"
             ],

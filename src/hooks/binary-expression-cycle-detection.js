@@ -13,11 +13,6 @@ export class BinaryExpressionCycleDetection extends Hook {
         this.aliases = {};
     }
 
-    /**
-     * @param {Sqomplexity.Expression} expr
-     * @param {string} clause
-     * @param {Calculator} self
-     */
     handle(expr, clause, self) {
         if (expr.type === 'table' && expr.table != null && expr.as != null) {
             // Keep track of aliases.

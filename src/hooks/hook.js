@@ -1,8 +1,11 @@
 export class Hook {
     /**
+     * @param {Sqomplexity.Expression} expr
+     * @param {string} clause
+     * @param {Calculator} self
      * @returns {void}
      */
-    handle() {
+    handle(expr, clause, self) {
         //
     }
 
