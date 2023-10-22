@@ -248,24 +248,34 @@ export class Calculator {
         let score = 0;
         (ast.from || []).forEach((expr) => {
             if (expr.join) {
-                // Make custom expression since there was none for table.
-                score += this._expression({
+                // Defer to join.
+                score += this._calculateJoin({
                     type: 'table',
                     ...expr,
-                }, 'join');
+                });
             } else if (expr.expr) {
                 // Subexpression like a subquery.
-                score += this._expression(expr.expr, 'from');
+                score += this._expression(expr.expr, 'from') * this.weights.clauses.from;
             } else {
                 // Make custom expression since there was none for table.
                 score += this._expression({
                     type: 'table',
                     ...expr,
-                }, 'from');
+                }, 'from') * this.weights.clauses.from;
             }
         });
 
-        return score * this.weights.clauses.from;
+        return score;
+    }
+
+    /**
+     * Joins use expressions since they are subtypes of FROM.
+     * @param {Sqomplexity.Expression} expr
+     * @return {number}
+     * @private
+     */
+    _calculateJoin(expr) {
+        return this._expression(expr, 'join') * this.weights.clauses.join;
     }
 
     /**
@@ -276,10 +286,10 @@ export class Calculator {
     _calculateGroupBy(ast) {
         let score = 0;
         (ast.groupby || []).forEach((el) => {
-            score += this.weights.clauses.group_by * this._expression(el, 'group_by');
+            score += this._expression(el, 'group_by');
         });
 
-        return score;
+        return score * this.weights.clauses.group_by;
     }
 
     /**
@@ -290,10 +300,10 @@ export class Calculator {
     _calculateHaving(ast) {
         let score = 0;
         if (_(ast, 'having.type') === 'binary_expr') {
-            score += this.weights.clauses.having * this._expression(ast.having, 'having')
+            score += this._expression(ast.having, 'having')
         }
 
-        return score;
+        return score * this.weights.clauses.having;
     }
 
     /**
@@ -326,11 +336,11 @@ export class Calculator {
         let score = 0;
         if (ast.orderby) {
             ast.orderby.forEach((el) => {
-                score += this.weights.clauses.order_by * this._expression(el.expr, 'order_by');
+                score += this._expression(el.expr, 'order_by');
             });
         }
 
-        return score;
+        return score * this.weights.clauses.order_by;
     }
 
     /**
@@ -339,11 +349,12 @@ export class Calculator {
      * @private
      */
     _calculateWhere(ast) {
+        let score = 0;
         if (ast.where) {
-            return this.weights.clauses.where * this._expression(ast.where, 'where');
+            score += this._expression(ast.where, 'where');
         }
 
-        return 0;
+        return score * this.weights.clauses.where;
     }
 
     /**
@@ -401,20 +412,14 @@ export class Calculator {
         switch (expr.type) {
             case 'table':
                 // ON clause (JOINs).
-                score += expr.on ? this._expression(expr.on, clause) : 0;
+                if (expr.on) {
+                    score += this._expression(expr.on, clause);
+                }
 
                 if (expr.db) {
                     // Database prefix (if any).
                     this.stats.databases.push(expr.db);
                 }
-
-                // Join type.
-                score += this._map(expr.join, {
-                    'left join': this.weights.clauses.join,
-                    'right join': this.weights.clauses.join,
-                    'inner join': this.weights.clauses.join,
-                    'cross join': this.weights.clauses.join,
-                });
                 break;
             case 'binary_expr':
                 score += (this._expression(expr.left, clause) + this._expression(expr.right, clause));
