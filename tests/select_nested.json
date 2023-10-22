@@ -21,7 +21,7 @@
             ],
             "databases": [],
             "expressions_per_clause": {
-                "select": 5,
+                "select": 4,
                 "from": 2,
                 "join": 0,
                 "where": 3,
@@ -32,17 +32,17 @@
                 "offset": 0
             },
             "expressions_per_type": {
-                "unary_expr": 0,
-                "binary_expr": 1,
-                "number": 0,
-                "column_ref": 4,
-                "aggr_func": 1,
-                "expr_list": 0,
-                "star": 1,
-                "function": 0,
+                "table": 2,
+                "column": 4,
                 "string": 0,
-                "undefined": null,
-                "table": null
+                "number": 0,
+                "star": 1,
+                "unary": 0,
+                "binary": 1,
+                "function": 0,
+                "aggregation_function": 1,
+                "list": 0,
+                "null": 0
             },
             "case_usage": [
                 "snake_case"
@@ -160,6 +160,6 @@
                 "window": null
             }
         ],
-        "complexity": 7.5
+        "complexity": 3.7031
     }
 ]

@@ -46,7 +46,7 @@
                 "select": 4,
                 "from": 2,
                 "join": 4,
-                "where": 11,
+                "where": 10,
                 "group_by": 1,
                 "having": 4,
                 "order_by": 1,
@@ -54,17 +54,17 @@
                 "offset": 0
             },
             "expressions_per_type": {
-                "unary_expr": 0,
-                "binary_expr": 6,
-                "number": 1,
-                "column_ref": 11,
-                "aggr_func": 2,
-                "expr_list": 1,
-                "star": 0,
-                "function": 0,
+                "table": 3,
+                "column": 11,
                 "string": 2,
-                "table": null,
-                "undefined": null
+                "number": 1,
+                "star": 0,
+                "unary": 0,
+                "binary": 6,
+                "function": 0,
+                "aggregation_function": 2,
+                "list": 1,
+                "null": 0
             },
             "case_usage": [
                 "snake_case"
@@ -267,6 +267,6 @@
                 "window": null
             }
         ],
-        "complexity": 17.5
+        "complexity": 8.3672
     }
 ]

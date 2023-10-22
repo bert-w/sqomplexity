@@ -21,8 +21,8 @@
             "tables": [],
             "databases": [],
             "expressions_per_clause": {
-                "select": 21,
-                "from": 1,
+                "select": 20,
+                "from": 0,
                 "join": 0,
                 "where": 0,
                 "group_by": 0,
@@ -32,17 +32,17 @@
                 "offset": 0
             },
             "expressions_per_type": {
-                "unary_expr": 0,
-                "binary_expr": 2,
-                "number": 4,
-                "column_ref": 0,
-                "aggr_func": 0,
-                "expr_list": 4,
-                "star": 1,
-                "function": 4,
+                "table": 0,
+                "column": 0,
                 "string": 3,
-                "undefined": null,
-                "bigint": null
+                "number": 6,
+                "star": 1,
+                "unary": 0,
+                "binary": 2,
+                "function": 4,
+                "aggregation_function": 0,
+                "list": 4,
+                "null": 0
             },
             "case_usage": [],
             "quote_usage": [],
@@ -217,6 +217,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 29.8438
+        "complexity": 8.7656
     }
 ]

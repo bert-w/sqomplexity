@@ -26,7 +26,7 @@
                 "select": 2,
                 "from": 2,
                 "join": 0,
-                "where": 11,
+                "where": 10,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
@@ -34,17 +34,17 @@
                 "offset": 0
             },
             "expressions_per_type": {
-                "unary_expr": 0,
-                "binary_expr": 4,
-                "number": 1,
-                "column_ref": 4,
-                "aggr_func": 0,
-                "expr_list": 1,
-                "star": 1,
-                "function": 0,
+                "table": 2,
+                "column": 4,
                 "string": 1,
-                "table": null,
-                "undefined": null
+                "number": 1,
+                "star": 1,
+                "unary": 0,
+                "binary": 4,
+                "function": 0,
+                "aggregation_function": 0,
+                "list": 1,
+                "null": 0
             },
             "case_usage": [
                 "PascalCase"
@@ -166,6 +166,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 10.75
+        "complexity": 1.8086
     }
 ]

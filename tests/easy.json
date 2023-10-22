@@ -24,16 +24,17 @@
                 "offset": 0
             },
             "expressions_per_type": {
-                "unary_expr": 0,
-                "binary_expr": 0,
-                "number": 0,
-                "column_ref": 0,
-                "aggr_func": 0,
-                "expr_list": 0,
-                "star": 1,
-                "function": 0,
+                "table": 1,
+                "column": 0,
                 "string": 0,
-                "table": null
+                "number": 0,
+                "star": 1,
+                "unary": 0,
+                "binary": 0,
+                "function": 0,
+                "aggregation_function": 0,
+                "list": 0,
+                "null": 0
             },
             "case_usage": [],
             "quote_usage": [],
@@ -63,6 +64,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 1.25
+        "complexity": 0.875
     }
 ]

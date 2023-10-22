@@ -46,16 +46,17 @@
                 "offset": 1
             },
             "expressions_per_type": {
-                "unary_expr": 0,
-                "binary_expr": 4,
-                "number": 2,
-                "column_ref": 9,
-                "aggr_func": 4,
-                "expr_list": 0,
-                "star": 0,
-                "function": 0,
+                "table": 2,
+                "column": 9,
                 "string": 0,
-                "table": null
+                "number": 2,
+                "star": 0,
+                "unary": 0,
+                "binary": 4,
+                "function": 0,
+                "aggregation_function": 4,
+                "list": 0,
+                "null": 0
             },
             "case_usage": [
                 "snake_case"
@@ -227,6 +228,6 @@
                 "window": null
             }
         ],
-        "complexity": 14.8125
+        "complexity": 10.0625
     }
 ]

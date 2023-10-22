@@ -31,16 +31,17 @@
                 "offset": 0
             },
             "expressions_per_type": {
-                "unary_expr": 0,
-                "binary_expr": 1,
-                "number": 1,
-                "column_ref": 4,
-                "aggr_func": 0,
-                "expr_list": 0,
-                "star": 0,
-                "function": 0,
+                "table": 1,
+                "column": 4,
                 "string": 0,
-                "table": null
+                "number": 1,
+                "star": 0,
+                "unary": 0,
+                "binary": 1,
+                "function": 0,
+                "aggregation_function": 0,
+                "list": 0,
+                "null": 0
             },
             "case_usage": [
                 "snake_case"
@@ -430,6 +431,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 3.625
+        "complexity": 2.5625
     }
 ]
