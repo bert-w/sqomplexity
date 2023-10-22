@@ -1,4 +1,5 @@
 import {Sqomplexity} from './sqomplexity.js';
+import weights from './weights.js';
 import * as fs from 'node:fs/promises';
 
 export class Program {
@@ -97,9 +98,19 @@ export class Program {
             case 'object':
                 return this.options.weights;
             case 'string':
-                return JSON.parse(await fs.readFile(this.options.weights, {encoding: 'utf8'}));
+                if (this.options.weights.endsWith('.json')) {
+                    return JSON.parse(await fs.readFile(this.options.weights, {encoding: 'utf8'}));
+                } else if (this.options.weights.endsWith('.js')) {
+                    const {default: weights} = await import(
+                        /* webpackIgnore: true */
+                        this.options.weights
+                        );
+                    return weights;
+                } else {
+                    throw new Error('Weights should be a .js or .json file.');
+                }
             default:
-                return JSON.parse(await fs.readFile('./src/weights.json', {encoding: 'utf8'}));
+                return weights;
         }
     }
 }
