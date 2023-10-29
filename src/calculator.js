@@ -121,15 +121,9 @@ export class Calculator {
      * @returns {object}
      */
     getStats() {
-        // Retrieve extra data from hooks.
-        const hookMeta = Object.entries(this.hooks).flatMap(([, value]) => value.map((hook) => hook.stats()));
-        let hookData = {};
-        hookMeta.forEach((value) => hookData = {...hookData, ...value});
-
         return {
             ...this.stats,
             ...this.meta_stats,
-            ...hookData,
         };
     }
 
@@ -172,11 +166,16 @@ export class Calculator {
         });
 
 
-        this.meta_stats = this._calculateStats();
+        this.meta_stats = this._calculateMetaStats();
 
         // Apply multiplier if nesting takes place.
         if (this.nesting_level > 0) {
             score *= this.weights.emergent.subquery * this.nesting_level;
+        }
+
+        // Add complexity if a cycle has been detected.
+        if (this.meta_stats.is_cyclic) {
+            score += this.weights.emergent.cycle;
         }
 
         this.score = score;
@@ -188,10 +187,17 @@ export class Calculator {
      * @returns {object}
      * @private
      */
-    _calculateStats() {
+    _calculateMetaStats() {
+        // Retrieve extra data from hooks.
+        const hookMeta = Object.entries(this.hooks).flatMap(([, value]) => value.map((hook) => hook.stats()));
+        let hookData = {};
+        hookMeta.forEach((value) => hookData = {...hookData, ...value});
+
+
         return {
             case_usage: this._calculateCaseUsage(this.stats.columns),
             quote_usage: this._calculateQuoteUsage(this.stats.string_types),
+            ...hookData,
         };
     }
 
