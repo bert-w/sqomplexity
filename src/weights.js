@@ -1,6 +1,6 @@
-const L = 0.25;
-const M = 0.50;
-const H = 0.75;
+const L = 1;
+const M = 1.25;
+const H = 1.5;
 
 const F = (data, cognitive) => (data + cognitive) / 2;
 

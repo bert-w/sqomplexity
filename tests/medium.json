@@ -80,9 +80,7 @@
                 "null": 0
             },
             "case_usage": [
-                "UPPERCASE",
-                "snake_case",
-                "lowercase"
+                "snake_case"
             ],
             "quote_usage": [
                 "double"
@@ -417,6 +415,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 18.2119
+        "complexity": 159.6133
     }
 ]

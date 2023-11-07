@@ -304,8 +304,7 @@
             "case_usage": [
                 "snake_case",
                 "Unknown case",
-                "PascalCase",
-                "lowercase"
+                "PascalCase"
             ],
             "quote_usage": [
                 "single"
@@ -2273,6 +2272,6 @@
                 "window": null
             }
         ],
-        "complexity": 217.8438
+        "complexity": 950.5
     }
 ]
