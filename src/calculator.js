@@ -478,13 +478,16 @@ export class Calculator {
     /**
      * Determines the casing (camelcase/snakecase/titlecase) for the input.
      * @param {string} str
-     * @returns {string}
+     * @returns {string|null}
      * @private
      */
     _getStringCase(str) {
-        if (str.match(/^[a-z]+(_[a-z]+)*$/)) {
+        if (str === '*') {
+            return null;
+        }
+        if (str.match(/^[a-z][a-z0-9]*(_[a-z0-9]+)*$/)) {
             return 'snake_case';
-        } else if (str.match(/^[a-z]+([A-Z][a-z0-9]+)*$/)) {
+        } else if (str.match(/^[a-z][a-z0-9]*([A-Z][a-z0-9]+)*$/)) {
             return 'camelCase';
         } else if (str.match(/^[A-Z][a-zA-Z0-9]+$/)) {
             return 'PascalCase';
@@ -504,7 +507,9 @@ export class Calculator {
      * @private
      */
     _calculateCaseUsage(arr) {
-        return arr.map(c => this._getStringCase(c)).filter(this._unique);
+        return arr.map(c => this._getStringCase(c))
+            .filter(c => c)
+            .filter(this._unique);
     }
 
     /**
