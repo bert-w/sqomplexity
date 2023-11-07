@@ -242,7 +242,7 @@ export class Calculator {
             }, 'select');
         }
 
-        return score;
+        return score * this.weights.clauses.select;
     }
 
     /**
