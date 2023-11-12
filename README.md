@@ -1,1 +1,59 @@
 # SQompLexity
+```txt
+   _____   ____                            _                  _  _          
+  / ____| / __ \                          | |                (_)| |         
+ | (___  | |  | |  ___   _ __ ___   _ __  | |      ___ __  __ _ | |_  _   _ 
+  \___ \ | |  | | / _ \ | '_ ` _ \ | '_ \ | |     / _ \\ \/ /| || __|| | | |
+  ____) || |__| || (_) || | | | | || |_) || |____|  __/ >  < | || |_ | |_| |
+ |_____/  \___\_\ \___/ |_| |_| |_|| .__/ |______|\___|/_/\_\|_| \__| \__, |
+                                   | |                                 __/ |
+     Calculate complexity scores   |_|   for SQL queries              |___/ 
+     
+```
+
+This is a product of my thesis on complexity progression and correlations on Stack Overflow.
+
+SQompLexity is a Node.js program for MySQL `SELECT` queries that can assign a complexity score to them based on a data and cognitive complexity score which is explained in my thesis.
+
+## Execution from JavaScript
+```js
+import {Program} from '../src/program.js';
+
+(async () => {
+const queries = [
+'SELECT id FROM users WHERE role = "admin"',
+'SELECT COUNT(*) FROM users WHERE creation_date > "2023-01-01 00:00:00" GROUP BY id',
+]
+
+    const result = (new Program({score: true}, null, false));
+
+    console.log(await result.run(queries));
+})();
+```
+
+## Execution from CLI
+```shell
+node dist/sqomplexity.js --help
+
+Arguments:
+  queries                  one or multiple SQL queries (space separated or quoted)
+
+Options:
+  -V, --version            output the version number
+  -f, --files              assumes the given arguments/queries are filepaths, and it will read the contents from them.
+                           Every file is expected to contain 1 query; if not, their complexity is summed
+  -b, --base64             assumes the given arguments/queries are base64 encoded
+  -s, --score              output only the complexity score. -1 will be returned if an error occurs
+  -w, --weights <weights>  takes a path to a json file that defines a custom set of weights
+  -a, --all                returns all data including the AST
+  -p, --pretty-print       output JSON with indentation and newlines (default: false)
+  -h, --help               display help for command
+```
+
+```shell
+node dist/sqomplexity.js "SELECT * FROM users"
+```
+
+```shell
+node dist/sqomplexity.js -f "/some/path/to/file.sql"
+```
