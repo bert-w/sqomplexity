@@ -150,21 +150,10 @@ export class Calculator {
         // Loop AST's. This property will be an array if a query is given
         // with a semicolon at the end.
         this.asts.forEach((el) => {
-            score += this._calculateSelect(el);
-
-            score += this._calculateFrom(el);
-
-            score += this._calculateWhere(el);
-
-            score += this._calculateGroupBy(el);
-
-            score += this._calculateHaving(el);
-
-            score += this._calculateLimitOffset(el);
-
-            score += this._calculateOrderBy(el);
+            for (const fn of ['Select', 'From', 'Where', 'GroupBy', 'Having', 'LimitOffset', 'OrderBy']) {
+                score += this[`_calculate${fn}`](el);
+            }
         });
-
 
         this.meta_stats = this._calculateMetaStats();
 
@@ -242,7 +231,7 @@ export class Calculator {
             }, 'select');
         }
 
-        return score * this.weights.clauses.select;
+        return this.weights.clauses.select * score;
     }
 
     /**
@@ -261,13 +250,13 @@ export class Calculator {
                 });
             } else if (expr.expr) {
                 // Subexpression like a subquery.
-                score += this._expression(expr.expr, 'from') * this.weights.clauses.from;
+                score += this.weights.clauses.from * this._expression(expr.expr, 'from');
             } else {
                 // Make custom expression since there was none for table.
-                score += this._expression({
+                score += this.weights.clauses.from * this._expression({
                     type: 'table',
                     ...expr,
-                }, 'from') * this.weights.clauses.from;
+                }, 'from');
             }
         });
 
@@ -391,75 +380,68 @@ export class Calculator {
             hook.handle(...arguments, this);
         });
 
-        let score = this.weights.expressions._base;
+        this.stats.expressions_per_clause[clause]++;
 
         if (expr.ast) {
+            // Subqueries can be returned immediately.
             return this._calculateNested(expr.ast);
         }
+
+        let score = (() => {
+            switch (expr.type) {
+                case 'table':
+                    if (expr.db) {
+                        // Database prefix (if any).
+                        this.stats.databases.push(expr.db);
+                    }
+                    if (expr.on) {
+                        // ON clause (JOINs).
+                        return this._expression(expr.on, clause);
+                    }
+                    break;
+                case 'binary_expr':
+                    return (this._expression(expr.left, clause) + this._expression(expr.right, clause));
+                case 'number':
+                    this.stats.numbers.push(expr.value);
+                    break;
+                case 'column_ref':
+                    this.stats.columns.push(expr.column);
+                    break;
+                case 'expr_list':
+                    return (Array.isArray(expr.value) ? expr.value : [expr.value]).reduce((accumulator, i) => {
+                        return this._expression(i, clause) + accumulator;
+                    }, 0);
+                case 'star':
+                    break;
+                case 'aggr_func':
+                case 'function':
+                    break;
+                case 'string':
+                case 'natural_string':
+                case 'single_quote_string':
+                case 'hex_string':
+                case 'full_hex_string':
+                case 'bit_string':
+                    this.stats.strings.push(expr.value);
+                    this.stats.string_types.push(expr.type);
+                    break;
+                case 'unary_expr':
+                    break;
+            }
+            if (expr.args) {
+                return (Array.isArray(expr.args) ? expr.args : [expr.args]).reduce((accumulator, i) => {
+                    return (expr.args.distinct ? this.weights.expressions.function : 0) +
+                        // Some arguments have a nested expression immediately which takes precedence.
+                        this._expression(i.expr ?? i, clause);
+                }, 0);
+            }
+
+            return 1;
+        })();
 
         if (expr.operator) {
             // Add weight for specific operator.
             score += this.weights.operator;
-        }
-
-        this.stats.expressions_per_clause[clause]++;
-
-        try {
-            // Add base weight for the expression type (may fall back to _base if it is not set).
-            const mappedWeightName = this._mapExpressionType(expr.type);
-            score += this.weights.expressions[mappedWeightName];
-            this.stats.expressions_per_type[mappedWeightName]++;
-        } catch (e) {
-            this._log(expr);
-            score += this.weights.expressions._base;
-        }
-
-
-        // Add stats + recurring expressions.
-        switch (expr.type) {
-            case 'table':
-                // ON clause (JOINs).
-                if (expr.on) {
-                    score += this._expression(expr.on, clause);
-                }
-
-                if (expr.db) {
-                    // Database prefix (if any).
-                    this.stats.databases.push(expr.db);
-                }
-                break;
-            case 'binary_expr':
-                score += (this._expression(expr.left, clause) + this._expression(expr.right, clause));
-                break;
-            case 'number':
-                this.stats.numbers.push(expr.value);
-                break;
-            case 'column_ref':
-                this.stats.columns.push(expr.column);
-                break;
-            case 'aggr_func':
-                break;
-            case 'expr_list':
-                score += (Array.isArray(expr.value) ? expr.value : [expr.value]).reduce((accumulator, i) => {
-                    return this._expression(i, clause) + accumulator;
-                }, 0);
-                break;
-            case 'star':
-                break;
-            case 'function':
-                score += expr.args ? this._expression(expr.args, clause) : 0;
-                break;
-            case 'string':
-            case 'natural_string':
-            case 'single_quote_string':
-            case 'hex_string':
-            case 'full_hex_string':
-            case 'bit_string':
-                this.stats.strings.push(expr.value);
-                this.stats.string_types.push(expr.type);
-                break;
-            case 'unary_expr':
-                break;
         }
 
         if (expr.table != null) {
@@ -467,12 +449,17 @@ export class Calculator {
             this.stats.tables.push(expr.table);
         }
 
-        if (expr.args && expr.args.expr) {
-            score += expr.args.distinct ? this.weights.expressions.function : 0;
-            score += this._expression(expr.args.expr, clause);
+        let weight = this.weights.expressions._base;
+        try {
+            // Find base weight of the expression type.
+            const mappedWeightName = this._mapExpressionType(expr.type);
+            weight = this.weights.expressions[mappedWeightName];
+            this.stats.expressions_per_type[mappedWeightName]++;
+        } catch (e) {
+            // Unknown expression type. Use the existing base score.
         }
 
-        return score;
+        return weight * score;
     }
 
     /**

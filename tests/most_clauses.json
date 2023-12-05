@@ -46,7 +46,7 @@
                 "select": 4,
                 "from": 2,
                 "join": 4,
-                "where": 10,
+                "where": 11,
                 "group_by": 1,
                 "having": 4,
                 "order_by": 1,
@@ -267,6 +267,6 @@
                 "window": null
             }
         ],
-        "complexity": 97.9121
+        "complexity": 52.680269
     }
 ]

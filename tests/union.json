@@ -19,7 +19,7 @@
             ],
             "databases": [],
             "expressions_per_clause": {
-                "select": 4,
+                "select": 8,
                 "from": 1,
                 "join": 0,
                 "where": 3,
@@ -345,6 +345,6 @@
             },
             "set_op": "union all"
         },
-        "complexity": 21.3438
+        "complexity": 11.126953
     }
 ]

@@ -21,7 +21,7 @@
             ],
             "databases": [],
             "expressions_per_clause": {
-                "select": 4,
+                "select": 5,
                 "from": 2,
                 "join": 0,
                 "where": 3,
@@ -160,6 +160,6 @@
                 "window": null
             }
         ],
-        "complexity": 33.5625
+        "complexity": 16.676758
     }
 ]

@@ -26,7 +26,7 @@
                 "select": 2,
                 "from": 2,
                 "join": 0,
-                "where": 10,
+                "where": 11,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 0,
@@ -166,6 +166,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 76.4609
+        "complexity": 43.537037
     }
 ]

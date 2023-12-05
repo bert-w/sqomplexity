@@ -21,8 +21,8 @@
             "tables": [],
             "databases": [],
             "expressions_per_clause": {
-                "select": 20,
-                "from": 0,
+                "select": 21,
+                "from": 1,
                 "join": 0,
                 "where": 0,
                 "group_by": 0,
@@ -217,6 +217,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 160.2734
+        "complexity": 132.035451
     }
 ]

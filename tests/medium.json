@@ -57,9 +57,9 @@
             "databases": [],
             "expressions_per_clause": {
                 "select": 8,
-                "from": 3,
+                "from": 4,
                 "join": 16,
-                "where": 14,
+                "where": 15,
                 "group_by": 0,
                 "having": 0,
                 "order_by": 1,
@@ -415,6 +415,6 @@
             "locking_read": null,
             "window": null
         },
-        "complexity": 159.6133
+        "complexity": 90.847791
     }
 ]
