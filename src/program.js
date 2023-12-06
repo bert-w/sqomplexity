@@ -1,116 +1,90 @@
-import {Sqomplexity} from './sqomplexity.js';
-import weights from './weights.js';
-import * as fs from 'node:fs/promises';
+import parserMysql from './../build/pegjs-parser-mysql.cjs';
+// import parserMariaDb from './../build/pegjs-parser-mariadb.cjs';
+import {Calculator} from './calculator.js';
+import {BinaryExpressionCycleDetection} from './hooks/binary-expression-cycle-detection.js';
 
 export class Program {
-
     /**
-     * @param {object} options
-     * @param {boolean} [options.files]
-     * @param {boolean} [options.base64]
-     * @param {boolean} [options.score]
-     * @param {string|object} [options.weights]
-     * @param {boolean} [options.all]
-     * @param {boolean} [options.prettyPrint]
-     * @param {string|null} cwd Used for determining the correct path when using a file path for the weights.
-     * @param {boolean} console Pass false to return the values instead of outputting them.
+     * @param {string} query
+     * @param {Sqomplexity.Weights} weights
      */
-    constructor(options = {}, cwd = null, console = true) {
-        this.options = options || {};
-        this.cwd = cwd;
-        this.console = console;
+    constructor(query, weights) {
+        this.dialect = 'mysql';
+        this.weights = weights;
+        this.query = query;
+        this.parser = this._selectParser(this.dialect);
+        this.maxNestingDepth = 16;
     }
 
     /**
-     * @param {string[]} queries
-     * @returns {void|array}
+     * Calculate the maximum nesting depth of parentheses.
+     * @returns {number}
      */
-    async run(queries) {
-        if (!queries.length) {
-            throw new Error('You need to provide one or more queries.');
-        }
-
-        if (this.options.files) {
-            queries = await Promise.all(queries.map(async (path) => (await fs.readFile(path)).toString()));
-        }
-
-        if (this.options.base64) {
-            queries = queries.map((query) => this._decode(query));
-        }
-
-        const results = this._analyze(queries, await this._weights());
-
-        if (this.options.score) {
-            return this._output(results.map(r => r.complexity || -1));
-        }
-
-        if (!this.options.all) {
-            results.map((result) => {
-                for (const [key, value] of Object.entries(result)) {
-                    if (['stats', 'complexity'].indexOf(key) === -1) {
-                        delete result[key];
-                    }
+    calculateNestingDepth() {
+        let q = this.query;
+        let stack = []
+        let maxDepth = 0;
+        for (let i = 0; i < q.length; i++) {
+            if (q[i] === '(') {
+                stack.push(q[i])
+                maxDepth = Math.max(maxDepth, stack.length);
+            } else if (q[i] === ')') {
+                if (stack.length) {
+                    stack.pop();
                 }
-                return result;
-            });
+            }
         }
 
-        return this._output(results);
+        return maxDepth;
     }
 
     /**
-     * @param {string[]}queries
-     * @param {undefined|object} weights
-     * @returns {array}
+     * @returns {object}
      */
-    _analyze(queries, weights) {
-        return queries.map((query) => {
-            return (new Sqomplexity(query, weights)).analyze();
-        });
-    }
+    analyze() {
+        let parsed;
 
-    /**
-     * @param {array} results
-     * @returns {void|array}
-     */
-    async _output(results) {
-        if (!this.console) {
-            return results;
+        try {
+            const depth = this.calculateNestingDepth();
+            if (depth > this.maxNestingDepth) {
+                throw new Error(`The nesting depth ${depth} surpasses the maximum of 10.`);
+            }
+            parsed = this.parser.parse(this.query);
+        } catch (e) {
+            return {
+                error: e.message,
+                complexity: -1
+            }
         }
-        console.log(JSON.stringify(results, null, this.options.prettyPrint ? 4 : undefined));
+
+        const calculator = (new Calculator(parsed.ast || [], this.weights));
+
+        calculator
+            .addHook('expression', new BinaryExpressionCycleDetection())
+            .calculate();
+
+        return {
+            dialect: this.dialect,
+            query: this.query,
+            stats: calculator.getStats(),
+            ast: parsed.ast,
+            // Round to 6 decimal places.
+            complexity: Math.round(calculator.getScore() * 1000000) / 1000000,
+        }
     }
 
     /**
-     * Decodes a base64 encoded string.
-     * @param {string} str
-     * @returns {string}
+     * @param {string} dialect
+     * @returns {*}
      */
-    _decode(str) {
-        return Buffer.from(str, 'base64').toString('utf8');
-    }
-
-    /**
-     * Get the weights.
-     * @returns {Sqomplexity.Weights}
-     */
-    async _weights() {
-        switch (typeof this.options.weights) {
-            case 'object':
-                return this.options.weights;
-            case 'string':
-                if (this.options.weights.endsWith('.json')) {
-                    return JSON.parse(await fs.readFile(this.options.weights, {encoding: 'utf8'}));
-                } else if (this.options.weights.endsWith('.js')) {
-                    const {default: weights} = await import(
-                        /* webpackIgnore: true */
-                        this.options.weights
-                        );
-                    return weights;
-                } else {
-                    throw new Error('Weights should be a .js or .json file.');
-                }
+    _selectParser(dialect) {
+        switch (dialect.toLowerCase()) {
+            case 'mysql':
+                return parserMysql;
+            // case 'mariadb':
+            //     return parserMariaDb;
             default:
-                return weights;
+                throw new Error(`Unknown SQL parser "${dialect}".`);
         }
     }
 }

@@ -1,8 +1,8 @@
 {
     "name": "sqomplexity",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Calculate complexity scores for SQL queries based on a weighting system for query components.",
-    "main": "app.js",
+    "main": "src/sqomplexity.js",
     "type": "module",
     "scripts": {
         "test": "mocha",
@@ -12,6 +12,10 @@
     },
     "author": "bert-w",
     "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bert-w/sqomplexity.git"
+    },
     "devDependencies": {
         "babel-loader": "^9.1.2",
         "chai": "^4.3.7",

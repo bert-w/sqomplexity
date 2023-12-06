@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chai from 'chai';
-import {Program} from "./src/program.js";
+import {Sqomplexity} from "./src/sqomplexity.js";
 import {fileURLToPath} from 'url';
 
 const expect = chai.expect;
@@ -15,7 +15,7 @@ const files = fs.readdirSync(PATH_TESTS).filter(f => f.endsWith('.sql'));
 describe('SQL tests', function () {
     for (const file of files) {
         it(`"${file}" should return a valid complexity score`, async function () {
-            const result = await (new Program({
+            const result = await (new Sqomplexity({
                 all: true,
                 files: true
             }, null, false)).run([path.join(PATH_TESTS, file)]);
