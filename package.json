@@ -1,6 +1,6 @@
 {
     "name": "sqomplexity",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Calculate complexity scores for SQL queries based on a weighting system for query components.",
     "keywords": [
         "sql",
@@ -19,6 +19,15 @@
         "build:pegjs:mysql": "pegjs -o build/pegjs-parser-mysql.cjs parsers/mysql.pegjs",
         "build:pegjs:mariadb": "pegjs -o build/pegjs-parser-mariadb.cjs parsers/mariadb.pegjs"
     },
+    "files": [
+        "@types/",
+        "build/",
+        "dist/",
+        "examples/",
+        "parsers/",
+        "src/",
+        "app.js"
+    ],
     "author": "bert-w",
     "license": "ISC",
     "repository": {
