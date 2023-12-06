@@ -1,20 +1,16 @@
 {
     "name": "sqomplexity",
     "version": "1.0.0",
-    "description": "A complexity score calculator for SQL queries",
+    "description": "Calculate complexity scores for SQL queries based on a weighting system for query components.",
     "main": "app.js",
     "type": "module",
-    "directories": {
-        "lib": "lib",
-        "test": "tests"
-    },
     "scripts": {
         "test": "mocha",
         "build": "webpack",
         "build:pegjs:mysql": "pegjs -o build/pegjs-parser-mysql.cjs parsers/mysql.pegjs",
         "build:pegjs:mariadb": "pegjs -o build/pegjs-parser-mariadb.cjs parsers/mariadb.pegjs"
     },
-    "author": "",
+    "author": "bert-w",
     "license": "ISC",
     "devDependencies": {
         "babel-loader": "^9.1.2",
