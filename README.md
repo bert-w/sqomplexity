@@ -17,21 +17,26 @@ SQompLexity is a Node.js program for MySQL `SELECT` queries that can assign a co
 
 ## Execution from JavaScript
 ```js
-import {Program} from '../src/program.js';
+import {Sqomplexity} from 'sqomplexity';
 
 (async () => {
-const queries = [
-'SELECT id FROM users WHERE role = "admin"',
-'SELECT COUNT(*) FROM users WHERE creation_date > "2023-01-01 00:00:00" GROUP BY id',
-]
+    // Provide one or multiple queries:
+    const queries = [
+        'SELECT id FROM users WHERE role = "admin"',
+        'SELECT COUNT(*) FROM users WHERE creation_date > "2023-01-01 00:00:00" GROUP BY id',
+    ];
 
-    const result = (new Program({score: true}, null, false));
+    // Construct SQompLexity (passing `score` only outputs the complexity score):
+    const command = (new Sqomplexity({score: true}, null, false));
 
-    console.log(await result.run(queries));
+    console.log(await command.run(queries));
+
+    // Result: [ 7.876953, 10.001953 ]
 })();
 ```
 
 ## Execution from CLI
+Use the precompiled file in the `dist` directory:
 ```shell
 node dist/sqomplexity.js --help
 
