@@ -1,6 +1,6 @@
 {
     "name": "sqomplexity",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Calculate complexity scores for SQL queries based on a weighting system for query components.",
     "main": "app.js",
     "type": "module",
