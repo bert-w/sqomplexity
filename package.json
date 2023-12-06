@@ -1,7 +1,16 @@
 {
     "name": "sqomplexity",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Calculate complexity scores for SQL queries based on a weighting system for query components.",
+    "keywords": [
+        "sql",
+        "complexity",
+        "sqomplexity",
+        "metric",
+        "difficulty",
+        "score",
+        "cyclomatic"
+    ],
     "main": "src/sqomplexity.js",
     "type": "module",
     "scripts": {
