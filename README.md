@@ -1,4 +1,7 @@
 # SQompLexity
+[![NPM Version](http://img.shields.io/npm/v/sqomplexity.svg?style=flat)](https://www.npmjs.org/package/sqomplexity)
+[![NPM Downloads](https://img.shields.io/npm/dm/sqomplexity.svg?style=flat)](https://npmcharts.com/compare/sqomplexity?minimal=true)
+[![Install Size](https://packagephobia.now.sh/badge?p=sqomplexity)](https://packagephobia.now.sh/result?p=sqomplexity)
 ```txt
    _____   ____                            _                  _  _          
   / ____| / __ \                          | |                (_)| |         
@@ -13,8 +16,8 @@
 
 This is a product of my thesis on complexity progression and correlations on Stack Overflow.
 
-SQompLexity is a Node.js program for MySQL `SELECT` queries that can assign a complexity score to them based on a data and cognitive complexity score which is explained in my thesis.
-
+SQompLexity is a Node.js program that assigns a complexity score to SELECT queries, based on a data and cognitive complexity score.
+It is specifically made to work with MySQL queries, but other dialects of SQL will likely work as well.
 ## Execution from JavaScript
 ```js
 import {Sqomplexity} from 'sqomplexity';
