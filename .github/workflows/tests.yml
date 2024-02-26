@@ -22,12 +22,27 @@ jobs:
         with:
           cache: 'npm'
           node-version: ${{ matrix.node-version }}
+
       # Use separate run commands so command status handled correctly on Windows
       - name: npm install
         run: npm ci
+
       - name: npm test
         run: npm test
+
       - name: npm run lint
         run: npm run lint
+
       - name: npm run build
         run: npm run build
+
+      # Run some simply CLI tool tests.
+      - name: CLI test
+        run: |
+          node dist/sqomplexity.js "SELECT * FROM users"
+          node dist/sqomplexity.js "SELECT * FROM users" -s
+          node dist/sqomplexity.js "SELECT * FROM users" -a
+          node dist/sqomplexity.js "SELECT * FROM users" -p
+          node dist/sqomplexity.js "U0VMRUNUICogRlJPTSB1c2Vycw==" -b
+          node dist/sqomplexity.js "U0VMRUNUICogRlJPTSB1c2Vycw==" -b -s
+          
