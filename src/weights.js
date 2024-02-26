@@ -14,7 +14,7 @@ export default {
         having: F(M, H),
         order_by: F(L, M),
         limit: F(L, L),
-        offset: F(L, L),
+        offset: F(L, L)
     },
     expressions: {
         _base: F(L, L),
@@ -28,13 +28,13 @@ export default {
         function: F(H, M),
         list: F(L, L),
         aggregation_function: F(H, H),
-        null: F(L, L),
+        null: F(L, L)
     },
     operator: F(L, M),
     emergent: {
         cycle: F(M, H),
         mixed_style: F(0, M),
         subquery: F(H, H),
-        variety: F(0, M),
-    },
+        variety: F(0, M)
+    }
 };

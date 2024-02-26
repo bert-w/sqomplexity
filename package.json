@@ -16,6 +16,7 @@
     "scripts": {
         "test": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
         "lint": "eslint app.js \"src/*.js\" \"tests/**/*.js\"",
+        "lint:fix": "eslint app.js \"src/*.js\" \"tests/**/*.js\" --fix",
         "build": "webpack",
         "build:pegjs:mysql": "pegjs -o build/pegjs-parser-mysql.cjs parsers/mysql.pegjs",
         "build:pegjs:mariadb": "pegjs -o build/pegjs-parser-mariadb.cjs parsers/mariadb.pegjs"

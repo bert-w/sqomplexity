@@ -1,9 +1,8 @@
-import {Program} from './program.js';
+import { Program } from './program.js';
 import weights from './weights.js';
 import * as fs from 'node:fs/promises';
 
 export class Sqomplexity {
-
     /**
      * @param {object} options
      * @param {boolean} [options.files]
@@ -31,7 +30,7 @@ export class Sqomplexity {
         }
 
         if (this.options.files) {
-            queries = await Promise.all(queries.map(async (path) => (await fs.readFile(path)).toString()));
+            queries = await Promise.all(queries.map(async(path) => (await fs.readFile(path)).toString()));
         }
 
         if (this.options.base64) {
@@ -46,7 +45,7 @@ export class Sqomplexity {
 
         if (!this.options.all) {
             results.map((result) => {
-                for (const [key, value] of Object.entries(result)) {
+                for (const [key] of Object.entries(result)) {
                     if (['stats', 'complexity'].indexOf(key) === -1) {
                         delete result[key];
                     }
@@ -95,22 +94,22 @@ export class Sqomplexity {
      */
     async _weights() {
         switch (typeof this.options.weights) {
-            case 'object':
-                return this.options.weights;
-            case 'string':
-                if (this.options.weights.endsWith('.json')) {
-                    return JSON.parse(await fs.readFile(this.options.weights, {encoding: 'utf8'}));
-                } else if (this.options.weights.endsWith('.js')) {
-                    const {default: weights} = await import(
-                        /* webpackIgnore: true */
-                        this.options.weights
-                        );
-                    return weights;
-                } else {
-                    throw new Error('Weights should be a .js or .json file.');
-                }
-            default:
+        case 'object':
+            return this.options.weights;
+        case 'string':
+            if (this.options.weights.endsWith('.json')) {
+                return JSON.parse(await fs.readFile(this.options.weights, { encoding: 'utf8' }));
+            } if (this.options.weights.endsWith('.js')) {
+                const { default: weights } = await import(
+                    /* webpackIgnore: true */
+                    this.options.weights
+                );
                 return weights;
+            }
+            throw new Error('Weights should be a .js or .json file.');
+
+        default:
+            return weights;
         }
     }
 }
