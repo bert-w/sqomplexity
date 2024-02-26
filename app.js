@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { Program } from './src/program.js';
+import { Sqomplexity } from './src/sqomplexity.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -31,7 +31,7 @@ program
     .option('-p, --pretty-print', 'output JSON with indentation and newlines', false)
     .action(async(queries, options) => {
         try {
-            await (new Program(options, process.cwd())).run(queries);
+            await (new Sqomplexity(options, process.cwd())).run(queries);
         } catch (e) {
             program.addHelpText('after', '\n' + e.stack);
             program.help();
