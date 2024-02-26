@@ -37,7 +37,6 @@
     },
     "devDependencies": {
         "babel-loader": "^9.1.2",
-        "chai": "^5.1.0",
         "cross-env": "^7.0.3",
         "eslint": "^8.30.0",
         "eslint-config-standard": "^17.0.0",
