@@ -1,7 +1,7 @@
-import {program} from 'commander';
-import {Program} from './src/program.js';
+import { program } from 'commander';
+import { Program } from './src/program.js';
 import path from 'path';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.chdir(__dirname);
@@ -20,7 +20,7 @@ const art = `
 program
     .name('SQompLexity')
     // .description('Determine the SQL complexity score for a single SQL SELECT-query.')
-    .description(art + "\nAuthor:\n  BertW")
+    .description(art + '\nAuthor:\n  BertW')
     .version('0.1.0')
     .argument('[queries...]', 'one or multiple SQL queries (space separated or quoted)')
     .option('-f, --files', 'assumes the given arguments/queries are filepaths, and it will read the contents from them. Every file is expected to contain 1 query; if not, their complexity is summed')
@@ -29,14 +29,14 @@ program
     .option('-w, --weights <weights>', 'takes a path to a json file that defines a custom set of weights')
     .option('-a, --all', 'returns all data including the AST')
     .option('-p, --pretty-print', 'output JSON with indentation and newlines', false)
-    .action(async (queries, options) => {
+    .action(async(queries, options) => {
         try {
             await (new Program(options, process.cwd())).run(queries);
         } catch (e) {
-            program.addHelpText('after', "\n" + e.stack);
+            program.addHelpText('after', '\n' + e.stack);
             program.help();
             process.exitCode = 1;
         }
-    })
+    });
 
 program.parse();

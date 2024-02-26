@@ -8,10 +8,10 @@ export class Calculator {
     /**
      * @param {Sqomplexity.AST[]|Sqomplexity.AST} asts
      * @param {Sqomplexity.Weights} weights
-     * @param {int} nesting_level
+     * @param {int} nestingLevel
      * @param {{expression: Sqomplexity.Hook[]}} hooks
      */
-    constructor(asts, weights, nesting_level = 0, hooks = {}) {
+    constructor(asts, weights, nestingLevel = 0, hooks = {}) {
         /**
          * @type {Sqomplexity.AST[]}
          * @private
@@ -28,7 +28,7 @@ export class Calculator {
          * @type {number}
          * @private
          */
-        this.nesting_level = nesting_level;
+        this.nestingLevel = nestingLevel;
 
         /**
          * @type {{expression: Sqomplexity.Hook[]}}
@@ -60,7 +60,7 @@ export class Calculator {
                 having: 0,
                 order_by: 0,
                 limit: 0,
-                offset: 0,
+                offset: 0
             },
 
             expressions_per_type: {
@@ -74,9 +74,9 @@ export class Calculator {
                 function: 0,
                 aggregation_function: 0,
                 list: 0,
-                null: 0,
+                null: 0
             }
-        }
+        };
 
         /**
          * Stats that depend on the base stats and usually consist of filtered lists to indicate
@@ -123,7 +123,7 @@ export class Calculator {
     getStats() {
         return {
             ...this.stats,
-            ...this.meta_stats,
+            ...this.meta_stats
         };
     }
 
@@ -138,7 +138,7 @@ export class Calculator {
      * @returns {number}
      */
     getNestingLevel() {
-        return this.nesting_level;
+        return this.nestingLevel;
     }
 
     /**
@@ -158,8 +158,8 @@ export class Calculator {
         this.meta_stats = this._calculateMetaStats();
 
         // Apply multiplier if nesting takes place.
-        if (this.nesting_level > 0) {
-            score *= this.weights.emergent.subquery * this.nesting_level;
+        if (this.nestingLevel > 0) {
+            score *= this.weights.emergent.subquery * this.nestingLevel;
         }
 
         // Add complexity if a cycle has been detected.
@@ -180,13 +180,14 @@ export class Calculator {
         // Retrieve extra data from hooks.
         const hookMeta = Object.entries(this.hooks).flatMap(([, value]) => value.map((hook) => hook.stats()));
         let hookData = {};
-        hookMeta.forEach((value) => hookData = {...hookData, ...value});
-
+        hookMeta.forEach((value) => {
+            hookData = { ...hookData, ...value };
+        });
 
         return {
             case_usage: this._calculateCaseUsage(this.stats.columns),
             quote_usage: this._calculateQuoteUsage(this.stats.string_types),
-            ...hookData,
+            ...hookData
         };
     }
 
@@ -196,7 +197,7 @@ export class Calculator {
      * @returns {number}
      */
     _calculateNested(ast) {
-        const calculator = (new Calculator(ast, this.weights, this.nesting_level + 1, this.hooks))
+        const calculator = (new Calculator(ast, this.weights, this.nestingLevel + 1, this.hooks))
             .calculate();
 
         // Add stats to the current scope.
@@ -246,7 +247,7 @@ export class Calculator {
                 // Defer to join.
                 score += this._calculateJoin({
                     type: 'table',
-                    ...expr,
+                    ...expr
                 });
             } else if (expr.expr) {
                 // Subexpression like a subquery.
@@ -255,7 +256,7 @@ export class Calculator {
                 // Make custom expression since there was none for table.
                 score += this.weights.clauses.from * this._expression({
                     type: 'table',
-                    ...expr,
+                    ...expr
                 }, 'from');
             }
         });
@@ -295,7 +296,7 @@ export class Calculator {
     _calculateHaving(ast) {
         let score = 0;
         if (_(ast, 'having.type') === 'binary_expr') {
-            score += this._expression(ast.having, 'having')
+            score += this._expression(ast.having, 'having');
         }
 
         return score * this.weights.clauses.having;
@@ -364,7 +365,7 @@ export class Calculator {
      */
     _map(el, scores, ifNull = 0, ifNoMap = 0) {
         if (el != null) {
-            return scores.hasOwnProperty(el.toLowerCase()) ? scores[el.toLowerCase()] : ifNoMap;
+            return Object.prototype.hasOwnProperty.call(scores, el.toLowerCase()) ? scores[el.toLowerCase()] : ifNoMap;
         }
         return ifNull;
     }
@@ -389,44 +390,44 @@ export class Calculator {
 
         let score = (() => {
             switch (expr.type) {
-                case 'table':
-                    if (expr.db) {
-                        // Database prefix (if any).
-                        this.stats.databases.push(expr.db);
-                    }
-                    if (expr.on) {
-                        // ON clause (JOINs).
-                        return this._expression(expr.on, clause);
-                    }
-                    break;
-                case 'binary_expr':
-                    return (this._expression(expr.left, clause) + this._expression(expr.right, clause));
-                case 'number':
-                    this.stats.numbers.push(expr.value);
-                    break;
-                case 'column_ref':
-                    this.stats.columns.push(expr.column);
-                    break;
-                case 'expr_list':
-                    return (Array.isArray(expr.value) ? expr.value : [expr.value]).reduce((accumulator, i) => {
-                        return this._expression(i, clause) + accumulator;
-                    }, 0);
-                case 'star':
-                    break;
-                case 'aggr_func':
-                case 'function':
-                    break;
-                case 'string':
-                case 'natural_string':
-                case 'single_quote_string':
-                case 'hex_string':
-                case 'full_hex_string':
-                case 'bit_string':
-                    this.stats.strings.push(expr.value);
-                    this.stats.string_types.push(expr.type);
-                    break;
-                case 'unary_expr':
-                    break;
+            case 'table':
+                if (expr.db) {
+                    // Database prefix (if any).
+                    this.stats.databases.push(expr.db);
+                }
+                if (expr.on) {
+                    // ON clause (JOINs).
+                    return this._expression(expr.on, clause);
+                }
+                break;
+            case 'binary_expr':
+                return (this._expression(expr.left, clause) + this._expression(expr.right, clause));
+            case 'number':
+                this.stats.numbers.push(expr.value);
+                break;
+            case 'column_ref':
+                this.stats.columns.push(expr.column);
+                break;
+            case 'expr_list':
+                return (Array.isArray(expr.value) ? expr.value : [expr.value]).reduce((accumulator, i) => {
+                    return this._expression(i, clause) + accumulator;
+                }, 0);
+            case 'star':
+                break;
+            case 'aggr_func':
+            case 'function':
+                break;
+            case 'string':
+            case 'natural_string':
+            case 'single_quote_string':
+            case 'hex_string':
+            case 'full_hex_string':
+            case 'bit_string':
+                this.stats.strings.push(expr.value);
+                this.stats.string_types.push(expr.type);
+                break;
+            case 'unary_expr':
+                break;
             }
             if (expr.args) {
                 return (Array.isArray(expr.args) ? expr.args : [expr.args]).reduce((accumulator, i) => {
@@ -474,17 +475,16 @@ export class Calculator {
         }
         if (str.match(/^[a-z][a-z0-9]*(_[a-z0-9]+)*$/)) {
             return 'snake_case';
-        } else if (str.match(/^[a-z][a-z0-9]*([A-Z][a-z0-9]+)*$/)) {
+        } if (str.match(/^[a-z][a-z0-9]*([A-Z][a-z0-9]+)*$/)) {
             return 'camelCase';
-        } else if (str.match(/^[A-Z][a-zA-Z0-9]+$/)) {
+        } if (str.match(/^[A-Z][a-zA-Z0-9]+$/)) {
             return 'PascalCase';
-        } else if (str === str.toUpperCase()) {
+        } if (str === str.toUpperCase()) {
             return 'UPPERCASE';
-        } else if (str === str.toLowerCase()) {
+        } if (str === str.toLowerCase()) {
             return 'lowercase';
-        } else {
-            return 'Unknown case';
         }
+        return 'Unknown case';
     }
 
     /**
@@ -508,12 +508,12 @@ export class Calculator {
     _calculateQuoteUsage(arr) {
         return arr.map((i) => {
             switch (i) {
-                case 'string':
-                    return 'double';
-                case 'single_quote_string':
-                    return 'single';
-                default:
-                    return null;
+            case 'string':
+                return 'double';
+            case 'single_quote_string':
+                return 'single';
+            default:
+                return null;
             }
         }).filter(i => i).filter(this._unique);
     }
@@ -552,7 +552,7 @@ export class Calculator {
 
             star: 'star',
 
-            null: 'null',
+            null: 'null'
         }[type];
 
         if (!mapped) {
@@ -576,11 +576,11 @@ export class Calculator {
         this.stats.tables = this.stats.tables.concat(stats.tables);
         this.stats.databases = this.stats.databases.concat(stats.databases);
 
-        for (let clause in stats.expressions_per_clause) {
+        for (const clause in stats.expressions_per_clause) {
             this.stats.expressions_per_clause[clause] += stats.expressions_per_clause[clause];
         }
 
-        for (let expression in stats.expressions_per_type) {
+        for (const expression in stats.expressions_per_type) {
             this.stats.expressions_per_type[expression] += stats.expressions_per_type[expression];
         }
     }
