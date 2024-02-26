@@ -128,8 +128,8 @@ The numerical weights for each of groups are like so:
 The equal contribution of both _Data Complexity_ and _Cognitive Complexity_ is arbitrary, and research could still be done
 to develop a distribution that more fairly approaches a general sense of _complexity_.
 
-Similarly, the weights of _Low_, _Medium_ and _High_ are set to some sensible defaults. It is necessary though for the
-_Low_ weight to be greater than or equal to 1, since multiplication may take place during the algorithm.
+Similarly, the weights of _Low_, _Medium_ and _High_ are set to some sensible defaults. It is necessary though for all
+weights to be greater than or equal to 1, since multiplication may take place during the algorithm.
 
 
 ## Execution from JavaScript
