@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import chai from 'chai';
-import {Sqomplexity} from "./src/sqomplexity.js";
+import {Sqomplexity} from "./../src/sqomplexity.js";
 import {fileURLToPath} from 'url';
 
 const expect = chai.expect;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const PATH_TESTS = 'tests';
+const PATH_TESTS = 'data';
 
 process.chdir(__dirname);
 

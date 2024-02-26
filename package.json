@@ -14,7 +14,8 @@
     "main": "src/sqomplexity.js",
     "type": "module",
     "scripts": {
-        "test": "mocha",
+        "test": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
+        "lint": "eslint app.js \"src/*.js\" \"tests/**/*.js\"",
         "build": "webpack",
         "build:pegjs:mysql": "pegjs -o build/pegjs-parser-mysql.cjs parsers/mysql.pegjs",
         "build:pegjs:mariadb": "pegjs -o build/pegjs-parser-mariadb.cjs parsers/mariadb.pegjs"
@@ -37,13 +38,17 @@
     "devDependencies": {
         "babel-loader": "^9.1.2",
         "chai": "^4.3.7",
-        "mocha": "^10.2.0",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.30.0",
+        "eslint-config-standard": "^17.0.0",
+        "jest": "^29.7.0",
         "pegjs": "^0.10.0",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4"
     },
     "dependencies": {
         "commander": "^11.0.0",
+        "eslint-plugin-jest": "^27.9.0",
         "lodash.get": "^4.4.2"
     },
     "engines": {
