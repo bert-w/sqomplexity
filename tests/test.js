@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Sqomplexity } from './../src/sqomplexity.js';
 import { fileURLToPath } from 'url';
-import {expect} from '@jest/globals';
+import { expect } from '@jest/globals';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
