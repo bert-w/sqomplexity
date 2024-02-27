@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT concat(mid(DueDate, 7, 4)) as DueDate\r\nFROM TableName",
+        "query": "SELECT concat(mid(DueDate, 7, 4)) as DueDate\nFROM TableName",
         "stats": {
             "subqueries": 0,
             "columns": [

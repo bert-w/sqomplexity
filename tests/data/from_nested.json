@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT department_name, total_salary\r\nFROM (SELECT department_id, SUM(salary) AS total_salary FROM employees GROUP BY department_id) AS dept_salaries\r\n         JOIN departments ON dept_salaries.department_id = departments.department_id;\r\n",
+        "query": "SELECT department_name, total_salary\nFROM (SELECT department_id, SUM(salary) AS total_salary FROM employees GROUP BY department_id) AS dept_salaries\n         JOIN departments ON dept_salaries.department_id = departments.department_id;\n",
         "stats": {
             "subqueries": 1,
             "columns": [

@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT onoffid\r\nFROM DSLServiceOnsandOffs\r\nWHERE insertDate = '2017-02-14'\r\n  AND `Service_No` = x'323439533313034'\r\n  AND `PON` = x'33330343230'\r\n  AND `Order_No` = x'393313833'\r\n  AND `Segment_No` = x'31'\r\n  AND `Completion_Date` = '2017-02-13'\r\n  AND `On_Off` = x'4f4e'\r\n",
+        "query": "SELECT onoffid\nFROM DSLServiceOnsandOffs\nWHERE insertDate = '2017-02-14'\n  AND `Service_No` = x'323439533313034'\n  AND `PON` = x'33330343230'\n  AND `Order_No` = x'393313833'\n  AND `Segment_No` = x'31'\n  AND `Completion_Date` = '2017-02-13'\n  AND `On_Off` = x'4f4e'\n",
         "stats": {
             "subqueries": 0,
             "columns": [
@@ -64,7 +64,7 @@
             "case_usage": [
                 "snake_case",
                 "camelCase",
-                "Unknown case",
+                "Mixed case",
                 "PascalCase"
             ],
             "quote_usage": [

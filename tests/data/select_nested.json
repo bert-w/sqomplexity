@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT order_id,\r\n       order_date,\r\n       (SELECT COUNT(*) FROM order_items WHERE order_items.order_id = orders.order_id) AS item_count\r\nFROM orders;",
+        "query": "SELECT order_id,\n       order_date,\n       (SELECT COUNT(*) FROM order_items WHERE order_items.order_id = orders.order_id) AS item_count\nFROM orders;",
         "stats": {
             "subqueries": 1,
             "columns": [

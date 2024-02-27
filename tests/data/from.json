@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT *\r\nFROM tableA,\r\n     tableB\r\nWHERE id > 5",
+        "query": "SELECT *\nFROM tableA,\n     tableB\nWHERE id > 5",
         "stats": {
             "subqueries": 0,
             "columns": [

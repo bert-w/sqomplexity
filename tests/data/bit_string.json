@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT *\r\nfrom my_table\r\nWHERE enabled = b'0';\r\n",
+        "query": "SELECT *\nfrom my_table\nWHERE enabled = b'0';\n",
         "stats": {
             "subqueries": 0,
             "columns": [

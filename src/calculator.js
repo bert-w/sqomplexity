@@ -1,5 +1,4 @@
 import _ from 'lodash.get';
-import * as fs from 'fs';
 
 /**
  * Calculate a complexity score based on an AST of the SQL query and meta properties.
@@ -355,22 +354,6 @@ export class Calculator {
     }
 
     /**
-     * Map a given input to a key in a score object.
-     * @param {string} el
-     * @param {object} scores
-     * @param {number} ifNull Score to assign if the given el is null or undefined.
-     * @param {number} ifNoMap Score to assign if the given el cannot be found in the map.
-     * @returns {number}
-     * @private
-     */
-    _map(el, scores, ifNull = 0, ifNoMap = 0) {
-        if (el != null) {
-            return Object.prototype.hasOwnProperty.call(scores, el.toLowerCase()) ? scores[el.toLowerCase()] : ifNoMap;
-        }
-        return ifNull;
-    }
-
-    /**
      * @param {Sqomplexity.Expression} expr
      * @param {string} clause
      * @returns {number}
@@ -475,16 +458,13 @@ export class Calculator {
         }
         if (str.match(/^[a-z][a-z0-9]*(_[a-z0-9]+)*$/)) {
             return 'snake_case';
-        } if (str.match(/^[a-z][a-z0-9]*([A-Z][a-z0-9]+)*$/)) {
+        } if (str.match(/^[a-z][a-z0-9]*([A-Z][a-z0-9]*)*$/)) {
             return 'camelCase';
         } if (str.match(/^[A-Z][a-zA-Z0-9]+$/)) {
             return 'PascalCase';
-        } if (str === str.toUpperCase()) {
-            return 'UPPERCASE';
-        } if (str === str.toLowerCase()) {
-            return 'lowercase';
         }
-        return 'Unknown case';
+
+        return 'Mixed case';
     }
 
     /**
@@ -595,20 +575,5 @@ export class Calculator {
      */
     _unique(value, index, array) {
         return array.indexOf(value) === index;
-    }
-
-    /**
-     *
-     * @TODO promisify
-     * @param {any} message
-     * @private
-     */
-    _log(message) {
-        try {
-            fs.accessSync('./error.log', fs.constants.W_OK);
-            fs.appendFileSync('./error.log', `[${(new Date()).toISOString()}] ${JSON.stringify(message)}\n`);
-        } catch (e) {
-            // No write permissions.
-        }
     }
 }

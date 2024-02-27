@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "# Testcase for cycle detection where aliases are set but not always used.\r\nSELECT *\r\nFROM table_a a\r\n         JOIN table_b b ON a.id = b.id\r\n         JOIN table_c c ON table_b.id = table_c.id AND table_c.id = table_a.id",
+        "query": "# Testcase for cycle detection where aliases are set but not always used.\nSELECT *\nFROM table_a a\n         JOIN table_b b ON a.id = b.id\n         JOIN table_c c ON table_b.id = table_c.id AND table_c.id = table_a.id",
         "stats": {
             "subqueries": 0,
             "columns": [
