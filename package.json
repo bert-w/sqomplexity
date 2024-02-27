@@ -1,6 +1,6 @@
 {
     "name": "sqomplexity",
-    "version": "1.1.1",
+    "version": "1.2.1",
     "description": "Calculate complexity scores for SQL queries based on a weighting system for query components.",
     "keywords": [
         "sql",
