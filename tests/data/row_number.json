@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT QuestionId,\r\n       QuestionUserId,\r\n       QuestionCreationDate,\r\n       QuestionSQLComplexity,\r\n       ROW_NUMBER() OVER (PARTITION BY QuestionUserId ORDER BY QuestionCreationDate) AS Ordering\r\nFROM features\r\nWHERE QuestionUserId IN (SELECT QuestionUserId FROM features GROUP BY QuestionUserId HAVING COUNT(QuestionUserId) > 3)\r\nORDER BY QuestionUserId ASC, QuestionCreationDate ASC;",
+        "query": "SELECT QuestionId,\n       QuestionUserId,\n       QuestionCreationDate,\n       QuestionSQLComplexity,\n       ROW_NUMBER() OVER (PARTITION BY QuestionUserId ORDER BY QuestionCreationDate) AS Ordering\nFROM features\nWHERE QuestionUserId IN (SELECT QuestionUserId FROM features GROUP BY QuestionUserId HAVING COUNT(QuestionUserId) > 3)\nORDER BY QuestionUserId ASC, QuestionCreationDate ASC;",
         "stats": {
             "subqueries": 1,
             "columns": [

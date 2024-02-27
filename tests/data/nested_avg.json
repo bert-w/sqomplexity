@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT Name, Salary\r\nFROM Employees e\r\nWHERE Salary > (SELECT AVG(Salary)\r\n                FROM Salaries s\r\n                WHERE s.DepartmentID = e.DepartmentID);",
+        "query": "SELECT Name, Salary\nFROM Employees e\nWHERE Salary > (SELECT AVG(Salary)\n                FROM Salaries s\n                WHERE s.DepartmentID = e.DepartmentID);",
         "stats": {
             "subqueries": 1,
             "columns": [

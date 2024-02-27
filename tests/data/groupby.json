@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT users.id, COUNT(users.income)\r\nFROM users\r\n         JOIN tests ON tests.user_id = users.id\r\nGROUP BY user_id, tests.test_id\r\nHAVING COUNT(users.income) > 100\r\n   AND COUNT(users.test) > 50\r\nORDER BY COUNT(users.income) ASC\r\nLIMIT 5 OFFSET 10;",
+        "query": "SELECT users.id, COUNT(users.income)\nFROM users\n         JOIN tests ON tests.user_id = users.id\nGROUP BY user_id, tests.test_id\nHAVING COUNT(users.income) > 100\n   AND COUNT(users.test) > 50\nORDER BY COUNT(users.income) ASC\nLIMIT 5 OFFSET 10;",
         "stats": {
             "subqueries": 0,
             "columns": [

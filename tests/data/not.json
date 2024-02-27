@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT *\r\nFROM tableA\r\nWHERE NOT id = 5;\r\n\r\nSELECT *\r\nFROM tableb\r\nWHERE id != 6;",
+        "query": "SELECT *\nFROM tableA\nWHERE NOT id = 5;\n\nSELECT *\nFROM tableb\nWHERE id != 6;",
         "stats": {
             "subqueries": 0,
             "columns": [

@@ -46,7 +46,7 @@ export class Graph {
      */
     toString() {
         return Array.from(this.map.keys()).map((key) => {
-            return `${key} -> \n    ${Array.from(this.map.get(key)).join('\n    ')}`;
+            return `${key} -> ${Array.from(this.map.get(key)).join(', ') + ','}`;
         }).join('\n');
     }
 

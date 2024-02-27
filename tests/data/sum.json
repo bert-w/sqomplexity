@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT year,\r\n       country,\r\n       product,\r\n       profit,\r\n       SUM(profit) OVER ()                     AS total_profit,\r\n       SUM(profit) OVER (PARTITION BY country) AS country_profit\r\nFROM sales\r\nORDER BY country, year, product, profit;",
+        "query": "SELECT year,\n       country,\n       product,\n       profit,\n       SUM(profit) OVER ()                     AS total_profit,\n       SUM(profit) OVER (PARTITION BY country) AS country_profit\nFROM sales\nORDER BY country, year, product, profit;",
         "stats": {
             "subqueries": 0,
             "columns": [

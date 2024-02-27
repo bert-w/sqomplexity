@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT *\r\nFROM users\r\nWHERE Id IN (SELECT UserId\r\n             FROM orders\r\n             WHERE CreationDate > '2020-01-01'\r\n               AND Status = 1)",
+        "query": "SELECT *\nFROM users\nWHERE Id IN (SELECT UserId\n             FROM orders\n             WHERE CreationDate > '2020-01-01'\n               AND Status = 1)",
         "stats": {
             "subqueries": 1,
             "columns": [

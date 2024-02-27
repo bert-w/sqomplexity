@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "SELECT *\r\nFROM tableA\r\n         CROSS JOIN tableB ON tableA.id = tableB.id;",
+        "query": "SELECT *\nFROM tableA\n         CROSS JOIN tableB ON tableA.id = tableB.id;",
         "stats": {
             "subqueries": 0,
             "columns": [

@@ -1,7 +1,7 @@
 [
     {
         "dialect": "mysql",
-        "query": "select id,\r\n       amount,\r\n       case when amount > 1000 then 0 else amount end sm,\r\n       case when amount > 1000 then 0 else 1 end      keep\r\nfrom mytable\r\nwhere id = 1\r\nunion all\r\nselect t.id,\r\n       t.amount,\r\n       case when c.sm + t.amount > 1000 then c.sm else c.sm + t.amount end,\r\n       case when c.sm + t.amount > 1000 then 0 else 1 end\r\nfrom cte c\r\n         inner join mytable t on t.id = c.id + 1",
+        "query": "select id,\n       amount,\n       case when amount > 1000 then 0 else amount end sm,\n       case when amount > 1000 then 0 else 1 end      keep\nfrom mytable\nwhere id = 1\nunion all\nselect t.id,\n       t.amount,\n       case when c.sm + t.amount > 1000 then c.sm else c.sm + t.amount end,\n       case when c.sm + t.amount > 1000 then 0 else 1 end\nfrom cte c\n         inner join mytable t on t.id = c.id + 1",
         "stats": {
             "subqueries": 0,
             "columns": [

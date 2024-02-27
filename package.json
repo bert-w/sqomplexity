@@ -15,6 +15,7 @@
     "type": "module",
     "scripts": {
         "test": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
+        "test:coverage": "npm run test -- --coverage",
         "lint": "eslint app.js \"src/*.js\" \"tests/**/*.js\" \"examples/*.js\"",
         "lint:fix": "npm run lint -- --fix",
         "build": "webpack",
