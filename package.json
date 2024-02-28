@@ -38,6 +38,7 @@
     },
     "devDependencies": {
         "babel-loader": "^9.1.2",
+        "commander": "^11.0.0",
         "cross-env": "^7.0.3",
         "eslint": "^8.30.0",
         "eslint-config-standard": "^17.0.0",
@@ -46,10 +47,6 @@
         "pegjs": "^0.10.0",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4"
-    },
-    "dependencies": {
-        "commander": "^11.0.0",
-        "lodash.get": "^4.4.2"
     },
     "engines": {
         "node": ">=16"

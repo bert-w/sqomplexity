@@ -9,13 +9,13 @@ process.chdir(__dirname);
 
 describe('src/sqomplexity.js', function() {
     it('throws on passing no queries', async function() {
-        const sqomplexity = new Sqomplexity({}, null, false);
+        const sqomplexity = new Sqomplexity();
 
         await expect(sqomplexity.run([])).rejects.toThrow(Error);
     });
 
     it('accepts a single query', async function() {
-        const sqomplexity = new Sqomplexity({}, null, false);
+        const sqomplexity = new Sqomplexity();
 
         const result = await sqomplexity.run([
             'SELECT * FROM users'
@@ -26,7 +26,7 @@ describe('src/sqomplexity.js', function() {
     });
 
     it('accepts multiple queries', async function() {
-        const sqomplexity = new Sqomplexity({}, null, false);
+        const sqomplexity = new Sqomplexity();
 
         const result = (await sqomplexity.run([
             'SELECT * FROM users',
@@ -40,7 +40,7 @@ describe('src/sqomplexity.js', function() {
     it('accepts base64-encoded queries', async function() {
         const sqomplexity = new Sqomplexity({
             base64: true
-        }, null, false);
+        });
 
         expect(
             (await sqomplexity.run([btoa('SELECT * FROM users')]))[0].complexity
@@ -50,7 +50,7 @@ describe('src/sqomplexity.js', function() {
     it('outputs score only', async function() {
         const sqomplexity = new Sqomplexity({
             score: true
-        }, null, false);
+        });
 
         expect(
             (await sqomplexity.run(['SELECT * FROM users']))[0]
@@ -60,11 +60,19 @@ describe('src/sqomplexity.js', function() {
     it('can print to console', async function() {
         const sqomplexity = new Sqomplexity({
             score: true
-        });
+        }, null, true);
+
+        let result;
+
+        console.log = function(log) {
+            result = log;
+        };
 
         expect(
             (await sqomplexity.run(['SELECT * FROM users']))
         ).toBeUndefined();
+
+        expect(result).toBeDefined();
     });
 
     it('accepts custom weights', async function() {
@@ -104,7 +112,7 @@ describe('src/sqomplexity.js', function() {
                     variety: 1
                 }
             }
-        }, null, false);
+        });
 
         expect(
             (await sqomplexity.run(['SELECT * FROM users']))[0]

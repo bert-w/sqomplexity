@@ -144,7 +144,7 @@ import { Sqomplexity } from 'sqomplexity';
     ];
 
     // Construct SQompLexity (passing `score` only outputs the complexity score):
-    const command = (new Sqomplexity({ score: true }, null, false));
+    const command = new Sqomplexity({ score: true });
 
     console.log(await command.run(queries));
 
