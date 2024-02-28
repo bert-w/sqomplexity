@@ -12,9 +12,9 @@ export class Sqomplexity {
      * @param {boolean} [options.all]
      * @param {boolean} [options.prettyPrint]
      * @param {string|null} cwd Used for determining the correct path when using a file path for the weights.
-     * @param {boolean} console Pass false to return the values instead of outputting them.
+     * @param {boolean} console Pass true to echo the values instead of returning them.
      */
-    constructor(options = {}, cwd = null, console = true) {
+    constructor(options = {}, cwd = null, console = false) {
         this.options = options || {};
         this.cwd = cwd;
         this.console = console;

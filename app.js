@@ -31,7 +31,7 @@ program
     .option('-p, --pretty-print', 'output JSON with indentation and newlines', false)
     .action(async(queries, options) => {
         try {
-            await (new Sqomplexity(options, process.cwd())).run(queries);
+            await (new Sqomplexity(options, process.cwd(), true)).run(queries);
         } catch (e) {
             program.addHelpText('after', '\n' + e.stack);
             program.help();

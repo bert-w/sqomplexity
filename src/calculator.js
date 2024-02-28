@@ -1,5 +1,3 @@
-import _ from 'lodash.get';
-
 /**
  * Calculate a complexity score based on an AST of the SQL query and meta properties.
  */
@@ -294,7 +292,7 @@ export class Calculator {
      */
     _calculateHaving(ast) {
         let score = 0;
-        if (_(ast, 'having.type') === 'binary_expr') {
+        if (ast?.having?.type === 'binary_expr') {
             score += this._expression(ast.having, 'having');
         }
 
