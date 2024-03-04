@@ -38,7 +38,9 @@ jobs:
         run: npm run lint
 
       - name: npm run build
-        run: npm run build
+        run: |
+          npm run build
+          node dist/sqomplexity.js -V
 
       # Run some simply CLI tool tests.
       - name: CLI test

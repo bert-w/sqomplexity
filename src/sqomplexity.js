@@ -1,6 +1,7 @@
 import { Program } from './program.js';
 import weights from './weights.js';
 import * as fs from 'node:fs/promises';
+import packageJson from './../package.json' assert { 'type': 'json' };
 
 export class Sqomplexity {
     /**
@@ -21,10 +22,20 @@ export class Sqomplexity {
     }
 
     /**
-     * @param {string[]} queries
+     * Get the current version of SQompLexity.
+     * @returns {string}
+     */
+    static version() {
+        return packageJson.version;
+    }
+
+    /**
+     * @param {string[]|string} queries
      * @returns {void|array}
      */
     async run(queries) {
+        queries = Array.isArray(queries) ? queries : [queries];
+
         if (!queries.length) {
             throw new Error('You need to provide one or more queries.');
         }
