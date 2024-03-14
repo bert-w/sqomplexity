@@ -19,6 +19,9 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 8
     },
+    globals: {
+        VERSION: true
+    },
     overrides: [
         javascriptSettings,
         {

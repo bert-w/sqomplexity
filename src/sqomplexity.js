@@ -21,10 +21,20 @@ export class Sqomplexity {
     }
 
     /**
-     * @param {string[]} queries
+     * Get the current version of SQompLexity.
+     * @returns {string}
+     */
+    static version() {
+        return typeof VERSION !== 'undefined' ? VERSION : '0';
+    }
+
+    /**
+     * @param {string[]|string} queries
      * @returns {void|array}
      */
     async run(queries) {
+        queries = Array.isArray(queries) ? queries : [queries];
+
         if (!queries.length) {
             throw new Error('You need to provide one or more queries.');
         }

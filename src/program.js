@@ -64,12 +64,12 @@ export class Program {
             .calculate();
 
         return {
+            // Round to 6 decimal places.
+            complexity: Math.round(calculator.getScore() * 1000000) / 1000000,
             dialect: this.dialect,
             query: this.query,
             stats: calculator.getStats(),
-            ast: parsed.ast,
-            // Round to 6 decimal places.
-            complexity: Math.round(calculator.getScore() * 1000000) / 1000000
+            ast: parsed.ast
         };
     }
 

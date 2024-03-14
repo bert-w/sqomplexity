@@ -12,6 +12,7 @@
         "cyclomatic"
     ],
     "main": "src/sqomplexity.js",
+    "browser": "dist/sqomplexity-browser.js",
     "type": "module",
     "scripts": {
         "test": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
