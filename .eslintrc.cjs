@@ -1,13 +1,4 @@
 const javascriptSettings = {
-    parser: '@babel/eslint-parser',
-    parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-            plugins: [
-                '@babel/plugin-syntax-import-assertions'
-            ],
-        },
-    },
     files: ['*.js', '*.mjs'],
     extends: [
         'standard',

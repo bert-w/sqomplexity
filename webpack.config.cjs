@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 const nodeConfig = {
     entry: './app.js',
     mode: 'production',
@@ -21,7 +23,12 @@ const webConfig = {
     },
     externals: {
         'node:fs/promises': 'document',
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(process.env.npm_package_version)
+        })
+    ]
 };
 
 module.exports = [nodeConfig, webConfig];

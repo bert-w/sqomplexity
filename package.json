@@ -38,8 +38,6 @@
         "url": "https://github.com/bert-w/sqomplexity.git"
     },
     "devDependencies": {
-        "@babel/eslint-parser": "^7.23.10",
-        "@babel/plugin-syntax-import-assertions": "^7.23.3",
         "babel-loader": "^9.1.2",
         "commander": "^11.0.0",
         "cross-env": "^7.0.3",

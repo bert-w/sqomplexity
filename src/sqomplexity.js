@@ -1,7 +1,6 @@
 import { Program } from './program.js';
 import weights from './weights.js';
 import * as fs from 'node:fs/promises';
-import packageJson from './../package.json' assert { 'type': 'json' };
 
 export class Sqomplexity {
     /**
@@ -26,7 +25,7 @@ export class Sqomplexity {
      * @returns {string}
      */
     static version() {
-        return packageJson.version;
+        return typeof VERSION !== 'undefined' ? VERSION : '0';
     }
 
     /**

@@ -2,7 +2,6 @@ import { program } from 'commander';
 import { Sqomplexity } from './src/sqomplexity.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import packageJson from './package.json' assert { 'type': 'json' };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.chdir(__dirname);
@@ -22,7 +21,7 @@ program
     .name('SQompLexity')
     // .description('Determine the SQL complexity score for a single SQL SELECT-query.')
     .description(art + '\nAuthor:\n  BertW')
-    .version(packageJson.version)
+    .version(typeof VERSION !== 'undefined' ? VERSION : '0')
     .argument('[queries...]', 'one or multiple SQL queries (space separated or quoted)')
     .option('-f, --files', 'assumes the given arguments/queries are filepaths, and it will read the contents from them. Every file is expected to contain 1 query; if not, their complexity is summed')
     .option('-b, --base64', 'assumes the given arguments/queries are base64 encoded')
