@@ -1,4 +1,4 @@
-const cliConfig = {
+const nodeConfig = {
     entry: './app.js',
     mode: 'production',
     target: 'node',
@@ -7,7 +7,7 @@ const cliConfig = {
     },
 };
 
-const appConfig = {
+const webConfig = {
     entry: './src/sqomplexity.js',
     mode: 'production',
     target: 'web',
@@ -24,4 +24,4 @@ const appConfig = {
     }
 };
 
-module.exports = [cliConfig, appConfig];
+module.exports = [nodeConfig, webConfig];
