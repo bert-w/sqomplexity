@@ -23,6 +23,9 @@ quantifies each query in a vacuum.
 npm i sqomplexity
 ```
 
+## Demo
+https://bert-w.github.io/sqomplexity/
+
 ## Usage
 ### Execution in Node
 ```js

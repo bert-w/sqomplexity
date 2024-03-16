@@ -12,5 +12,7 @@ import { Sqomplexity } from 'sqomplexity';
 
     const result = await command.run(queries);
 
+    console.log(result);
+
     // Result: [ 7.876953, 10.001953 ]
 })();
