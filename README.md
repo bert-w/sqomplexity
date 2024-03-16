@@ -14,9 +14,6 @@
      Calculate complexity scores   |_|   for SQL queries              |___/ 
      
 ```
-
-This is a product of my thesis on complexity progression and correlations on Stack Overflow.
-
 SQompLexity is a metric that assigns a complexity score to SELECT queries. It is specifically tailored to work with
 MySQL queries, but other dialects of SQL will likely work as well. It needs no knowledge of the database schema and
 quantifies each query in a vacuum.
@@ -25,8 +22,46 @@ quantifies each query in a vacuum.
 ```shell
 npm i sqomplexity
 ```
-Alternatively, download the `dist/sqomplexity.js` file from the repository to use it as a standalone CLI application.
-Node.js is required to run this tool.
+
+## Usage
+### Execution in Node
+```js
+import { Sqomplexity } from 'sqomplexity';
+```
+See [examples/node.js](examples/node.js) for a full example.
+
+### Execution in a browser
+Use the precompiled [dist/sqomplexity-browser.js](dist/sqomplexity-browser.js) file:
+```html
+<script src="dist/sqomplexity-browser.js"></script>
+<script>
+    const command = window.$sqomplexity(...);
+</script>
+```
+See [examples/browser.html](examples/browser.html) for a full example.
+
+### Execution as a Stand-alone application
+Use the precompiled [dist/sqomplexity.js](dist/sqomplexity.js) file.
+
+Options:
+```shell
+node dist/sqomplexity.js --help
+
+Arguments:
+  queries                  one or multiple SQL queries (space separated or quoted)
+
+Options:
+  -V, --version            output the version number
+  -f, --files              assumes the given arguments/queries are filepaths, and it will read the contents from them.
+                           Every file is expected to contain 1 query; if not, their complexity is summed
+  -b, --base64             assumes the given arguments/queries are base64 encoded
+  -s, --score              output only the complexity score. -1 will be returned if an error occurs
+  -w, --weights <weights>  takes a path to a json file that defines a custom set of weights
+  -a, --all                returns all data including the AST
+  -p, --pretty-print       output JSON with indentation and newlines (default: false)
+  -h, --help               display help for command
+```
+See [examples/standalone.sh](examples/standalone.sh) for various examples.
 
 ## Defining a complexity metric
 
@@ -131,51 +166,5 @@ to develop a distribution that more fairly approaches a general sense of _comple
 Similarly, the weights of _Low_, _Medium_ and _High_ are set to some sensible defaults. It is necessary though for all
 weights to be greater than or equal to 1, since multiplication may take place during the algorithm.
 
-
-## Execution from JavaScript
-```js
-import { Sqomplexity } from 'sqomplexity';
-
-(async() => {
-    // Provide one or multiple queries:
-    const queries = [
-        'SELECT id FROM users WHERE role = "admin"',
-        'SELECT COUNT(*) FROM users WHERE creation_date > "2023-01-01 00:00:00" GROUP BY id'
-    ];
-
-    // Construct SQompLexity (passing `score` only outputs the complexity score):
-    const command = new Sqomplexity({ score: true });
-
-    console.log(await command.run(queries));
-
-    // Result: [ 7.876953, 10.001953 ]
-})();
-```
-
-## Execution from CLI
-Use the precompiled file in the `dist` directory:
-```shell
-node dist/sqomplexity.js --help
-
-Arguments:
-  queries                  one or multiple SQL queries (space separated or quoted)
-
-Options:
-  -V, --version            output the version number
-  -f, --files              assumes the given arguments/queries are filepaths, and it will read the contents from them.
-                           Every file is expected to contain 1 query; if not, their complexity is summed
-  -b, --base64             assumes the given arguments/queries are base64 encoded
-  -s, --score              output only the complexity score. -1 will be returned if an error occurs
-  -w, --weights <weights>  takes a path to a json file that defines a custom set of weights
-  -a, --all                returns all data including the AST
-  -p, --pretty-print       output JSON with indentation and newlines (default: false)
-  -h, --help               display help for command
-```
-
-```shell
-node dist/sqomplexity.js "SELECT * FROM users"
-```
-
-```shell
-node dist/sqomplexity.js -f "/some/path/to/file.sql"
-```
+# Project Origin
+This is a product of my master's thesis on complexity progression and correlations on Stack Overflow. For this study, I have developed an SQL complexity metric to be used on question and answer data from Stack Overflow.
