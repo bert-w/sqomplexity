@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 35.829102,
         "dialect": "mysql",
         "query": "SELECT *\nFROM users u\n         LEFT JOIN tableA a ON a.id = u.id\n         LEFT OUTER join tableB b ON b.id = u.id\n         RIGHT OUTER JOIN tableC c ON c.id = u.id\n         RIGHT JOIN tableC c ON c.id = u.id\n         CROSS JOIN tableD d\n         INNER JOIN tableE e ON e.id = u.id;\n",
         "stats": {
@@ -201,7 +202,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 35.829102
+        ]
     }
 ]

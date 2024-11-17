@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 15.78125,
         "dialect": "mysql",
         "query": "SELECT year,\n       country,\n       product,\n       profit,\n       SUM(profit) OVER ()                     AS total_profit,\n       SUM(profit) OVER (PARTITION BY country) AS country_profit\nFROM sales\nORDER BY country, year, product, profit;",
         "stats": {
@@ -205,7 +206,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 15.78125
+        ]
     }
 ]

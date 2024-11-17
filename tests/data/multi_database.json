@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 9.02832,
         "dialect": "mysql",
         "query": "SELECT\n    users.id\nFROM my_database.users\n         JOIN other_database.posts ON users.id = posts.user_id;",
         "stats": {
@@ -107,7 +108,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 9.02832
+        ]
     }
 ]

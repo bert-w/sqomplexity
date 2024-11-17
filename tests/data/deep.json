@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 664985830.830987,
         "dialect": "mysql",
         "query": "SELECT *\nFROM properties\nWHERE id in (select prop_id\n             from advanced_options\n             where name = \"Within 2 miles of sea or river\"\n               and prop_id in (select prop_id\n                               from advanced_options\n                               where name = 'WiFi'\n                                 and prop_id in (select prop_id\n                                                 from advanced_options\n                                                 where name = 'Walking distance to pub'\n                                                   and prop_id in (select prop_id\n                                                                   from advanced_options\n                                                                   where name = 'Swimming pool'\n                                                                     and prop_id in (select prop_id\n                                                                                     from advanced_options\n                                                                                     where xxx = 'Sea or River views'\n                                                                                       and prop_id in (select prop_id\n                                                                                                       from advanced_options\n                                                                                                       where name = 'Pet friendly'\n                                                                                                         and prop_id in\n                                                                                                             (select prop_id\n                                                                                                              from advanced_options\n                                                                                                              where yyy = 'Open fire, wood burning stove or a real flame fire-place'\n                                                                                                                and prop_id in\n                                                                                                                    (select prop_id\n                                                                                                                     from advanced_options\n                                                                                                                     where name = 'Off road parking'))))))))",
         "stats": {
@@ -730,7 +731,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 664985830.830987
+        }
     }
 ]

@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 52.680269,
         "dialect": "mysql",
         "query": "SELECT titles.publication_id, AVG(titles.price)\nFROM titles\n         INNER JOIN authors\n                    ON titles.publication_id = authors.publication_id\nWHERE authors.status = 'approved'\n  AND authors.country_id IN (SELECT id\n                             FROM countries\n                             WHERE continent = 'Europe')\nGROUP BY titles.publication_id\nHAVING AVG(price) > 10\nORDER BY titles.publication_id ASC;",
         "stats": {
@@ -266,7 +267,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 52.680269
+        ]
     }
 ]

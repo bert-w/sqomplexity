@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 16.676758,
         "dialect": "mysql",
         "query": "SELECT order_id,\n       order_date,\n       (SELECT COUNT(*) FROM order_items WHERE order_items.order_id = orders.order_id) AS item_count\nFROM orders;",
         "stats": {
@@ -159,7 +160,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 16.676758
+        ]
     }
 ]

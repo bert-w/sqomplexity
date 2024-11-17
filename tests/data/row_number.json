@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 37.763428,
         "dialect": "mysql",
         "query": "SELECT QuestionId,\n       QuestionUserId,\n       QuestionCreationDate,\n       QuestionSQLComplexity,\n       ROW_NUMBER() OVER (PARTITION BY QuestionUserId ORDER BY QuestionCreationDate) AS Ordering\nFROM features\nWHERE QuestionUserId IN (SELECT QuestionUserId FROM features GROUP BY QuestionUserId HAVING COUNT(QuestionUserId) > 3)\nORDER BY QuestionUserId ASC, QuestionCreationDate ASC;",
         "stats": {
@@ -255,7 +256,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 37.763428
+        ]
     }
 ]

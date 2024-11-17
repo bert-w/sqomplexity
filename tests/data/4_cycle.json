@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 31.465088,
         "dialect": "mysql",
         "query": "# Assumes a table `friends` where a friend relation is given by a single row\n# connecting a `left_user_id` to a `right_user_id`.\nSELECT *\nFROM users u\n         JOIN friends f1 ON u.id = f1.left_user_id\n         JOIN friends f2 ON f1.left_user_id = f2.right_user_id\n         JOIN friends f3 ON f2.right_user_id = f3.left_user_id AND f3.left_user_id = u.id\n",
         "stats": {
@@ -163,7 +164,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 31.465088
+        }
     }
 ]

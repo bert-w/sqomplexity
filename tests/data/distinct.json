@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 5.15625,
         "dialect": "mysql",
         "query": "SELECT DISTINCT a, b, c\nFROM d;",
         "stats": {
@@ -96,7 +97,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 5.15625
+        ]
     }
 ]

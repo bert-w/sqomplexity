@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 7.626953,
         "dialect": "mysql",
         "query": "SELECT *\nfrom my_table\nWHERE enabled = b'0';\n",
         "stats": {
@@ -86,7 +87,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 7.626953
+        ]
     }
 ]

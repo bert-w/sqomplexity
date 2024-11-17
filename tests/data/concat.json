@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 7.550781,
         "dialect": "mysql",
         "query": "SELECT concat(mid(DueDate, 7, 4)) as DueDate\nFROM TableName",
         "stats": {
@@ -107,7 +108,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 7.550781
+        }
     }
 ]

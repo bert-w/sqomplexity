@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 90.847791,
         "dialect": "mysql",
         "query": "SELECT users.*, roles.id AS role_id, COUNT(*) AS test, COUNT(DISTINCT id)\nFROM roles,\n     (SELECT column1 FROM table1 WHERE column1 > 100) AS t1\n         JOIN users_to_roles ON users_to_roles.role_id = roles.id\n         JOIN users ON users.id = users_to_roles.user_id AND users.id = 5\nWHERE roles.name = \"student\"\n  AND roles.id = 5\n  AND roles.id IN (SELECT id\n                   FROM roles\n                            JOIN users ON users.id = roles.user_id)\nORDER BY users.username",
         "stats": {
@@ -414,7 +415,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 90.847791
+        }
     }
 ]

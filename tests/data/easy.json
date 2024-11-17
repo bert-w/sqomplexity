@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 2.40625,
         "dialect": "mysql",
         "query": "SELECT *\nFROM users",
         "stats": {
@@ -63,7 +64,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 2.40625
+        }
     }
 ]

@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 13.320313,
         "dialect": "mysql",
         "query": "SELECT *\nFROM tableA\nWHERE NOT id = 5;\n\nSELECT *\nFROM tableb\nWHERE id != 6;",
         "stats": {
@@ -124,7 +125,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 13.320313
+        ]
     }
 ]

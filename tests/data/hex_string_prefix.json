@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 75.810288,
         "dialect": "mysql",
         "query": "SELECT onoffid\nFROM DSLServiceOnsandOffs\nWHERE insertDate = '2017-02-14'\n  AND `Service_No` = x'323439533313034'\n  AND `PON` = x'33330343230'\n  AND `Order_No` = x'393313833'\n  AND `Segment_No` = x'31'\n  AND `Completion_Date` = '2017-02-13'\n  AND `On_Off` = x'4f4e'\n",
         "stats": {
@@ -223,7 +224,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 75.810288
+        }
     }
 ]

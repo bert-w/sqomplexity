@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 8.77832,
         "dialect": "mysql",
         "query": "SELECT *\nFROM tableA\n         CROSS JOIN tableB ON tableA.id = tableB.id;",
         "stats": {
@@ -93,7 +94,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 8.77832
+        ]
     }
 ]

@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 34.424805,
         "dialect": "mysql",
         "query": "SELECT users.id, COUNT(users.income)\nFROM users\n         JOIN tests ON tests.user_id = users.id\nGROUP BY user_id, tests.test_id\nHAVING COUNT(users.income) > 100\n   AND COUNT(users.test) > 50\nORDER BY COUNT(users.income) ASC\nLIMIT 5 OFFSET 10;",
         "stats": {
@@ -229,7 +230,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 34.424805
+        ]
     }
 ]

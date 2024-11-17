@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 132.035451,
         "dialect": "mysql",
         "query": "SELECT 2 * (IF((SELECT *\n                FROM (SELECT CONCAT(0x716b626b71,\n                                    (SELECT (ELT(9092 = 9092, 1)))\n                                 , 0x71626b7071, 0x78)) s), 8446744073709551610, 8446744073709551610))\n",
         "stats": {
@@ -216,7 +217,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 132.035451
+        }
     }
 ]

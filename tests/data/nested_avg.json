@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 28.204575,
         "dialect": "mysql",
         "query": "SELECT Name, Salary\nFROM Employees e\nWHERE Salary > (SELECT AVG(Salary)\n                FROM Salaries s\n                WHERE s.DepartmentID = e.DepartmentID);",
         "stats": {
@@ -167,7 +168,6 @@
                 "locking_read": null,
                 "window": null
             }
-        ],
-        "complexity": 28.204575
+        ]
     }
 ]

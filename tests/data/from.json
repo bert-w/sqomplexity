@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 9.033203,
         "dialect": "mysql",
         "query": "SELECT *\nFROM tableA,\n     tableB\nWHERE id > 5",
         "stats": {
@@ -87,7 +88,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 9.033203
+        }
     }
 ]

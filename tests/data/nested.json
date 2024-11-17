@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 43.537037,
         "dialect": "mysql",
         "query": "SELECT *\nFROM users\nWHERE Id IN (SELECT UserId\n             FROM orders\n             WHERE CreationDate > '2020-01-01'\n               AND Status = 1)",
         "stats": {
@@ -165,7 +166,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 43.537037
+        }
     }
 ]

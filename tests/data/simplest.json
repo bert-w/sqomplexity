@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 1,
         "dialect": "mysql",
         "query": "SELECT 5",
         "stats": {
@@ -65,7 +66,6 @@
             "limit": null,
             "locking_read": null,
             "window": null
-        },
-        "complexity": 1
+        }
     }
 ]

@@ -1,5 +1,6 @@
 [
     {
+        "complexity": 11.126953,
         "dialect": "mysql",
         "query": "select id,\n       amount,\n       case when amount > 1000 then 0 else amount end sm,\n       case when amount > 1000 then 0 else 1 end      keep\nfrom mytable\nwhere id = 1\nunion all\nselect t.id,\n       t.amount,\n       case when c.sm + t.amount > 1000 then c.sm else c.sm + t.amount end,\n       case when c.sm + t.amount > 1000 then 0 else 1 end\nfrom cte c\n         inner join mytable t on t.id = c.id + 1",
         "stats": {
@@ -344,7 +345,6 @@
                 "window": null
             },
             "set_op": "union all"
-        },
-        "complexity": 11.126953
+        }
     }
 ]
