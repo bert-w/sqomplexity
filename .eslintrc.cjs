@@ -1,5 +1,5 @@
 const javascriptSettings = {
-    files: ['*.js', '*.mjs'],
+    files: ['*.js', '*.mjs', '*.cjs'],
     extends: [
         'standard',
         'plugin:jest/recommended'
