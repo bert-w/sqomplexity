@@ -5,8 +5,13 @@ const nodeConfig = {
     mode: 'production',
     target: 'node',
     output: {
-        filename: 'sqomplexity.js',
+        filename: 'sqomplexity.js'
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(process.env.npm_package_version)
+        })
+    ]
 };
 
 const webConfig = {
@@ -14,15 +19,13 @@ const webConfig = {
     mode: 'production',
     target: 'web',
     output: {
-        filename: 'sqomplexity-browser.js',
+        filename: 'sqomplexity.umd.js',
+        globalObject: 'this',
         library: {
             name: '$sqomplexity',
             type: 'umd',
-            export: 'Sqomplexity',
-        },
-    },
-    externals: {
-        'node:fs/promises': 'document',
+            export: 'Sqomplexity'
+        }
     },
     plugins: [
         new webpack.DefinePlugin({
