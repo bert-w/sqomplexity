@@ -27,10 +27,10 @@ export class Sqomplexity {
 
     /**
      * Analyze the queries and calculate their complexity scores.
-     * @returns {object[]}
+     * @returns {Promise<object[]>}
      */
-    analyze() {
-        return this.queries.map((query) => {
+    async analyze() {
+        return Promise.all(this.queries.map(async(query) => {
             let parsed;
 
             try {
@@ -38,11 +38,11 @@ export class Sqomplexity {
                 if (depth > this.maxNestingDepth) {
                     throw new Error(`The nesting depth ${depth} surpasses the maximum of 10.`);
                 }
-                parsed = this.parser.parse(query);
+                parsed = await this.parser.parse(query);
             } catch (e) {
                 return {
                     error: e.message,
-                    complexity: e.message
+                    complexity: -1
                 };
             }
 
@@ -60,15 +60,15 @@ export class Sqomplexity {
                 stats: calculator.getStats(),
                 ast: parsed.ast
             };
-        });
+        }));
     }
 
     /**
      * Shorthand function to only return the complexity score for each query.
-     * @returns {number[]}
+     * @returns {Promise<number[]>}
      */
-    score() {
-        return this.analyze().map(r => r.complexity || -1);
+    async score() {
+        return (await this.analyze()).map(r => r.complexity || -1);
     }
 
     /**

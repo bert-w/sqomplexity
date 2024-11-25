@@ -15,7 +15,7 @@ describe('SQL tests', function() {
     for (const file of files) {
         it(`"${file}" should return a valid complexity score`, async function() {
             const query = fs.readFileSync(path.join(PATH_TESTS, file)).toString('utf-8');
-            const result = (new Sqomplexity(query)).analyze();
+            const result = await (new Sqomplexity(query)).analyze();
 
             expect(result[0].complexity).toBeGreaterThan(0);
 

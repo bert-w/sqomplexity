@@ -23,7 +23,7 @@ jobs:
         run: |
           npm ci
           npm run build
-          sed -i -e '/__SQOMPLEXITY_SRC__/{r dist/sqomplexity-browser.js' -e 'd}' ./public/index.html
+          sed -i -e '/__SQOMPLEXITY_SRC__/{r dist/sqomplexity.umd.js' -e 'd}' ./public/index.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4

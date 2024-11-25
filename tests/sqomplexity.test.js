@@ -9,23 +9,19 @@ process.chdir(__dirname);
 
 describe('src/sqomplexity.js', function() {
     it('accepts a single query', async function() {
-        const sqomplexity = new Sqomplexity([
+        const result = await (new Sqomplexity([
             'SELECT * FROM users'
-        ]);
-
-        const result = sqomplexity.analyze();
+        ])).analyze();
 
         expect(result[0].complexity).toBeGreaterThan(0);
         expect(result[1]).toBeUndefined();
     });
 
     it('accepts multiple queries', async function() {
-        const sqomplexity = new Sqomplexity([
+        const result = await (new Sqomplexity([
             'SELECT * FROM users',
             'SELECT id FROM posts'
-        ]);
-
-        const result = sqomplexity.analyze();
+        ])).analyze();
 
         expect(result[0].complexity).toBeGreaterThan(0);
         expect(result[1].complexity).toBeGreaterThan(0);
@@ -34,9 +30,9 @@ describe('src/sqomplexity.js', function() {
     it('outputs score only', async function() {
         const sqomplexity = new Sqomplexity(['SELECT * FROM users']);
 
-        expect(
-            sqomplexity.score()[0]
-        ).toBeGreaterThan(0);
+        const results = await sqomplexity.score();
+
+        expect(results[0]).toBeGreaterThan(0);
     });
 
     it('accepts custom weights', async function() {
@@ -75,8 +71,8 @@ describe('src/sqomplexity.js', function() {
             }
         });
 
-        expect(
-            sqomplexity.score()[0]
-        ).toBeGreaterThan(0);
+        const results = await sqomplexity.score();
+
+        expect(results[0]).toBeGreaterThan(0);
     });
 });

@@ -1,19 +1,12 @@
-<script src="dist/sqomplexity-browser.js"></script>
+<script src="sqomplexity.umd.js"></script>
 <script>
 (async() => {
-    // Provide one or multiple queries:
-    const queries = [
-        'SELECT id FROM users WHERE role = "admin"',
-        'SELECT COUNT(*) FROM users WHERE creation_date > "2023-01-01 00:00:00" GROUP BY id'
-    ];
+    // The UMD build exposes the `$sqomplexity` global constructor.
 
-    // Construct SQompLexity (passing `score` only outputs the complexity score):
-    const command = new window.$sqomplexity({ score: true });
+    console.log(
+        await (new window.$sqomplexity('SELECT * FROM users')).score()
+    )
 
-    const result = await command.run(queries);
-
-    console.log(result);
-
-    // Result: [ 7.876953, 10.001953 ]
+    // Result: [ 7.876953 ]
 })();
 </script>
