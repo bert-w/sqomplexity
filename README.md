@@ -14,7 +14,7 @@
      Calculate complexity scores   |_|   for SQL queries              |___/ 
      
 ```
-SQompLexity is a metric that assigns a complexity score to SELECT queries. It is specifically tailored to work with
+SQompLexity is a metric that assigns a complexity score to SQL queries. It is specifically tailored to work with
 MySQL queries, but other dialects of SQL will likely work as well. It needs no knowledge of the database schema and
 quantifies each query in a vacuum.
 
@@ -26,29 +26,49 @@ npm i sqomplexity
 ## Demo
 https://bert-w.github.io/sqomplexity/
 
-## Usage
-### Execution in Node
+## Usage instructions
+### Execution in Node (v16, v18, v20)
 ```js
 import { Sqomplexity } from 'sqomplexity';
+
+(async () => {
+    const sqomplexity = new Sqomplexity([
+        "SELECT * FROM users",
+    ]);
+    
+    console.log(
+        await sqomplexity.score()
+    );
+    
+    // Result: [ 2.40625 ]
+})();
 ```
 See [examples/node.js](examples/node.js) for a full example.
 
 ### Execution in a browser
-Use the precompiled [dist/sqomplexity-browser.js](dist/sqomplexity-browser.js) file:
+Use the precompiled [dist/sqomplexity.umd.js](dist/sqomplexity.umd.js) file:
 ```html
-<script src="dist/sqomplexity-browser.js"></script>
+<script src="sqomplexity.umd.js"></script>
 <script>
-    const command = window.$sqomplexity(...);
+    (async() => {
+        // The UMD build exposes the `$sqomplexity` global constructor.
+
+        console.log(
+            await (new window.$sqomplexity('SELECT * FROM users')).score()
+        )
+
+        // Result: [ 7.876953 ]
+    })();
 </script>
 ```
 See [examples/browser.html](examples/browser.html) for a full example.
 
-### Execution as a Stand-alone application
-Use the precompiled [dist/sqomplexity.js](dist/sqomplexity.js) file.
+### Execution as a Stand-alone CLI application
+Use the precompiled [dist/sqomplexity.js](dist/sqomplexity.js) containing all required code in a single file.
 
 Options:
 ```shell
-node dist/sqomplexity.js --help
+node sqomplexity.js --help
 
 Arguments:
   queries                  one or multiple SQL queries (space separated or quoted)
@@ -64,9 +84,9 @@ Options:
   -p, --pretty-print       output JSON with indentation and newlines (default: false)
   -h, --help               display help for command
 ```
-See [examples/standalone.sh](examples/standalone.sh) for various examples.
+See [examples/cli.sh](examples/cli.sh) for various examples.
 
-## Defining a complexity metric
+## Explanation of the complexity metric
 
 The scoring of an SQL query is based on 2 major components, being:
 
@@ -79,7 +99,7 @@ person must understand in order to parse the query. This includes components lik
 understanding of _grouping_, _filtering_ and _sorting_ (common SQL concepts), and [_Domain knowledge_](https://en.wikipedia.org/wiki/Domain_knowledge)
 like the context of the query compared to its database schema.
 
-## Complexity indicators
+### Complexity indicators
 | Code                 | Explanation                                                                                    |
 |----------------------|------------------------------------------------------------------------------------------------|
 | *Indexing behavior*  |                                                                                                |
@@ -118,7 +138,7 @@ What follows is the assignment of each of these indicators to components of an S
 result of this process. The combination and presence of these indicators are combined into a final weighting for each
 component, namely **Low**, **Medium** or **High**.
 
-## Complexity scoring
+### Complexity scoring
 | Component                   | Data Complexity | By            | Cognitive Complexity | By                            |
 |-----------------------------|-----------------|---------------|----------------------|-------------------------------|
 | **Clause:SELECT**           | Low             | D1-A, D2-D    | Low                  | C1, C6, C9-B, C10             |
@@ -147,7 +167,7 @@ component, namely **Low**, **Medium** or **High**.
 | **Emergent:Subquery**       | High            | D1-C, D2-F    | High                 | C1, C2, C3, C7, C8, C9-C, C10 |
 | **Emergent:Variety**        | None            | D1-A, D2-A    | Medium               | C9-C                          |
 
-## Calculation
+### Calculation
 Each query that passes through SQompLexity is parsed into an Abstract Syntax Tree (AST), which provides the backbone of
 the algorithm that sums up the weights. Each query is traversed fully (including subqueries), and the scores are summed
 to result in a final SQompLexity score for any given SQL query.
@@ -169,5 +189,5 @@ to develop a distribution that more fairly approaches a general sense of _comple
 Similarly, the weights of _Low_, _Medium_ and _High_ are set to some sensible defaults. It is necessary though for all
 weights to be greater than or equal to 1, since multiplication may take place during the algorithm.
 
-# Project Origin
+## Project Origin
 This is a product of my master's thesis on complexity progression and correlations on Stack Overflow. For this study, I have developed an SQL complexity metric to be used on question and answer data from Stack Overflow.

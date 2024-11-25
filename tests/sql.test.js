@@ -6,7 +6,7 @@ import { expect } from '@jest/globals';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const PATH_TESTS = 'data';
+const PATH_TESTS = 'data/sql';
 
 process.chdir(__dirname);
 
@@ -14,12 +14,10 @@ const files = fs.readdirSync(PATH_TESTS).filter(f => f.endsWith('.sql'));
 describe('SQL tests', function() {
     for (const file of files) {
         it(`"${file}" should return a valid complexity score`, async function() {
-            const result = await (new Sqomplexity({
-                all: true,
-                files: true
-            }, null, false)).run([path.join(PATH_TESTS, file)]);
+            const query = fs.readFileSync(path.join(PATH_TESTS, file)).toString('utf-8');
+            const result = await (new Sqomplexity(query)).analyze();
 
-            expect(result[0].complexity).not.toBe(-1);
+            expect(result[0].complexity).toBeGreaterThan(0);
 
             await fs.promises.writeFile(
                 path.join(PATH_TESTS, file.substring(0, file.length - 4) + '.json'),

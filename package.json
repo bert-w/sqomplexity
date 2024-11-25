@@ -1,6 +1,6 @@
 {
     "name": "sqomplexity",
-    "version": "1.5.0",
+    "version": "2.0.0",
     "description": "Calculate complexity scores for SQL queries based on a weighting system for query components.",
     "keywords": [
         "sql",
@@ -12,12 +12,12 @@
         "cyclomatic"
     ],
     "main": "src/sqomplexity.js",
-    "browser": "dist/sqomplexity-browser.js",
+    "browser": "dist/sqomplexity.umd.js",
     "type": "module",
     "scripts": {
         "test": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
         "test:coverage": "npm run test -- --coverage",
-        "lint": "eslint app.js \"src/*.js\" \"tests/**/*.js\" \"examples/*.js\"",
+        "lint": "eslint app.js \"src/*.js\" \"tests/**/*.js\" \"examples/*.js\" \"webpack.config.cjs\"",
         "lint:fix": "npm run lint -- --fix",
         "build": "webpack",
         "build:pegjs:mysql": "pegjs -o build/pegjs-parser-mysql.cjs parsers/mysql.pegjs",
