@@ -133,7 +133,7 @@
             query.classList.remove('is-valid', 'is-invalid');
             outputScore.classList.add('d-none');
 
-            const result = await (new window.$sqomplexity({all: true})).run(e.target.value);
+            const result = await (new window.$sqomplexity(e.target.value)).analyze();
             const score = result[0].complexity;
 
             output.innerHTML = JSON.stringify(result, null, '    ');
