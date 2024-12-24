@@ -1,7 +1,5 @@
 # Changelog
 
-All notable changes to `filament-socialite` will be documented in this file.
-
 ## [2.0.0 - 2024-11-25](https://github.com/bert-w/sqomplexity/compare/v1.5.0...v2.0.0)
 
 ## What's Changed
